@@ -18,46 +18,66 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="478dp"
+        android:layout_marginBottom="33dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="642dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/postText"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/postText"
         android:layout_width="345dp"
         android:layout_height="108dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="56dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/postButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
+        android:layout_marginLeft="288dp"
+        android:layout_marginTop="180dp"
         android:text="POST"
-        tools:layout_editor_absoluteX="294dp"
-        tools:layout_editor_absoluteY="171dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/files"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="412dp"
         android:text="files"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="642dp" />
+        app:layout_constraintStart_toEndOf="@+id/createButton"
+        app:layout_constraintTop_toBottomOf="@+id/postButton" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MODULES"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="642dp" />
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="478dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="MENU"
+        app:layout_constraintEnd_toStartOf="@+id/createButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
