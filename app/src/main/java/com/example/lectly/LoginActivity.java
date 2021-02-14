@@ -29,11 +29,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupUI(){
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final Button register = findViewById(R.id.register);
-        final Button forgotPassword = findViewById(R.id.ForgotPassword);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
+        forgotPassword = findViewById(R.id.ForgotPassword);
     }
 
     private void setupListeners(){
@@ -47,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(i);
+                //Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+                //startActivity(i);
             }
         });
     }
