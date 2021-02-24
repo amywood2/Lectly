@@ -1,10 +1,14 @@
 package com.example.lectly.picker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -44,11 +48,27 @@ public class lecturerMain extends AppCompatActivity {
         });
 
         createButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder build = new AlertDialog.Builder(lecturerMain.this);
 
                 build.setTitle("Create a Post");
+
+                build.setView(R.layout.createpostdialog)
+                        .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //post and add to db
+
+                            }
+                        })
+                        .setNegativeButton("Schedule Post", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //schedule post and add to db
+                            }
+                        });
 
 
                 //title of post
