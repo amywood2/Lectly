@@ -6,6 +6,13 @@ apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    //import firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+
+    //add the dependancy for the firebase sdk for google analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+
 }
 
 android {

@@ -11,9 +11,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.lectly.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class lecturerMain extends AppCompatActivity {
@@ -22,6 +27,9 @@ public class lecturerMain extends AppCompatActivity {
     FloatingActionButton createButton;
     Button postButton;
     Button menu;
+    EditText postTitleInput;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +44,13 @@ public class lecturerMain extends AppCompatActivity {
         postButton = findViewById(R.id.postButton);
         menu = findViewById(R.id.menu);
         createButton = findViewById(R.id.createButton);
+        postTitleInput = findViewById(R.id.postTitleInput);
     }
 
     private void setupListeners() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> posts = new HashMap<>();
+
         files.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +83,12 @@ public class lecturerMain extends AppCompatActivity {
                         });
 
 
+
+
                 //title of post
+                String titleUserInput = postTitleInput.toString();
+                posts.put("Title", titleUserInput);
+
 
 
                 //description
@@ -93,6 +110,11 @@ public class lecturerMain extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
+
+
+
     }
 
 
