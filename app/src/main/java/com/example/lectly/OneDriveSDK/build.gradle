@@ -1,6 +1,8 @@
 package com.example.lectly.OneDriveSDK
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
