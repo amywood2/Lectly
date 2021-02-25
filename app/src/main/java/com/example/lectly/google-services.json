@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:115036980089:android:4ab88cad9772f50dd2a5a8",
+        "mobilesdk_app_id": "1:115036980089:android:59596145337d0001d2a5a8",
         "android_client_info": {
-          "package_name": "com.example.lectly.picker"
+          "package_name": "com.company.lectly"
         }
       },
       "oauth_client": [
