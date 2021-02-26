@@ -1,17 +1,16 @@
 package com.example.lectly.OneDriveSDK
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
-    //import firebase BoM
-    implementation 'com.google.firebase:firebase-core:9.6.1'
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
-
-    //add the dependancy for the firebase sdk for google analytics
     implementation 'com.google.firebase:firebase-analytics'
-
+    implementation 'com.google.firebase:firebase-firestore'
 }
 
 android {
@@ -43,5 +42,4 @@ android {
     }
 
 }
-apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 

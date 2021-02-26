@@ -1,5 +1,6 @@
 package com.example.lectly.picker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.lectly.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
@@ -33,6 +36,11 @@ public class lecturerMain extends AppCompatActivity {
     Button postButton;
     Button menu;
     EditText postTitleInput;
+    EditText postDescriptionInput;
+    EditText postDemoInput;
+    EditText postStudentWorkInput;
+    Switch postAllowCommentsDecision;
+
 
 
     @Override
@@ -41,9 +49,8 @@ public class lecturerMain extends AppCompatActivity {
         setContentView(R.layout.activity_lecturer_main);
         setupUI();
         setupListeners();
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(lecturerMain.this);
     }
-
 
 
     private void setupUI() {
@@ -52,12 +59,20 @@ public class lecturerMain extends AppCompatActivity {
         menu = findViewById(R.id.menu);
         createButton = findViewById(R.id.createButton);
         postTitleInput = findViewById(R.id.postTitleInput);
-
+        postDescriptionInput = findViewById(R.id.postDescriptionInput);
+        postDemoInput = findViewById(R.id.postDemoInput);
+        postStudentWorkInput = findViewById(R.id.postStudentWorkInput);
+        postAllowCommentsDecision = findViewById(R.id.allowComments);
     }
 
     private void setupListeners() {
 
+        //access firebase database
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //create place to store posts
+        Map<String, Object> newPost = new HashMap<>();
 
         files.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,28 +90,58 @@ public class lecturerMain extends AppCompatActivity {
 
                 build.setTitle("Create a Post");
 
-
-                Map<String, Object> newPost = new HashMap<>();
-
-                //title of post
+                //getting title of post
                 String titleUserInput = postTitleInput.toString();
                 newPost.put("Title", titleUserInput);
+
+                //getting description of post
+                String descriptionUserInput = postDescriptionInput.toString();
+                newPost.put("Description", descriptionUserInput);
+
+                //getting demonstration text
+                String demoUserInput = postDemoInput.toString();
+                newPost.put("Demonstration", demoUserInput);
+
+                //getting student work text
+                String studentWorkUserInput = postStudentWorkInput.toString();
+                newPost.put("Student work", studentWorkUserInput);
+
+                //getting allow comments boolean answer
+                Boolean decision;
+                if (postAllowCommentsDecision.isChecked()){
+                    decision = true;
+                    //show comment section on post
+                }else{
+                    decision = false;
+                    //dont show comment section on post
+                }
+                newPost.put("Comment Decision", decision);
+
+                //post in
+                //show radio button for every module the lecturer can post in
+
 
                 build.setView(R.layout.createpostdialog)
                         .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //post and add to db
-                                db.collection("posts")
+                                db.collection("Posts")
                                         .add(newPost)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
-                                                Toast.makeText(lecturerMain.this, "Your post has been posted", Toast.LENGTH_LONG)
-                                                        .show();
+                                               Toast.makeText(lecturerMain.this,"Your new post has been posted", Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(lecturerMain.this,"Your new post has not been posted", Toast.LENGTH_LONG).show();
 
                                             }
                                         });
+
                             }
                         })
 
