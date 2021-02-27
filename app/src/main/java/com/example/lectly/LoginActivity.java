@@ -1,4 +1,4 @@
-package com.example.lectly.picker;
+package com.example.lectly;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.lectly.R;
 
 public class LoginActivity extends AppCompatActivity {
 

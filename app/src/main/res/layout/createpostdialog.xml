@@ -13,7 +13,7 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.Lectly.FullscreenContainer"
-    tools:context=".picker.lecturerMain">
+    tools:context=".lecturerMain">
 
     <TextView
         android:id="@+id/postTitle"

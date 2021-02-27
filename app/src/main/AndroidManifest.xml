@@ -11,12 +11,12 @@
         android:theme="@style/Theme.Lectly">
         <activity android:name=".RegistrationActivity" />
         <activity
-            android:name=".picker.lecturerMain"
+            android:name=".lecturerMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_lecturer_main"
             android:theme="@style/Theme.Lectly.Fullscreen" />
         <activity
-            android:name=".picker.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

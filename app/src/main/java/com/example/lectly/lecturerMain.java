@@ -1,23 +1,19 @@
-package com.example.lectly.picker;
+package com.example.lectly;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.lectly.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +26,7 @@ import java.util.Map;
 
 
 public class lecturerMain extends AppCompatActivity {
+
 
     Button files;
     FloatingActionButton createButton;
@@ -45,11 +42,12 @@ public class lecturerMain extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_main);
+        FirebaseApp.initializeApp(this);
         setupUI();
         setupListeners();
-        FirebaseApp.initializeApp(lecturerMain.this);
     }
 
 
@@ -77,8 +75,8 @@ public class lecturerMain extends AppCompatActivity {
         files.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IPicker mPicker = Picker.createPicker(Picker.ONEDRIVE_APP_ID);
-                mPicker.startPicking(lecturerMain.this, LinkType.DownloadLink);
+               // IPicker mPicker = Picker.createPicker(Picker.ONEDRIVE_APP_ID);
+               // mPicker.startPicking(lecturerMain.this, LinkType.DownloadLink);
             }
         });
 
@@ -90,32 +88,7 @@ public class lecturerMain extends AppCompatActivity {
 
                 build.setTitle("Create a Post");
 
-                //getting title of post
-                String titleUserInput = postTitleInput.toString();
-                newPost.put("Title", titleUserInput);
 
-                //getting description of post
-                String descriptionUserInput = postDescriptionInput.toString();
-                newPost.put("Description", descriptionUserInput);
-
-                //getting demonstration text
-                String demoUserInput = postDemoInput.toString();
-                newPost.put("Demonstration", demoUserInput);
-
-                //getting student work text
-                String studentWorkUserInput = postStudentWorkInput.toString();
-                newPost.put("Student work", studentWorkUserInput);
-
-                //getting allow comments boolean answer
-                Boolean decision;
-                if (postAllowCommentsDecision.isChecked()){
-                    decision = true;
-                    //show comment section on post
-                }else{
-                    decision = false;
-                    //dont show comment section on post
-                }
-                newPost.put("Comment Decision", decision);
 
                 //post in
                 //show radio button for every module the lecturer can post in
@@ -125,6 +98,34 @@ public class lecturerMain extends AppCompatActivity {
                         .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                //getting title of post
+                                String titleUserInput = postTitleInput.getText().toString();
+                                String text = (String) postTitleInput.getText().toString();
+                                newPost.put("Title", text);
+
+                                //getting description of post
+                                String descriptionUserInput = postDescriptionInput.toString();
+                                newPost.put("Description", descriptionUserInput);
+
+                                //getting demonstration text
+                                String demoUserInput = postDemoInput.toString();
+                                newPost.put("Demonstration", demoUserInput);
+
+                                //getting student work text
+                                String studentWorkUserInput = postStudentWorkInput.toString();
+                                newPost.put("Student work", studentWorkUserInput);
+
+                                //getting allow comments boolean answer
+                                Boolean decision;
+                                if (postAllowCommentsDecision.isChecked()){
+                                    decision = true;
+                                    //show comment section on post
+                                }else{
+                                    decision = false;
+                                    //dont show comment section on post
+                                }
+                                newPost.put("Comment Decision", decision);
+
                                 //post and add to db
                                 db.collection("Posts")
                                         .add(newPost)
