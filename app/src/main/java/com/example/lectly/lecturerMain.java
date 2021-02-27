@@ -99,32 +99,32 @@ public class lecturerMain extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //getting title of post
-                                String titleUserInput = postTitleInput.getText().toString();
+                                //String titleUserInput = postTitleInput.getText().toString();
                                 String text = (String) postTitleInput.getText().toString();
                                 newPost.put("Title", text);
 
                                 //getting description of post
-                                String descriptionUserInput = postDescriptionInput.toString();
-                                newPost.put("Description", descriptionUserInput);
+                                //String descriptionUserInput = postDescriptionInput.toString();
+                                //newPost.put("Description", descriptionUserInput);
 
                                 //getting demonstration text
-                                String demoUserInput = postDemoInput.toString();
-                                newPost.put("Demonstration", demoUserInput);
+                                //String demoUserInput = postDemoInput.toString();
+                               // newPost.put("Demonstration", demoUserInput);
 
                                 //getting student work text
-                                String studentWorkUserInput = postStudentWorkInput.toString();
-                                newPost.put("Student work", studentWorkUserInput);
+                               // String studentWorkUserInput = postStudentWorkInput.toString();
+                               // newPost.put("Student work", studentWorkUserInput);
 
                                 //getting allow comments boolean answer
-                                Boolean decision;
-                                if (postAllowCommentsDecision.isChecked()){
-                                    decision = true;
+                              //  Boolean decision;
+                             //   if (postAllowCommentsDecision.isChecked()){
+                               //     decision = true;
                                     //show comment section on post
-                                }else{
-                                    decision = false;
+                              //  }else{
+                              //      decision = false;
                                     //dont show comment section on post
-                                }
-                                newPost.put("Comment Decision", decision);
+                             //   }
+                              //  newPost.put("Comment Decision", decision);
 
                                 //post and add to db
                                 db.collection("Posts")
