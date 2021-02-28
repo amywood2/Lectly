@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent( LoginActivity.this, lecturerMain.class);
                 startActivity(i);
                 this.finish();
-            } else if(usernameValue.equals("student@gmail.com") && passwordValue.equals("testing123") ){
+            //} else if(usernameValue.equals("student@gmail.com") && passwordValue.equals("testing123") ){
                 //Intent i = new Intent( LoginActivity.this, studentMain.class);
                 //startActivity(i);
                 //this.finish();
