@@ -1,172 +1,262 @@
 package com.example.lectly;
 
-import android.annotation.SuppressLint;
-
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class lecturerMain extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
 
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
+    private static final String TAG = null;
+    Button files;
+    FloatingActionButton createButton;
+    Button postButton;
+    Button menu;
+    EditText postTitleInput;
+    EditText postDescriptionInput;
+    EditText postDemoInput;
+    EditText postStudentWorkInput;
+    Switch postAllowCommentsDecision;
 
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
-    private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-    private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (AUTO_HIDE) {
-                        delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    view.performClick();
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-    };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_lecturer_main);
+        FirebaseApp.initializeApp(this);
+        setupUI();
+        setupListeners();
+    }
 
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
 
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
+    private void setupUI() {
+        files = (Button) findViewById(R.id.files);
+        postButton = (Button) findViewById(R.id.postButton);
+        menu = (Button) findViewById(R.id.menu);
+        createButton = (FloatingActionButton) findViewById(R.id.createButton);
+    }
+
+
+    private void setupListeners() {
+
+        //access firebase database
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //create place to store posts
+        Map<String, Object> newPost = new HashMap<>();
+
+        files.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                toggle();
+            public void onClick(View v) {
+                // IPicker mPicker = Picker.createPicker(Picker.ONEDRIVE_APP_ID);
+                // mPicker.startPicking(lecturerMain.this, LinkType.DownloadLink);
             }
         });
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-    }
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder build = new AlertDialog.Builder(lecturerMain.this);
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+                Context context = build.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.createpostdialog, null, false);
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
+                postTitleInput = (EditText) view.findViewById(R.id.postTitleInput);
+                postDescriptionInput = (EditText) view.findViewById(R.id.postDescriptionInput);
+                postDemoInput = (EditText) view.findViewById(R.id.postDemoInput);
+                postStudentWorkInput = (EditText) view.findViewById(R.id.postStudentWorkInput);
+                postAllowCommentsDecision = (Switch) view.findViewById(R.id.allowComments);
 
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
-        }
-    }
+                build.setView(view)
+                        .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //post
+                                String titleUserInput = (String) postTitleInput.getText().toString();
+                                newPost.put("Title", titleUserInput);
+                                String descriptionUserInput = (String) postDescriptionInput.getText().toString();
+                                String demoUserInput = (String) postDemoInput.getText().toString();
+                                String studentWorkUserInput = (String) postStudentWorkInput.getText().toString();
+                                Boolean decision;
+                                //show comment section on post
+                                //dont show comment section on post
+                                decision = postAllowCommentsDecision.isChecked();
 
-    private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        mControlsView.setVisibility(View.GONE);
-        mVisible = false;
+                                //post and add to db
+                                db.collection("Posts")
+                                        .add(newPost)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d(TAG,"DocumentSnapshot added with ID: " + documentReference.getId());
+                                                Toast.makeText(lecturerMain.this, "Your new post has been posted", Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error adding document", e);
+                                                Toast.makeText(lecturerMain.this, "Your new post has not been posted", Toast.LENGTH_LONG).show();
 
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
+                                            }
+                                        });
 
-    private void show() {
-        // Show the system bar
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        mVisible = true;
+                            }
+                        })
+                        .setNegativeButton("Schedule Post", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //schedule post
+                            }
+                        });
+                build.show();
 
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
+            }
 
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+        });
+
+
+
+
+
+/*
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder build = new AlertDialog.Builder(lecturerMain.this);
+
+                Context context = build.getContext();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.createpostdialog, null, false);
+
+                build.setTitle("Create a Post");
+
+                postTitleInput = (EditText) view.findViewById(R.id.postTitleInput);
+                postDescriptionInput = (EditText) view.findViewById(R.id.postDescriptionInput);
+                postDemoInput = (EditText) view.findViewById(R.id.postDemoInput);
+                postStudentWorkInput = (EditText) view.findViewById(R.id.postStudentWorkInput);
+                postAllowCommentsDecision = (Switch) view.findViewById(R.id.allowComments);
+
+                View.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String titleUserInput = (String) postTitleInput.getText().toString();
+                        String descriptionUserInput = (String) postDescriptionInput.getText().toString();
+                        String demoUserInput = (String) postDemoInput.getText().toString();
+                        String studentWorkUserInput = (String) postStudentWorkInput.getText().toString();
+                        Boolean decision;
+                        //show comment section on post
+                        //dont show comment section on post
+                        decision = postAllowCommentsDecision.isChecked();
+
+                    }
+                  };
+
+
+
+                    build.setView(view)
+                                .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //getting title of post
+                                        //String titleUserInput = postTitleInput.getText().toString();
+
+                                        String text = (String) postTitleInput.getText().toString();
+                                        newPost.put("Title", text);
+
+                                        //getting description of post
+                                        //String descriptionUserInput = postDescriptionInput.toString();
+                                        //newPost.put("Description", descriptionUserInput);
+
+                                        //getting demonstration text
+                                        //String demoUserInput = postDemoInput.toString();
+                                        // newPost.put("Demonstration", demoUserInput);
+
+                                        //getting student work text
+                                        // String studentWorkUserInput = postStudentWorkInput.toString();
+                                        // newPost.put("Student work", studentWorkUserInput);
+
+                                        //getting allow comments boolean answer
+                                        //  Boolean decision;
+                                        //   if (postAllowCommentsDecision.isChecked()){
+                                        //     decision = true;
+                                        //show comment section on post
+                                        //  }else{
+                                        //      decision = false;
+                                        //dont show comment section on post
+                                        //   }
+                                        //  newPost.put("Comment Decision", decision);
+
+                                        //post and add to db
+                                        db.collection("Posts")
+                                                .add(newPost)
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        Toast.makeText(lecturerMain.this, "Your new post has been posted", Toast.LENGTH_LONG).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(lecturerMain.this, "Your new post has not been posted", Toast.LENGTH_LONG).show();
+
+                                                    }
+                                                });
+
+                                    }
+                                })
+
+                                .setNegativeButton("Schedule Post", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //schedule post and add to db
+                                    }
+                                });
+
+                        build.create();
+                        //dialog.show();
+
+                    }
+
+
+                };
+*/
+
+
     }
 }
+
+
+
+
+
+
+

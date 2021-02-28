@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "108575505079",
+    "project_id": "lectly-b3517",
+    "storage_bucket": "lectly-b3517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108575505079:android:bb26b56ee293cb82066b32",
+        "android_client_info": {
+          "package_name": "com.example.lectly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108575505079-92edhctf5l6acfrgvhilga2refqp7rth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL3UpLI8QeCbCcraFcuI8ri0aSfBTo5PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108575505079-92edhctf5l6acfrgvhilga2refqp7rth.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
