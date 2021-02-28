@@ -74,8 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent( LoginActivity.this, lecturerMain.class);
                 startActivity(i);
                 this.finish();
-            } if else
-            else {
+            } else if(usernameValue.equals("student@gmail.com") && passwordValue.equals("testing123") ){
+                //Intent i = new Intent( LoginActivity.this, studentMain.class);
+                //startActivity(i);
+                //this.finish();
+            } else {
                 Toast t = Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT );
                 t.show();
             }
