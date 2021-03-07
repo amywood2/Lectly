@@ -42,12 +42,6 @@ public class lecturerMain extends AppCompatActivity {
     EditText postStudentWorkInput;
     Switch postAllowCommentsDecision;
 
-    //access firebase database
-
-
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +50,6 @@ public class lecturerMain extends AppCompatActivity {
         setupUI();
         setupListeners();
     }
-
 
     private void setupUI() {
         files = (Button) findViewById(R.id.files);
@@ -72,6 +65,8 @@ public class lecturerMain extends AppCompatActivity {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
+        Data.Posts newPostTable = new Data.Posts();
 
         files.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,17 +96,19 @@ public class lecturerMain extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //post and save to db
-
                                 String titleUserInput = (String) postTitleInput.getText().toString();
-                                values.put(Data.Posts.COLUMN_NAME_TITLE, titleUserInput);
+                                values.put(newPostTable.COLUMN_NAME_TITLE, titleUserInput);
                                 String descriptionUserInput = (String) postDescriptionInput.getText().toString();
-                                values.put(Data.Posts.COLUMN_NAME_DESCRIPTION, titleUserInput);
+                                values.put(newPostTable.COLUMN_NAME_DESCRIPTION, descriptionUserInput);
                                 String demoUserInput = (String) postDemoInput.getText().toString();
+                                values.put(newPostTable.COLUMN_NAME_DEMONSTRATION, demoUserInput);
                                 String studentWorkUserInput = (String) postStudentWorkInput.getText().toString();
+                                values.put(newPostTable.COLUMN_NAME_STUDENT, studentWorkUserInput);
                                 Boolean decision;
                                 //show comment section on post
                                 //dont show comment section on post
                                 decision = postAllowCommentsDecision.isChecked();
+
                                 long newRowId = db.insert(Data.Posts.TABLE_NAME, null, values);
                             }
                         })

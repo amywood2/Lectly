@@ -20,7 +20,7 @@ public class studentMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
     }
-
+/*
     TextView text;
     Data.DbHelper helper = new Data.DbHelper(studentMain.this);
 
@@ -51,16 +51,16 @@ public class studentMain extends AppCompatActivity {
             null,                   // don't filter by row groups
             sortOrder               // The sort order
     );
+*/
 
 
-
-    List itemIds = new ArrayList<>();
-    while(cursor.moveToNext()) {
-        long itemId = cursor.getLong(
-                cursor.getColumnIndexOrThrow(Data.Posts._ID));
-        itemIds.add(itemId);
-    }
-    cursor.close();
+    //List itemIds = new ArrayList<>();
+   // while(cursor.moveToNext()) {
+        //long itemId = cursor.getLong(
+          //      cursor.getColumnIndexOrThrow(Data.Posts._ID));
+        //itemIds.add(itemId);
+   // }
+    //cursor.close();
 
 
 

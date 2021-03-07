@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly">
-        <activity android:name=".studentMain"></activity>
+        <activity android:name=".studentMain" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".lecturerMain"
