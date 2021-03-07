@@ -16,6 +16,27 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.pusher.feed.MainActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/recycler_view"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/createButton"
@@ -32,35 +53,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/menu"
         app:srcCompat="@android:drawable/ic_menu_add" />
-
-    <EditText
-        android:id="@+id/postText"
-        android:layout_width="245dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/postButton"
-        android:layout_width="100dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginLeft="192dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
-        android:text="POST"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/files"
