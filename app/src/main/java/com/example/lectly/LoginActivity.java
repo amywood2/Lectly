@@ -5,96 +5,98 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.TextUtils;
-import android.util.Patterns;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class LoginActivity extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
+    EditText textInputUsernameLogin, textInputPasswordLogin;
+    Button loginButton;
     Button register;
-    Button login;
     Button forgotPassword;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setupUI();
+
+
+        textInputUsernameLogin = findViewById(R.id.loginUsernameValue);
+        textInputPasswordLogin = findViewById(R.id.loginPasswordValue);
+        loginButton = findViewById(R.id.loginButton);
+        register = findViewById(R.id.registerButton);
+        forgotPassword = findViewById(R.id.ForgotPassword);
         setupListeners();
     }
 
-    private void setupUI(){
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        register = findViewById(R.id.register);
-        forgotPassword = findViewById(R.id.ForgotPassword);
-    }
-
-    private void setupListeners(){
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkUsername();
-            }
-        });
+    private void setupListeners() {
 
         register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+            public void onClick(View v){
+                Intent i = new Intent (getApplicationContext(), RegistrationActivity.class);
                 startActivity(i);
             }
         });
-    }
 
-    void checkUsername(){
-        boolean isValid = true;
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username, password;
 
-        if (isEmpty(username)){
-            username.setError("Please enter your username to login");
-            isValid = false;
-        } else {
-            if (!isEmail(username)){
-                username.setError("Please enter a valid email");
-                isValid = false;
+                username = String.valueOf(textInputUsernameLogin.getText());
+                password = String.valueOf(textInputPasswordLogin.getText());
+
+                if(!username.equals("") && !password.equals("")) {
+
+                    Handler handler = new Handler();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Starting Write and Read data with URL
+                            //Creating array for parameters
+                            String[] field = new String[2];
+                            field[0] = "username";
+                            field[1] = "password";
+
+                            //Creating array for data
+                            String[] data = new String[2];
+                            data[0] = username;
+                            data[1] = password;
+
+                            PutData putData = new PutData("http://192.168.1.87:8888/RegisterSystem/login.php", "POST", field, data);
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    String result = putData.getResult();
+                                    if (result.equals("Login Success")){
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                        //if student take to student main
+                                        //if lecturer take to lecturer main
+                                        Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }else {
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }
+
+                        }
+                    });
+                }else {
+                    Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
+
             }
-        }
-
-        if (isValid){
-            String usernameValue = username.getText().toString();
-            String passwordValue = password.getText().toString();
-            if (usernameValue.equals("lecturer@gmail.com") && passwordValue.equals("testing123")){
-                //checks are ok so open lecturer main page
-                Intent i = new Intent( LoginActivity.this, lecturerMain.class);
-                startActivity(i);
-                this.finish();
-            } else if(usernameValue.equals("student@gmail.com") && passwordValue.equals("testing123") ){
-                Intent i = new Intent( LoginActivity.this, studentMain.class);
-                startActivity(i);
-                this.finish();
-            } else {
-                Toast t = Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT );
-                t.show();
-            }
-        }
+        });
     }
-
-    boolean isEmail(EditText text){
-        CharSequence email = text.getText().toString();
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
-
-    boolean isEmpty(EditText text){
-        CharSequence str = text.getText().toString();
-        return TextUtils.isEmpty(str);
-    }
-
 }
 
 

@@ -63,7 +63,7 @@ public class lecturerMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_main);
         setupUI();
-        setupListeners();
+        //setupListeners();
 
         //pusher
         // Get the RecyclerView
@@ -125,7 +125,7 @@ public class lecturerMain extends AppCompatActivity {
         createButton = (FloatingActionButton) findViewById(R.id.createButton);
     }
 
-
+/*
     private void setupListeners() {
         Data.DbHelper helper = new Data.DbHelper(lecturerMain.this);
 
@@ -191,7 +191,7 @@ public class lecturerMain extends AppCompatActivity {
 
         });
 
-    }
+    }*/
 
     public void onDestroy() {
         super.onDestroy();
