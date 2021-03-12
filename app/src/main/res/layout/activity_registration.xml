@@ -1,9 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="125dp"
+            android:layout_marginEnd="8dp"
+
+
+            android:hint="@string/name"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/cursor" />
+
+            <TextView
+                android:id="@+id/textViewFullEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/regemail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+
+
+            android:layout_marginEnd="8dp"
+            android:hint="@string/email"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailValue"
+                android:layout_width="match_parent"
+                android:textCursorDrawable="@drawable/cursor"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:id="@+id/textViewFullUsername"
+                android:layout_width="77dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="316dp"
+                android:layout_marginRight="316dp"
+                android:layout_weight="1"
+                android:text="Username:" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/regphone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/phone"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regemail">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/cursor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/regpassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/password"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regphone"
+            app:passwordToggleEnabled="true">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+
+                android:textCursorDrawable="@drawable/cursor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="247dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="57dp"
+
+            android:layout_marginEnd="8dp"
+            android:text="@string/register"
+
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regpassword" />
+
+        <TextView
+            android:id="@+id/textViewFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="340dp"
+            android:layout_marginRight="340dp"
+            android:text="Name:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

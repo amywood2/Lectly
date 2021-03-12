@@ -39,5 +39,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/theTitle"
+        android:layout_width="248dp"
+        android:layout_height="39dp"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="56dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

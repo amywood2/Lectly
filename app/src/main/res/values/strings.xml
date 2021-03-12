@@ -14,4 +14,17 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="username">username</string>
     <string name="password">password</string>
+    <string name="register" />
+    <string name="name" />
+    <string name="email" />
+    <string name="phone" />
+    <string name="build" />
+    <string name="login" />
+    <string name="already" />
+    <string name="area" />
+    <string name="country" />
+    <string name="state" />
+    <string name="district" />
+    <string name="pincode" />
+    <string name="confirmpassword" />
 </resources>

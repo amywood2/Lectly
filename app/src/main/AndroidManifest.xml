@@ -11,14 +11,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Lectly">
-        <activity android:name=".studentMain"></activity>
+        <activity android:name=".studentMain" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".lecturerMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_lecturer_main"
-            android:theme="@style/Theme.Lectly.Fullscreen" />
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
