@@ -13,8 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
-        <activity android:name=".typeOfUser"></activity>
-        <activity android:name=".studentMain" />
+        <activity
+            android:name=".studentMain"
+            android:label="@string/title_activity_student_main"
+            android:theme="@style/Theme.Lectly.NoActionBar"></activity>
+        <activity
+            android:name=".StudentMain"
+            android:label="@string/title_activity_student_main"
+            android:theme="@style/Theme.Lectly.NoActionBar"></activity>
+        <activity
+            android:name=".studentMainActivity"
+            android:label="@string/title_activity_student_main"
+            android:theme="@style/Theme.Lectly.NoActionBar"></activity>
+        <activity android:name=".typeOfUser" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".lecturerMain"

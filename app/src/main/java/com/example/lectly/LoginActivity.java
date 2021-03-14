@@ -69,19 +69,21 @@ public class LoginActivity extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/RegisterSystem/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.5.32:8888/RegisterSystem/login.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
-                                    if (result.equals("Login Success")){
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                        //if student take to student main
-                                        //if lecturer take to lecturer main
+                                    if (result.equals("Student Logging in")) {
+                                        Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), studentMain.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else if (result.equals("Lecturer Logging in")) {
+                                        Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
                                         startActivity(intent);
                                         finish();
-
-                                    }else {
+                                    } else {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                     }
 

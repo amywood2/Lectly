@@ -52,10 +52,10 @@ public class lecturerMain extends AppCompatActivity {
     Switch postAllowCommentsDecision;
 
     //pusher
-    private RecyclerView.LayoutManager lManager;
-    private EventAdapter adapter;
-    private Pusher pusher = new Pusher("1b0541bc439a8001f9a6");
-    private static final String CHANNEL_NAME = "events_to_be_shown";
+   // private RecyclerView.LayoutManager lManager;
+   // private EventAdapter adapter;
+   // private Pusher pusher = new Pusher("1b0541bc439a8001f9a6");
+   // private static final String CHANNEL_NAME = "events_to_be_shown";
 
 
     @Override
@@ -65,7 +65,7 @@ public class lecturerMain extends AppCompatActivity {
         setupUI();
         //setupListeners();
 
-        //pusher
+        /*//pusher
         // Get the RecyclerView
         RecyclerView recycler = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -117,6 +117,7 @@ public class lecturerMain extends AppCompatActivity {
             }
         });
 
+    }*/
     }
 
     private void setupUI() {
@@ -125,77 +126,10 @@ public class lecturerMain extends AppCompatActivity {
         createButton = (FloatingActionButton) findViewById(R.id.createButton);
     }
 
-/*
-    private void setupListeners() {
-        Data.DbHelper helper = new Data.DbHelper(lecturerMain.this);
-
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        Data.Posts newPostTable = new Data.Posts();
-
-        files.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // IPicker mPicker = Picker.createPicker(Picker.ONEDRIVE_APP_ID);
-                // mPicker.startPicking(lecturerMain.this, LinkType.DownloadLink);
-            }
-        });
-
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder build = new AlertDialog.Builder(lecturerMain.this);
-
-                Context context = build.getContext();
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.createpostdialog, null, false);
-
-                postTitleInput = (EditText) view.findViewById(R.id.postTitleInput);
-                postDescriptionInput = (EditText) view.findViewById(R.id.postDescriptionInput);
-                postDemoInput = (EditText) view.findViewById(R.id.postDemoInput);
-                postStudentWorkInput = (EditText) view.findViewById(R.id.postStudentWorkInput);
-                postAllowCommentsDecision = (Switch) view.findViewById(R.id.allowComments);
-
-                build.setView(view)
-                        .setPositiveButton("Post Now", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //post and save to db
-                                String titleUserInput = (String) postTitleInput.getText().toString();
-                                values.put(newPostTable.COLUMN_NAME_TITLE, titleUserInput);
-                                String descriptionUserInput = (String) postDescriptionInput.getText().toString();
-                                values.put(newPostTable.COLUMN_NAME_DESCRIPTION, descriptionUserInput);
-                                String demoUserInput = (String) postDemoInput.getText().toString();
-                                values.put(newPostTable.COLUMN_NAME_DEMONSTRATION, demoUserInput);
-                                String studentWorkUserInput = (String) postStudentWorkInput.getText().toString();
-                                values.put(newPostTable.COLUMN_NAME_STUDENT, studentWorkUserInput);
-                                Boolean decision;
-                                //show comment section on post
-                                //dont show comment section on post
-                                decision = postAllowCommentsDecision.isChecked();
-
-                                long newRowId = db.insert(Data.Posts.TABLE_NAME, null, values);
-                            }
-                        })
-                        .setNegativeButton("Schedule Post", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //schedule post
-                            }
-                        });
-                build.show();
-
-            }
-
-        });
-
-    }*/
 
     public void onDestroy() {
         super.onDestroy();
-        pusher.disconnect();
+        //pusher.disconnect();
     }
 
 
