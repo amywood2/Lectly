@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             data[2] = username;
                             data[3] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/RegisterSystem/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.5.32:8888/RegisterSystem/studentSignup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -106,7 +106,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     });
                 //if type of user is lecturer and all fields are filled in
                 //add lecturer to lecturer db and take them to lecturerMain
-                }else if (typeOfUser.typeofuser =="Lecturer" && !fullname.equals("") && !email.equals("") && !username.equals("") && !password.equals("")){
+                }else if(typeOfUser.typeofuser =="Lecturer" && !fullname.equals("") && !email.equals("") && !username.equals("") && !password.equals("")) {
+
                     Handler handler = new Handler();
                     handler.post(new Runnable() {
                         @Override
@@ -126,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             data[2] = username;
                             data[3] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/RegisterSystem/lecturerSignup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.5.32:8888/RegisterSystem/lecturerSignup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -140,10 +141,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                     }else {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
                             }
-
                         }
                     });
                 }
