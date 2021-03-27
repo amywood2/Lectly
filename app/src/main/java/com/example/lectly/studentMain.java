@@ -35,7 +35,6 @@ public class studentMain extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
     Button files;
-    FloatingActionButton createButton;
     Button menu;
     EditText postTitleInput;
     EditText postDescriptionInput;
@@ -144,6 +143,6 @@ public class studentMain extends AppCompatActivity {
     private void setupUI() {
         files = (Button) findViewById(R.id.files);
         menu = (Button) findViewById(R.id.menu);
-        createButton = (FloatingActionButton) findViewById(R.id.createButton);
+
     }
 }
