@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.curioustechizen.ago.RelativeTimeTextView;
 import java.util.List;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
-    private List<Event> items;
+//public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+   // private List<Event> items;
 
-    public EventAdapter(List<Event> items) {
+    /*public EventAdapter(List<Event> items) {
         this.items = items;
     }
 
@@ -63,5 +63,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         viewHolder.id.setText(event.getId());
         viewHolder.timestamp.setReferenceTime(System.currentTimeMillis());
         viewHolder.data.setText(event.getData());
-    }
-}
+    }*/
+
+//}

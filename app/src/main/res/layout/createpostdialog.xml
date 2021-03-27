@@ -59,17 +59,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postDemoInput" />
 
-        <TextView
-            android:id="@+id/postIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="292dp"
-            android:layout_marginRight="292dp"
-            android:text="Post In"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/allowComments" />
-
         <EditText
             android:id="@+id/postTitleInput"
             android:layout_width="335dp"
@@ -108,52 +97,6 @@
             android:text="Demonstration..."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postDemo" />
-
-        <EditText
-            android:id="@+id/postStudentWorkInput"
-            android:layout_width="333dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Student Work..."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postStudentWork" />
-
-        <Switch
-            android:id="@+id/allowComments"
-            android:layout_width="224dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="112dp"
-            android:layout_marginRight="112dp"
-            android:text="Allow Comments"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postStudentWorkInput" />
-
-        <RadioButton
-            android:id="@+id/module1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="248dp"
-            android:layout_marginRight="248dp"
-            android:text="module1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postIn" />
-
-        <RadioButton
-            android:id="@+id/module2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="244dp"
-            android:layout_marginRight="244dp"
-            android:text="Module 2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/module1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
