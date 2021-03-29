@@ -12,7 +12,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class PutData extends Thread {
-    private String url, method;
+    private final String url;
+    private final String method;
     String result_data = "Empty";
     String[] data, field;
 

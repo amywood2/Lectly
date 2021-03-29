@@ -2,16 +2,8 @@ package com.example.lectly;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,25 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
-import com.pusher.client.Pusher;
-import com.pusher.client.channel.Channel;
-import com.pusher.client.channel.SubscriptionEventListener;
-import com.pusher.client.connection.ConnectionEventListener;
-import com.pusher.client.connection.ConnectionStateChange;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class lecturerMain extends AppCompatActivity {
@@ -49,10 +25,10 @@ public class lecturerMain extends AppCompatActivity {
     Button files;
     FloatingActionButton createButton;
     Button menu;
-    EditText textInputTitle;
-    EditText textInputDemonstration;
-    EditText textInputDescription;
-    EditText postStudentWorkInput;
+    TextInputEditText textInputTitle;
+    TextInputEditText textInputDemonstration;
+    TextInputEditText textInputDescription;
+    TextInputEditText postStudentWorkInput;
     Switch postAllowCommentsDecision;
 
 
@@ -70,17 +46,22 @@ public class lecturerMain extends AppCompatActivity {
         menu = (Button) findViewById(R.id.menu);
         createButton = (FloatingActionButton) findViewById(R.id.createButton);
 
-
-
-
         createButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                Intent i = new Intent (getApplicationContext(), createPost.class);
+                startActivity(i);
+            }
+        });
+
+
+        /*createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(lecturerMain.this);
                     ViewGroup viewGroup = findViewById(android.R.id.content);
                     View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.createpostdialog, viewGroup, false);
-                    textInputTitle = (EditText) viewGroup.findViewById(R.id.postTitleInput);
-                    textInputDescription = (EditText) viewGroup.findViewById(R.id.postDescriptionInput);
-                    textInputDemonstration = (EditText) viewGroup.findViewById(R.id.postDemoInput);
+                    textInputTitle = (TextInputEditText) viewGroup.findViewById(R.id.titleValue);
+                    textInputDescription = (TextInputEditText) viewGroup.findViewById(R.id.descriptionValue);
+                    textInputDemonstration = (TextInputEditText) viewGroup.findViewById(R.id.demonstrationValue);
 
                     builder.setView(dialogView)
                         .setPositiveButton("Post", new DialogInterface.OnClickListener() {
@@ -94,7 +75,6 @@ public class lecturerMain extends AppCompatActivity {
                             title = String.valueOf(textInputTitle.getText());
                             description = String.valueOf(textInputDescription.getText());
                             demonstration = String.valueOf(textInputDemonstration.getText());
-
 
                             if(!title.equals("") && !description.equals("") && !demonstration.equals("")){
 
@@ -115,7 +95,7 @@ public class lecturerMain extends AppCompatActivity {
                                         data[1] = description;
                                         data[2] = demonstration;
 
-                                        PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savePost.php", "POST", field, data);
+                                        PutData putData = new PutData("http://192.168.5.31:8888/Lectly/savePost.php", "POST", field, data);
                                         if (putData.startPut()) {
                                             if (putData.onComplete()) {
                                                 String result = putData.getResult();
@@ -146,10 +126,8 @@ public class lecturerMain extends AppCompatActivity {
                     alertDialog.show();
                 }
             });
-        }
-
-
-
+        }*/
+    }
     }
 
 
