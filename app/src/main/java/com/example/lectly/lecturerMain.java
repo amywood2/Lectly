@@ -2,58 +2,35 @@ package com.example.lectly;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.StrictMode;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Switch;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 
 
-import androidx.core.app.ActivityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 
 public class lecturerMain extends AppCompatActivity {
@@ -64,7 +41,15 @@ public class lecturerMain extends AppCompatActivity {
     ImageButton menu;
     FloatingActionButton create;
     TextView dataView;
-
+    private ArrayList<String> postTitles;
+    private ArrayList<String> postDescriptions;
+    private ArrayList<String> postDemonstrations;
+    private ArrayList<String> postStudentWorks;
+    private JSONArray result;
+    private TextView textViewTitle;
+    private TextView textViewDescription;
+    private TextView textViewDemonstration;
+    private TextView textViewStudentWork;
 
 
     @Override
@@ -72,8 +57,6 @@ public class lecturerMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_main);
         setupUI();
-
-
         getPosts();
 
     }
@@ -83,7 +66,17 @@ public class lecturerMain extends AppCompatActivity {
         //menu = (Button) findViewById(R.id.menu);
         create = findViewById(R.id.createButton);
         menu = findViewById(R.id.menuButton);
-        dataView = findViewById(R.id.dataView);
+      //  dataView = findViewById(R.id.textViewTitle);
+
+        postTitles = new ArrayList<String>();
+        postDescriptions = new ArrayList<String>();
+        postDemonstrations = new ArrayList<String>();
+        postStudentWorks = new ArrayList<String>();
+       // textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+       // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
+       // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
+      //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
+
 
 
         create.setOnClickListener(new View.OnClickListener() {
@@ -101,44 +94,164 @@ public class lecturerMain extends AppCompatActivity {
         });
     }
 
-        private void getPosts() {
-            String title = null;
-            String description = null;
-            String demonstration = null;
-            String studentWork = null;
-
-            String[] field = new String[4];
-            field[0] = "title";
-            field[1] = "description";
-            field[2] = "demonstration";
-            field[3] = "studentWork";
-
-            String method = "GET";
-            String[] data = new String[4];
-            data[0] = title;
-            data[1] = description;
-            data[2] = demonstration;
-            data[3] = studentWork;
-
-            Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    FetchData fetchData = new FetchData("http://192.168.1.87:8888/Lectly/getPosts.php");
-                    if (fetchData.startFetch()) {
-                        if (fetchData.onComplete()) {
-                            String result = fetchData.getResult();
-                            if(result.equals("success")){
-                                dataView.setText(result);
-                            }
-
-                            Log.i("FetchData", result);
+    private void getPosts() {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject allPosts = null;
+                        try {
+                            allPosts = new JSONObject(response);
+                            result = allPosts.getJSONArray(Config.JSON_ARRAY);
+                            getTitles(result);
+                            getDescriptions(result);
+                            getDemonstrations(result);
+                            getStudentWorks(result);
+                            creatingNewsfeed(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                }
-            });
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getTitles(JSONArray allPosts) {
+        for (int i = 0; i < allPosts.length(); i++) {
+            try {
+                JSONObject json = allPosts.getJSONObject(i);
+                postTitles.add(json.getString(Config.TAG_TITLE));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+            //textViewTitle.setText(postTitles.get(0));
+    }
+
+    private void getDescriptions(JSONArray allPosts) {
+        for (int i = 0; i < allPosts.length(); i++) {
+            try {
+                JSONObject json = allPosts.getJSONObject(i);
+                postDescriptions.add(json.getString(Config.TAG_DESCRIPTION));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        //textViewDescription.setText(postDescriptions.get(0));
+    }
+
+    private void getDemonstrations(JSONArray allPosts) {
+        for (int i = 0; i < allPosts.length(); i++) {
+            try {
+                JSONObject json = allPosts.getJSONObject(i);
+                postDemonstrations.add(json.getString(Config.TAG_DEMONSTRATION));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        //textViewDemonstration.setText(postDemonstrations.get(0));
+    }
+
+    private void getStudentWorks(JSONArray allPosts) {
+        for (int i = 0; i < allPosts.length(); i++) {
+            try {
+                JSONObject json = allPosts.getJSONObject(i);
+                postStudentWorks.add(json.getString(Config.TAG_STUDENTWORK));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+       // textViewStudentWork.setText(postStudentWorks.get(0));
+    }
+
+    private void creatingNewsfeed(JSONArray allPosts){
+        final ConstraintLayout cl = (ConstraintLayout) findViewById(R.id.cl);
+        final Button[] b_titles = new Button[postTitles.size()];
+        final TextView[] tv_descriptions = new TextView[postDescriptions.size()];
+        final TextView[] tv_demonstrations = new TextView[postDemonstrations.size()];
+        final TextView[] tv_studentWork = new TextView[postStudentWorks.size()];
+
+        for (int i = 0; i < postTitles.size(); i++) {
+            b_titles[i] = new Button(this);
+            ConstraintLayout.LayoutParams params=new ConstraintLayout.LayoutParams
+                    ((int) ConstraintLayout.LayoutParams.WRAP_CONTENT,(int) ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 50;
+            params.topMargin  = i*50;
+            b_titles[i].setText(postTitles.get(i));
+            b_titles[i].setTextSize((float) 20);
+            if(i == 0){
+                b_titles[i].setPadding(350, 50, 20, 50);
+            }else{
+                b_titles[i].setPadding(350, 450*i, 20, 50);
+            }
+            b_titles[i].setBackgroundColor(000000);
+            b_titles[i].setLayoutParams(params);
+            cl.addView(b_titles[i]);
+        }
+
+        for (int i = 0; i < postDescriptions.size(); i++) {
+            tv_descriptions[i] = new TextView(this);
+            ConstraintLayout.LayoutParams params=new ConstraintLayout.LayoutParams
+                    ((int) ConstraintLayout.LayoutParams.WRAP_CONTENT,(int) ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 50;
+            params.topMargin  = i*50;
+            tv_descriptions[i].setText(postDescriptions.get(i));
+            tv_descriptions[i].setTextSize((float) 20);
+            if(i == 0){
+                tv_descriptions[i].setPadding(350, 100, 20, 50);
+            }else{
+                tv_descriptions[i].setPadding(350, 500*i, 20, 50);
+            }
+            tv_descriptions[i].setLayoutParams(params);
+            cl.addView(tv_descriptions[i]);
+        }
+
+        for (int i = 0; i < postDemonstrations.size(); i++) {
+            tv_demonstrations[i] = new TextView(this);
+            ConstraintLayout.LayoutParams params=new ConstraintLayout.LayoutParams
+                    ((int) ConstraintLayout.LayoutParams.WRAP_CONTENT,(int) ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 50;
+            params.topMargin  = i*50;
+            tv_demonstrations[i].setText(postDemonstrations.get(i));
+            tv_demonstrations[i].setTextSize((float) 20);
+            if(i == 0){
+                tv_demonstrations[i].setPadding(350, 150, 20, 50);
+            }else{
+                tv_demonstrations[i].setPadding(350, 550*i, 20, 50);
+            }
+            tv_demonstrations[i].setLayoutParams(params);
+            cl.addView(tv_demonstrations[i]);
+        }
+
+        for (int i = 0; i < postStudentWorks.size(); i++) {
+            tv_studentWork[i] = new TextView(this);
+            ConstraintLayout.LayoutParams params=new ConstraintLayout.LayoutParams
+                    ((int) ConstraintLayout.LayoutParams.WRAP_CONTENT,(int) ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 50;
+            params.topMargin  = i*50;
+
+            tv_studentWork[i].setText(postStudentWorks.get(i));
+            tv_studentWork[i].setTextSize((float) 20);
+            if(i == 0){
+                tv_studentWork[i].setPadding(350, 200, 20, 50);
+            }else{
+                tv_studentWork[i].setPadding(350, 600*i, 20, 50);
+            }
+            tv_studentWork[i].setLayoutParams(params);
+            cl.addView(tv_studentWork[i]);
+        }
+
+    }
 }
+
+
 
 
 
