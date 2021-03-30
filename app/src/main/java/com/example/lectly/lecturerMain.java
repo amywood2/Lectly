@@ -3,14 +3,9 @@ package com.example.lectly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -38,8 +33,9 @@ public class lecturerMain extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
     Button files;
-    ImageButton menu;
+    FloatingActionButton menu;
     FloatingActionButton create;
+    FloatingActionButton filter;
     TextView dataView;
     private ArrayList<String> postTitles;
     private ArrayList<String> postDescriptions;
@@ -64,9 +60,10 @@ public class lecturerMain extends AppCompatActivity {
     private void setupUI() {
         //files = (Button) findViewById(R.id.files);
         //menu = (Button) findViewById(R.id.menu);
-        create = findViewById(R.id.createButton);
-        menu = findViewById(R.id.menuButton);
-      //  dataView = findViewById(R.id.textViewTitle);
+        create = (FloatingActionButton) findViewById(R.id.createButton);
+        menu =  (FloatingActionButton) findViewById(R.id.menuButton);
+        filter =  (FloatingActionButton) findViewById(R.id.filterButton);
+      //dataView = findViewById(R.id.textViewTitle);
 
         postTitles = new ArrayList<String>();
         postDescriptions = new ArrayList<String>();
@@ -76,6 +73,7 @@ public class lecturerMain extends AppCompatActivity {
        // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
        // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
       //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
+
 
 
 
@@ -92,10 +90,19 @@ public class lecturerMain extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //  filter dialog
+            }
+        });
+
+
     }
 
     private void getPosts() {
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://192.168.5.31:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -172,7 +179,7 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void creatingNewsfeed(JSONArray allPosts){
-        final ConstraintLayout cl = (ConstraintLayout) findViewById(R.id.cl);
+        final ConstraintLayout layout =  findViewById(R.id.constraintLayout);
         final Button[] b_titles = new Button[postTitles.size()];
         final TextView[] tv_descriptions = new TextView[postDescriptions.size()];
         final TextView[] tv_demonstrations = new TextView[postDemonstrations.size()];
@@ -180,20 +187,20 @@ public class lecturerMain extends AppCompatActivity {
 
         for (int i = 0; i < postTitles.size(); i++) {
             b_titles[i] = new Button(this);
-            ConstraintLayout.LayoutParams params=new ConstraintLayout.LayoutParams
-                    ((int) ConstraintLayout.LayoutParams.WRAP_CONTENT,(int) ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams
+                    ((int) LinearLayout.LayoutParams.WRAP_CONTENT,(int) LinearLayout.LayoutParams.WRAP_CONTENT);
             params.leftMargin = 50;
             params.topMargin  = i*50;
             b_titles[i].setText(postTitles.get(i));
             b_titles[i].setTextSize((float) 20);
             if(i == 0){
-                b_titles[i].setPadding(350, 50, 20, 50);
+                b_titles[i].setPadding(100, 50, 20, 50);
             }else{
-                b_titles[i].setPadding(350, 450*i, 20, 50);
+                b_titles[i].setPadding(100, 450*i, 20, 50);
             }
             b_titles[i].setBackgroundColor(000000);
             b_titles[i].setLayoutParams(params);
-            cl.addView(b_titles[i]);
+            layout.addView(b_titles[i]);
         }
 
         for (int i = 0; i < postDescriptions.size(); i++) {
@@ -205,12 +212,12 @@ public class lecturerMain extends AppCompatActivity {
             tv_descriptions[i].setText(postDescriptions.get(i));
             tv_descriptions[i].setTextSize((float) 20);
             if(i == 0){
-                tv_descriptions[i].setPadding(350, 100, 20, 50);
+                tv_descriptions[i].setPadding(100, 100, 20, 50);
             }else{
-                tv_descriptions[i].setPadding(350, 500*i, 20, 50);
+                tv_descriptions[i].setPadding(100, 500*i, 20, 50);
             }
             tv_descriptions[i].setLayoutParams(params);
-            cl.addView(tv_descriptions[i]);
+            layout.addView(tv_descriptions[i]);
         }
 
         for (int i = 0; i < postDemonstrations.size(); i++) {
@@ -222,12 +229,12 @@ public class lecturerMain extends AppCompatActivity {
             tv_demonstrations[i].setText(postDemonstrations.get(i));
             tv_demonstrations[i].setTextSize((float) 20);
             if(i == 0){
-                tv_demonstrations[i].setPadding(350, 150, 20, 50);
+                tv_demonstrations[i].setPadding(100, 150, 20, 50);
             }else{
-                tv_demonstrations[i].setPadding(350, 550*i, 20, 50);
+                tv_demonstrations[i].setPadding(100, 550*i, 20, 50);
             }
             tv_demonstrations[i].setLayoutParams(params);
-            cl.addView(tv_demonstrations[i]);
+            layout.addView(tv_demonstrations[i]);
         }
 
         for (int i = 0; i < postStudentWorks.size(); i++) {
@@ -240,12 +247,12 @@ public class lecturerMain extends AppCompatActivity {
             tv_studentWork[i].setText(postStudentWorks.get(i));
             tv_studentWork[i].setTextSize((float) 20);
             if(i == 0){
-                tv_studentWork[i].setPadding(350, 200, 20, 50);
+                tv_studentWork[i].setPadding(100, 200, 20, 50);
             }else{
-                tv_studentWork[i].setPadding(350, 600*i, 20, 50);
+                tv_studentWork[i].setPadding(100, 600*i, 20, 50);
             }
             tv_studentWork[i].setLayoutParams(params);
-            cl.addView(tv_studentWork[i]);
+            layout.addView(tv_studentWork[i]);
         }
 
     }
