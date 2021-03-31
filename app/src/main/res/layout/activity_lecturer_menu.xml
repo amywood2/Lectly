@@ -17,6 +17,7 @@
         android:layout_marginRight="22dp"
         android:layout_marginBottom="72dp"
         android:text="Posts"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toTopOf="@+id/dashboardButton"
         app:layout_constraintEnd_toStartOf="@+id/studentsButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
         android:layout_marginRight="22dp"
         android:text="DashBoard"
         android:textSize="12sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toStartOf="@+id/connectButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +49,7 @@
         android:layout_marginTop="75dp"
         android:text="Modules"
         android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dashboardButton" />
 
@@ -59,6 +62,7 @@
         android:layout_marginRight="66dp"
         android:text="Settings"
         android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connectButton" />
 
@@ -71,6 +75,7 @@
         android:layout_marginRight="66dp"
         android:text="Connect"
         android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentsButton" />
 
@@ -83,6 +88,7 @@
         android:layout_marginRight="66dp"
         android:layout_marginBottom="72dp"
         android:text="Students"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toTopOf="@+id/connectButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -13,11 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
-        <activity android:name=".studentModules"></activity>
-        <activity android:name=".lecturerMenu" />
+        <activity android:name=".studentModules"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity android:name=".lecturerMenu"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
         <activity
             android:name=".lecturerMain"
             android:label="@string/title_activity_lecturer_main"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity android:name=".createPost"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity android:name=".typeOfUser"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity android:name=".RegistrationActivity"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".studentMain"
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
             android:theme="@style/Theme.Lectly.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".createPost" />
-        <activity android:name=".typeOfUser" />
-        <activity android:name=".RegistrationActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>

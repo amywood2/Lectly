@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class typeOfUser extends AppCompatActivity {
 
     public static String typeofuser;
     Button isLecturer;
     Button isStudent;
+    ImageView logo;
+
 
 
     @Override
@@ -21,6 +24,7 @@ public class typeOfUser extends AppCompatActivity {
 
         isLecturer = findViewById(R.id.isLecturerbutton);
         isStudent = findViewById(R.id.isStudentbutton);
+        logo = findViewById(R.id.logo);
 
         isLecturer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +41,15 @@ public class typeOfUser extends AppCompatActivity {
             public void onClick(View view) {
                 typeofuser = "Student";
                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

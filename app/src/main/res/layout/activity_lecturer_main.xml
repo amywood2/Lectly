@@ -44,6 +44,7 @@
         android:layout_marginRight="89dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/filesButton"
         app:srcCompat="@android:drawable/ic_menu_add" />
@@ -56,6 +57,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:clickable="true"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
@@ -68,6 +70,7 @@
         android:layout_marginRight="85dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/createButton"
         app:srcCompat="@android:drawable/ic_dialog_dialer" />
@@ -80,6 +83,7 @@
         android:layout_marginRight="24dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/sym_contact_card" />

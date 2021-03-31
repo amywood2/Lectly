@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,6 +16,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     TextInputEditText textInputName, textInputUsername, textInputEmail, textInputPassword;
     Button registerButton;
+    ImageView logo;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,16 @@ public class RegistrationActivity extends AppCompatActivity {
         textInputPassword = findViewById(R.id.passwordValue);
         textInputUsername = findViewById(R.id.usernameValue);
         registerButton = findViewById(R.id.registerButton);
+        logo = findViewById(R.id.logo);
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

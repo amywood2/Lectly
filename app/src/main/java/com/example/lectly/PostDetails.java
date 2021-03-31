@@ -1,21 +1,15 @@
 package com.example.lectly;
 
 public class PostDetails {
-    private String title;
-    private String description;
-    private String demonstration;
-    private String studentWork;
+    //JSON URL
+    public static final String PHP_URL = "http://192.168.1.87:8888/Lectly/getPosts.php";
 
-    public String getTitle(){
-        return title;
-    }
-    public String getDescription(){
-        return description;
-    }
-    public String getDemonstration(){
-        return demonstration;
-    }
-    public String getStudentWork(){
-        return studentWork;
-    }
+    //Tags used in the JSON String
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
+    public static final String DEMONSTRATION = "demonstration";
+    public static final String STUDENTWORK = "studentWork";
+
+    //JSON array name
+    public static final String JSON_ARRAY = "result";
 }

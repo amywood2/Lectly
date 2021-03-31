@@ -97,19 +97,17 @@ public class lecturerMain extends AppCompatActivity {
                 //  filter dialog
             }
         });
-
-
     }
 
     private void getPosts() {
-        StringRequest stringRequest = new StringRequest("http://192.168.5.31:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject allPosts = null;
                         try {
                             allPosts = new JSONObject(response);
-                            result = allPosts.getJSONArray(Config.JSON_ARRAY);
+                            result = allPosts.getJSONArray(PostDetails.JSON_ARRAY);
                             getTitles(result);
                             getDescriptions(result);
                             getDemonstrations(result);
@@ -134,7 +132,7 @@ public class lecturerMain extends AppCompatActivity {
         for (int i = 0; i < allPosts.length(); i++) {
             try {
                 JSONObject json = allPosts.getJSONObject(i);
-                postTitles.add(json.getString(Config.TAG_TITLE));
+                postTitles.add(json.getString(PostDetails.TITLE));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -146,7 +144,7 @@ public class lecturerMain extends AppCompatActivity {
         for (int i = 0; i < allPosts.length(); i++) {
             try {
                 JSONObject json = allPosts.getJSONObject(i);
-                postDescriptions.add(json.getString(Config.TAG_DESCRIPTION));
+                postDescriptions.add(json.getString(PostDetails.DESCRIPTION));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -158,7 +156,7 @@ public class lecturerMain extends AppCompatActivity {
         for (int i = 0; i < allPosts.length(); i++) {
             try {
                 JSONObject json = allPosts.getJSONObject(i);
-                postDemonstrations.add(json.getString(Config.TAG_DEMONSTRATION));
+                postDemonstrations.add(json.getString(PostDetails.DEMONSTRATION));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -170,7 +168,7 @@ public class lecturerMain extends AppCompatActivity {
         for (int i = 0; i < allPosts.length(); i++) {
             try {
                 JSONObject json = allPosts.getJSONObject(i);
-                postStudentWorks.add(json.getString(Config.TAG_STUDENTWORK));
+                postStudentWorks.add(json.getString(PostDetails.STUDENTWORK));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

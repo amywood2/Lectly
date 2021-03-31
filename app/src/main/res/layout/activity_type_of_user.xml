@@ -12,11 +12,11 @@
         android:layout_height="81dp"
         android:text="I'M A LECTURER"
         android:textSize="18sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.368" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/isStudentbutton"
@@ -24,9 +24,24 @@
         android:layout_height="81dp"
         android:text="I'M A STUDENT"
         android:textSize="18sp"
+        app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541" />
+        app:layout_constraintVertical_bias="0.639" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:layout_marginBottom="126dp"
+        app:layout_constraintBottom_toTopOf="@+id/isLecturerbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/lectlylogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
