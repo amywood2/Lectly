@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".studentMenu">
+
+    <Button
+        android:id="@+id/myPostsButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="226dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="72dp"
+        android:text="Posts"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toTopOf="@+id/dashboardButton"
+        app:layout_constraintEnd_toStartOf="@+id/studentsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dashboardButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:text="DashBoard"
+        android:textSize="12sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintEnd_toStartOf="@+id/connectButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myPostsButton" />
+
+    <Button
+        android:id="@+id/myModulesButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="75dp"
+        android:text="Modules"
+        android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardButton" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:text="Settings"
+        android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectButton" />
+
+    <Button
+        android:id="@+id/connectButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:text="Connect"
+        android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentsButton" />
+
+    <Button
+        android:id="@+id/studentsButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="226dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:layout_marginBottom="72dp"
+        android:text="Students"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toTopOf="@+id/connectButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
