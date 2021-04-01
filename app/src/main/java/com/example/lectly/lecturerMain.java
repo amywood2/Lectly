@@ -32,7 +32,7 @@ public class lecturerMain extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
-    Button files;
+    FloatingActionButton files;
     FloatingActionButton menu;
     FloatingActionButton create;
     FloatingActionButton filter;
@@ -58,7 +58,7 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void setupUI() {
-        //files = (Button) findViewById(R.id.files);
+        files = (FloatingActionButton) findViewById(R.id.filesButton);
         //menu = (Button) findViewById(R.id.menu);
         create = (FloatingActionButton) findViewById(R.id.createButton);
         menu =  (FloatingActionButton) findViewById(R.id.menuButton);
@@ -87,6 +87,13 @@ public class lecturerMain extends AppCompatActivity {
         menu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), lecturerMenu.class);
+                startActivity(i);
+            }
+        });
+
+        files.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), filesActivity.class);
                 startActivity(i);
             }
         });
