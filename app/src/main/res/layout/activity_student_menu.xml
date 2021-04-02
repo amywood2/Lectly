@@ -7,7 +7,7 @@
     tools:context=".studentMenu">
 
     <Button
-        android:id="@+id/myPostsButton"
+        android:id="@+id/savedPosts"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginStart="75dp"
@@ -16,15 +16,15 @@
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
         android:layout_marginBottom="72dp"
-        android:text="Posts"
+        android:text="Saved Posts"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/dashboardButton"
-        app:layout_constraintEnd_toStartOf="@+id/studentsButton"
+        app:layout_constraintBottom_toTopOf="@+id/learningStyle"
+        app:layout_constraintEnd_toStartOf="@+id/cognitiveSkills"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/dashboardButton"
+        android:id="@+id/learningStyle"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginStart="75dp"
@@ -32,13 +32,13 @@
         android:layout_marginTop="72dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
-        android:text="DashBoard"
+        android:text="Learning Style Quiz"
         android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toStartOf="@+id/connectButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myPostsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/savedPosts" />
 
     <Button
         android:id="@+id/myModulesButton"
@@ -51,7 +51,7 @@
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboardButton" />
+        app:layout_constraintTop_toBottomOf="@+id/learningStyle" />
 
     <Button
         android:id="@+id/settingsButton"
@@ -77,17 +77,17 @@
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/cognitiveSkills" />
 
     <Button
-        android:id="@+id/studentsButton"
+        android:id="@+id/cognitiveSkills"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="226dp"
         android:layout_marginEnd="66dp"
         android:layout_marginRight="66dp"
         android:layout_marginBottom="72dp"
-        android:text="Students"
+        android:text="Cognitive Skills"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toTopOf="@+id/connectButton"
         app:layout_constraintEnd_toEndOf="parent"

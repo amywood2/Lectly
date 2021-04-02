@@ -14,8 +14,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.json.gson.GsonFactory;
@@ -29,6 +32,7 @@ import javax.annotation.Nullable;
 public class filesActivity extends AppCompatActivity {
 
     DriveServiceHelper driveServiceHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +119,7 @@ public class filesActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
+
+
 }
