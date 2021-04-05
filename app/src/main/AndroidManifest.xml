@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
+        <activity android:name=".students"></activity>
+        <activity android:name=".connect" />
+        <activity android:name=".modules" />
+        <activity android:name=".settings" />
+        <activity android:name=".dashboard" />
+        <activity android:name=".allPosts" />
         <activity android:name=".filesActivity" />
         <activity android:name=".studentMenu" />
         <activity

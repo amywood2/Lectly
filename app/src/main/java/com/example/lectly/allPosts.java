@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class lecturerMain extends AppCompatActivity {
+public class allPosts extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
@@ -63,16 +63,16 @@ public class lecturerMain extends AppCompatActivity {
         create = (FloatingActionButton) findViewById(R.id.createButton);
         menu =  (FloatingActionButton) findViewById(R.id.menuButton);
         filter =  (FloatingActionButton) findViewById(R.id.filterButton);
-      //dataView = findViewById(R.id.textViewTitle);
+        //dataView = findViewById(R.id.textViewTitle);
 
         postTitles = new ArrayList<String>();
         postDescriptions = new ArrayList<String>();
         postDemonstrations = new ArrayList<String>();
         postStudentWorks = new ArrayList<String>();
-       // textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-       // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-       // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
-      //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
+        // textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
+        // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
+        //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
 
 
 
@@ -144,7 +144,7 @@ public class lecturerMain extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-            //textViewTitle.setText(postTitles.get(0));
+        //textViewTitle.setText(postTitles.get(0));
     }
 
     private void getDescriptions(JSONArray allPosts) {
@@ -180,7 +180,7 @@ public class lecturerMain extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-       // textViewStudentWork.setText(postStudentWorks.get(0));
+        // textViewStudentWork.setText(postStudentWorks.get(0));
     }
 
     private void creatingNewsfeed(JSONArray allPosts){
@@ -262,9 +262,3 @@ public class lecturerMain extends AppCompatActivity {
 
     }
 }
-
-
-
-
-
-
