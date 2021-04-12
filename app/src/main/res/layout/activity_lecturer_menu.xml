@@ -6,101 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".lecturerMenu">
 
-    <Button
-        android:id="@+id/allPosts"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="372dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:text="Posts"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toStartOf="@+id/congntiveSkills"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/learningQuiz"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="72dp"
-        android:text="DashBoard"
-        android:textSize="12sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/modules"
-        app:layout_constraintEnd_toStartOf="@+id/connect"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/modules"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginLeft="76dp"
-        android:layout_marginBottom="124dp"
-        android:text="Modules"
-        android:textSize="14sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/settings"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="124dp"
-        android:text="Settings"
-        android:textSize="14sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect" />
-
-    <Button
-        android:id="@+id/connect"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:text="Connect"
-        android:textSize="14sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/congntiveSkills" />
-
-    <Button
-        android:id="@+id/congntiveSkills"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="372dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:text="Students"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/profileImage"
         android:layout_width="104dp"
         android:layout_height="105dp"
         android:layout_marginStart="61dp"
         android:layout_marginLeft="61dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="39dp"
         android:layout_marginRight="39dp"
         app:layout_constraintEnd_toStartOf="@+id/profileName"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -109,24 +25,98 @@
         android:id="@+id/profileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="137dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginRight="131dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginRight="156dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/editProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:clickable="true"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <Button
+        android:id="@+id/lConnectButton"
+        android:layout_width="132dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="229dp"
+        android:layout_marginLeft="229dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="244dp"
+        android:text="Connect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/lAllPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="73dp"
+        android:text="Posts"
+        app:layout_constraintBottom_toTopOf="@+id/lDashboard"
+        app:layout_constraintEnd_toStartOf="@+id/lSettings"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+    <Button
+        android:id="@+id/lSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfile" />
+
+    <Button
+        android:id="@+id/lDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="48dp"
+        android:text="Dashboard"
+        app:layout_constraintBottom_toTopOf="@+id/lModules"
+        app:layout_constraintEnd_toStartOf="@+id/lStudents" />
+
+    <Button
+        android:id="@+id/lModules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:layout_marginBottom="248dp"
+        android:text="Modules"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/lStudents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginBottom="44dp"
+        android:text="Students"
+        app:layout_constraintBottom_toTopOf="@+id/lConnectButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lSettings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

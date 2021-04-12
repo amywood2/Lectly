@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".createPost">
+
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/titleValue"
@@ -32,11 +39,12 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/demonstrationValue"
-        android:layout_width="335dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
+        android:layout_width="197dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
+        android:hint="Save files as.."
         android:inputType="text"
         android:textCursorDrawable="@drawable/cursor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/moduleSpinner" />
 
     <Switch
         android:id="@+id/allowComments"
@@ -146,28 +154,36 @@
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/moduleSpinner"
         android:layout_width="245dp"
         android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="119dp"
-        android:layout_marginRight="119dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginRight="116dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allowComments" />
 
-    <TextView
-        android:id="@+id/textViewTitle"
+    <Button
+        android:id="@+id/selectFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="107dp"
-        android:layout_marginLeft="107dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="215dp"
-        android:layout_marginRight="215dp"
-        android:layout_marginBottom="782dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/infoButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="65dp"
+        android:text="Upload"
+        app:layout_constraintBottom_toTopOf="@+id/studentWorkValue"
+        app:layout_constraintStart_toEndOf="@+id/demonstrationValue" />
+
+    <TextView
+        android:id="@+id/moduleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="313dp"
+        android:layout_marginRight="313dp"
+        android:layout_marginBottom="7dp"
+        android:text="Module"
+        app:layout_constraintBottom_toTopOf="@+id/moduleSpinner"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

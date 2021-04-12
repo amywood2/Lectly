@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -58,8 +57,8 @@ public class studentMain extends AppCompatActivity {
 
     private void setupUI() {
         //files = (Button) findViewById(R.id.files);
-        menu =  (FloatingActionButton) findViewById(R.id.menuButton);
-        filter =  (FloatingActionButton) findViewById(R.id.filterButton);
+        menu =  (FloatingActionButton) findViewById(R.id.sMenuButton);
+        filter =  (FloatingActionButton) findViewById(R.id.sFilterButton);
         //dataView = findViewById(R.id.textViewTitle);
 
         postTitles = new ArrayList<String>();
@@ -75,7 +74,7 @@ public class studentMain extends AppCompatActivity {
 
         menu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), lecturerMenu.class);
+                Intent i = new Intent(getApplicationContext(), studentMenu.class);
                 startActivity(i);
             }
         });

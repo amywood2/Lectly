@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toTopOf="@+id/createButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterButton"
+        app:layout_constraintTop_toBottomOf="@+id/lFilterButton"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,11 +43,11 @@
         android:clickable="true"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/filesButton"
+        app:layout_constraintEnd_toStartOf="@+id/lFilesButton"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/filterButton"
+        android:id="@+id/lFilterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -60,7 +60,7 @@
         app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/menuButton"
+        android:id="@+id/lMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="85dp"
@@ -73,7 +73,7 @@
         app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/filesButton"
+        android:id="@+id/lFilesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -86,7 +86,7 @@
         app:srcCompat="@android:drawable/sym_contact_card" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/notificationButton"
+        android:id="@+id/lNotificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -97,6 +97,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_popup_reminder" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginRight="178dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/lNotificationButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

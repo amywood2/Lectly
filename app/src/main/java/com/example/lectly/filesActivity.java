@@ -95,7 +95,7 @@ public class filesActivity extends AppCompatActivity {
 
     }
 
-    public void uploadFile(View v){
+    /*public void uploadFile(View v){
         ProgressDialog progressDialog = new ProgressDialog(filesActivity.this);
         progressDialog.setTitle("Uploading to Google Drive");
         progressDialog.setMessage("Please wait...");
@@ -103,7 +103,7 @@ public class filesActivity extends AppCompatActivity {
 
         String filePath = "/storage/emulated/0/mypdf.pdf";
 
-        driveServiceHelper.createFile(filePath).addOnSuccessListener(new OnSuccessListener<String>() {
+        //driveServiceHelper.createFile(filePath).addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {
                 progressDialog.dismiss();
@@ -120,6 +120,6 @@ public class filesActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
 
 }

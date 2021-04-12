@@ -19,14 +19,14 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     Button register;
     Button forgotPassword;
+    public static Boolean isLecturerLoggedIn;
+    public static Boolean isStudentLoggedIn;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         textInputUsernameLogin = findViewById(R.id.loginUsernameValue);
         textInputPasswordLogin = findViewById(R.id.loginPasswordValue);
         loginButton = findViewById(R.id.loginButton);
@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 Intent i = new Intent (getApplicationContext(), typeOfUser.class);
@@ -69,16 +68,18 @@ public class LoginActivity extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            PutData putData = new PutData("http://192.168.5.31:8888/Lectly/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.87:8888/Lectly/login.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
                                     if (result.equals("Student Logging in")) {
+                                        isStudentLoggedIn = true;
                                         Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), studentMain.class);
                                         startActivity(intent);
                                         finish();
                                     } else if (result.equals("Lecturer Logging in")) {
+                                        isLecturerLoggedIn = true;
                                         Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
                                         startActivity(intent);

@@ -21,12 +21,12 @@ public class lecturerMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_menu);
 
-        allPosts = findViewById(R.id.allPosts);
-        dashboard = findViewById(R.id.learningQuiz);
-        modules = findViewById(R.id.modules);
-        settings = findViewById(R.id.settings);
-        connect = findViewById(R.id.connect);
-        students = findViewById(R.id.congntiveSkills);
+        allPosts = findViewById(R.id.lAllPosts);
+        dashboard = findViewById(R.id.lDashboard);
+        modules = findViewById(R.id.lModules);
+        settings = findViewById(R.id.lSettings);
+        connect = findViewById(R.id.lConnectButton);
+        students = findViewById(R.id.lStudents);
 
 
         allPosts.setOnClickListener(new View.OnClickListener() {
@@ -36,14 +36,14 @@ public class lecturerMenu extends AppCompatActivity {
             }
         });
 
-        dashboard.setOnClickListener(new View.OnClickListener() {
+       dashboard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), dashboard.class);
                 startActivity(i);
             }
         });
 
-        modules.setOnClickListener(new View.OnClickListener() {
+       modules.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), modules.class);
                 startActivity(i);
@@ -64,7 +64,7 @@ public class lecturerMenu extends AppCompatActivity {
             }
         });
 
-        students.setOnClickListener(new View.OnClickListener() {
+       students.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), students.class);
                 startActivity(i);

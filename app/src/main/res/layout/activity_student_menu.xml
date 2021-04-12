@@ -7,24 +7,7 @@
     tools:context=".studentMenu">
 
     <Button
-        android:id="@+id/allPosts"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="72dp"
-        android:text="Saved Posts"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/learningQuiz"
-        app:layout_constraintEnd_toStartOf="@+id/congntiveSkills"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/learningQuiz"
+        android:id="@+id/learningQuizButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginStart="75dp"
@@ -35,26 +18,26 @@
         android:text="Learning Style Quiz"
         android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toStartOf="@+id/connect"
+        app:layout_constraintEnd_toStartOf="@+id/sConnectButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allPosts" />
+        app:layout_constraintTop_toBottomOf="@+id/studyButton" />
 
     <Button
-        android:id="@+id/modules"
+        android:id="@+id/modulesButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginStart="75dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="75dp"
-        android:text="Modules"
-        android:textSize="14sp"
+        android:text="Modules and Deadlines"
+        android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/learningQuiz" />
+        app:layout_constraintTop_toBottomOf="@+id/learningQuizButton" />
 
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/settingsButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="75dp"
@@ -64,10 +47,10 @@
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect" />
+        app:layout_constraintTop_toBottomOf="@+id/sConnectButton" />
 
     <Button
-        android:id="@+id/connect"
+        android:id="@+id/sConnectButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="72dp"
@@ -77,10 +60,10 @@
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/congntiveSkills" />
+        app:layout_constraintTop_toBottomOf="@+id/skillsButton" />
 
     <Button
-        android:id="@+id/congntiveSkills"
+        android:id="@+id/skillsButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="226dp"
@@ -88,9 +71,45 @@
         android:layout_marginRight="66dp"
         android:layout_marginBottom="72dp"
         android:text="Cognitive Skills"
+        android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/connect"
+        app:layout_constraintBottom_toTopOf="@+id/sConnectButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/studyButton"
+        android:layout_width="113dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="226dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="Study"
+        app:layout_constraintEnd_toStartOf="@+id/skillsButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/sProfileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:clickable="true"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
