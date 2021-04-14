@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +46,7 @@ public class lecturerMain extends AppCompatActivity {
     private ArrayList<String> postDemonstrations;
     private ArrayList<String> postStudentWorks;
     private JSONArray result;
+    private JSONArray modresult;
     private JSONArray aPost;
     private TextView textViewTitle;
     private TextView textViewDescription;
@@ -52,8 +56,8 @@ public class lecturerMain extends AppCompatActivity {
     private int postID;
     boolean isPostClicked;
     Button[] b_titles;
-    Button titleb;
-    String id;
+    public TextView module;
+
 
 
     @Override
@@ -78,7 +82,7 @@ public class lecturerMain extends AppCompatActivity {
         postDescriptions = new ArrayList<String>();
         postDemonstrations = new ArrayList<String>();
         postStudentWorks = new ArrayList<String>();
-        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        //textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
         // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
         //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
@@ -100,13 +104,8 @@ public class lecturerMain extends AppCompatActivity {
 
         files.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = getPackageManager().getLaunchIntentForPackage("com.google.android.YouTube");
-                if (i != null) {
-                    startActivity(i);
-                } else {
-                    Toast.makeText(lecturerMain.this, "No app available on this phone", Toast.LENGTH_LONG).show();
-                }
-
+                Intent i = new Intent(getApplicationContext(), filesActivity.class);
+                startActivity(i);
             }
         });
 
@@ -119,7 +118,7 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void getPosts() {
-        final ConstraintLayout layout = findViewById(R.id.constraintLayout);
+        final FrameLayout layout = findViewById(R.id.frameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @Override
@@ -132,69 +131,110 @@ public class lecturerMain extends AppCompatActivity {
                             for (int i = 0; i < result.length(); i++) {
 
                                 ConstraintLayout postLayout = new ConstraintLayout(lecturerMain.this);
+                                CardView card = new CardView(lecturerMain.this);
                                 JSONObject jsonObject = result.getJSONObject(i);
 
                                 String id = jsonObject.getString("id");
                                 String title = jsonObject.getString("title");
+                                //String timeAndDate = jsonObject.getString("description");
                                 String description = jsonObject.getString("description");
-                                titleb = new Button(lecturerMain.this);
+                                TextView titleView = new TextView(lecturerMain.this);
+                                titleView.setTextSize(32);
 
-
-
+                                TextView timeDate = new TextView(lecturerMain.this);
                                 TextView descriptionV = new TextView(lecturerMain.this);
-                                TextView line = new TextView(lecturerMain.this);
-                                TextView lineh = new TextView(lecturerMain.this);
-                                titleb.setText(title);
+                                descriptionV.setTextSize(20);
+
+                                titleView.setText(title);
+                                timeDate.setText(" TIME DATE");
                                 descriptionV.setText(description);
-                                line.setText("_________________________________________________");
 
-                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                                        ((int) LinearLayout.LayoutParams.WRAP_CONTENT, (int) LinearLayout.LayoutParams.WRAP_CONTENT);
-                                params.leftMargin = 50;
-                                params.topMargin = i * 50;
 
-                                titleb.setTextSize((float) 20);
-                                if (i == 0) {
-                                    titleb.setPadding(100, 50, 20, 50);
-                                } else {
-                                    titleb.setPadding(100, 450 * i, 20, 50);
+                                StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                JSONObject modules;
+                                                try {
+                                                        modules = new JSONObject(response);
+                                                        modresult = modules.getJSONArray(PostDetails.JSON_ARRAY);
+                                                        for (int i = 0; i < modresult.length(); i++) {
+                                                            module = new TextView(lecturerMain.this);
+                                                            JSONObject jsonObject = modresult.getJSONObject(i);
+                                                            String module_name = jsonObject.getString("module_name");
+                                                            module.setText(module_name);
+                                                            FrameLayout.LayoutParams modParams = new FrameLayout.LayoutParams
+                                                                    ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                                            module.setPadding(10, 10, 10, 50);
+                                                            modParams.topMargin= i * 450;
+                                                            module.setLayoutParams(modParams);
+
+                                                            card.addView(module);
+
+                                                        }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        },
+                                new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
                                 }
+                            });
+                               RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
+                               requestQueue.add(modStringRequest);
 
-                                descriptionV.setTextSize((float) 20);
-                                descriptionV.setPadding(100, 550 * i , 20, 50);
-
-                                line.setPadding(100, 600 * i , 20, 50);
-
-                                titleb.setBackgroundColor(000000);
-                                titleb.setLayoutParams(params);
-                                descriptionV.setLayoutParams(params);
-                                line.setLayoutParams(params);
+                                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
+                                       ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                CardView.LayoutParams cardParams = new CardView.LayoutParams
+                                        ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
 
 
+                                layoutParams.width = 980;
+                                layoutParams.leftMargin = 30;
+                                layoutParams.topMargin = i * 420;
 
-                                layout.addView(titleb);
-                                layout.addView(descriptionV);
-                                layout.addView(line);
+                                card.setPadding(100, 10, 20, 10);
+                                card.setCardElevation(10);
+                                card.setRadius(15);
+                                card.setClickable(true);
 
-                                titleb.setOnClickListener(new View.OnClickListener() {
+
+                                postLayout.setLayoutParams(layoutParams);
+                                card.setLayoutParams(cardParams);
+                                card.setContentPadding(50, 10,50,50);
+                                card.setBackgroundResource(R.drawable.card_boarder);
+
+
+                                titleView.setPadding(10, 10, 10, 50);
+                                timeDate.setPadding(10, 100, 10, 10);
+                                descriptionV.setPadding(10, 250, 10, 10);
+
+
+
+                                card.addView(titleView);
+                                card.addView(timeDate);
+                                card.addView(descriptionV);
+
+
+                                //card.addView(relativeLayout);
+                                postLayout.addView(card);
+                                layout.addView(postLayout);
+
+
+                                card.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        isPostClicked = true;
+
                                         idClicked = id;
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
                                         //textViewTitle.setText("get from button is  " + postNameClicked);
                                     }
                                 });
-
-
-
-
                             }
-
-
-
-
 
                             //textViewTitle.setText(allPosts.get(PostDetails.TITLE));
                             getTitles(result);
@@ -204,6 +244,8 @@ public class lecturerMain extends AppCompatActivity {
                             //creatingNewsfeed(result);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            TextView noposts = new TextView(lecturerMain.this);
+                            noposts.setText("No posts to view");
                         }
                     }
                 },

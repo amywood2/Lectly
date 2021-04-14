@@ -10,26 +10,23 @@
 
     <ScrollView
         android:id="@+id/sw"
-        android:layout_width="379dp"
-        android:layout_height="584dp"
+        android:layout_width="376dp"
+        android:layout_height="560dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/createButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lFilterButton"
         tools:ignore="MissingConstraints">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <android.widget.FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="vertical"></android.widget.FrameLayout>
 
     </ScrollView>
 
@@ -97,17 +94,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_popup_reminder" />
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginRight="178dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/lNotificationButton"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
