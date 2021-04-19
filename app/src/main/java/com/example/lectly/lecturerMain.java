@@ -1,10 +1,12 @@
 package com.example.lectly;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -121,6 +123,7 @@ public class lecturerMain extends AppCompatActivity {
         final FrameLayout layout = findViewById(R.id.frameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onResponse(String response) {
                         JSONObject allPosts = null;
@@ -139,18 +142,21 @@ public class lecturerMain extends AppCompatActivity {
                                 //String timeAndDate = jsonObject.getString("description");
                                 String description = jsonObject.getString("description");
                                 TextView titleView = new TextView(lecturerMain.this);
-                                titleView.setTextSize(32);
+                                titleView.setTextSize(28);
 
                                 TextView timeDate = new TextView(lecturerMain.this);
                                 TextView descriptionV = new TextView(lecturerMain.this);
-                                descriptionV.setTextSize(20);
+                                TextView lecturerName = new TextView(lecturerMain.this);
+                                descriptionV.setTextSize(18);
 
                                 titleView.setText(title);
+                                titleView.setTextColor(R.color.black);
                                 timeDate.setText(" TIME DATE");
                                 descriptionV.setText(description);
+                                descriptionV.setTextColor(R.color.black);
 
 
-                                StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
+                           /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -184,39 +190,63 @@ public class lecturerMain extends AppCompatActivity {
                                 }
                             });
                                RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
-                               requestQueue.add(modStringRequest);
+                               requestQueue.add(modStringRequest);*/
+
+                                if (i == 1){
+                                    timeDate.setText("15/02/21");
+                                    lecturerName.setText("Posted by Keith Vermont");
+                                } else if (i == 2) {
+                                    timeDate.setText("22/02/21");
+                                    lecturerName.setText("Posted by Sarah Findlay");
+                                }else{
+                                    timeDate.setText("1/03/21");
+                                    lecturerName.setText("Posted by Thomas Douglas");
+                                }
 
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
                                        ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
                                 CardView.LayoutParams cardParams = new CardView.LayoutParams
                                         ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
 
+                                CardView.LayoutParams imageParams = new CardView.LayoutParams
+                                        ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
 
-                                layoutParams.width = 980;
-                                layoutParams.leftMargin = 30;
-                                layoutParams.topMargin = i * 420;
+                                ImageView eye = new ImageView(lecturerMain.this);
+                                eye.setImageResource(R.drawable.eyeoutline);
+                                layoutParams.width = 1150;
+                                layoutParams.leftMargin = -50;
+                               // layoutParams.rightMargin = 100;
+                                layoutParams.topMargin = i * 570;
 
-                                card.setPadding(100, 10, 20, 10);
+                                card.setPadding(100, 10, 10, 10);
                                 card.setCardElevation(10);
                                 card.setRadius(15);
                                 card.setClickable(true);
 
+                                imageParams.width= 100;
+                                imageParams.height= 100;
+                                eye.setLayoutParams(imageParams);
+                                imageParams.setMargins(900,380,10,0);
 
                                 postLayout.setLayoutParams(layoutParams);
                                 card.setLayoutParams(cardParams);
-                                card.setContentPadding(50, 10,50,50);
+                                card.setContentPadding(50, 10,50,40);
                                 card.setBackgroundResource(R.drawable.card_boarder);
 
 
                                 titleView.setPadding(10, 10, 10, 50);
                                 timeDate.setPadding(10, 100, 10, 10);
-                                descriptionV.setPadding(10, 250, 10, 10);
+                                descriptionV.setPadding(10, 200, 10, 10);
+                                lecturerName.setPadding(10, 400, 10, 0);;
+                                //eye.setPadding(10,50,10,10);
 
 
 
                                 card.addView(titleView);
                                 card.addView(timeDate);
                                 card.addView(descriptionV);
+                                card.addView(eye);
+                                card.addView(lecturerName);
 
 
                                 //card.addView(relativeLayout);
