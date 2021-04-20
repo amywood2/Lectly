@@ -1,6 +1,8 @@
 package com.example.lectly;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -48,19 +50,9 @@ public class lecturerMain extends AppCompatActivity {
     private ArrayList<String> postDemonstrations;
     private ArrayList<String> postStudentWorks;
     private JSONArray result;
-    private JSONArray modresult;
-    private JSONArray aPost;
-    private TextView textViewTitle;
-    private TextView textViewDescription;
-    private TextView textViewDemonstration;
-    private TextView textViewStudentWork;
     public static String idClicked;
     private int postID;
     boolean isPostClicked;
-    Button[] b_titles;
-    public TextView module;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +76,11 @@ public class lecturerMain extends AppCompatActivity {
         postDescriptions = new ArrayList<String>();
         postDemonstrations = new ArrayList<String>();
         postStudentWorks = new ArrayList<String>();
-        //textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-        // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-        // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
-        //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
 
 
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), test.class);
+                Intent i = new Intent(getApplicationContext(), createPost.class);
                 startActivity(i);
             }
         });
@@ -233,6 +221,28 @@ public class lecturerMain extends AppCompatActivity {
                                 card.setContentPadding(50, 10,50,40);
                                 card.setBackgroundResource(R.drawable.card_boarder);
 
+                                eye.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(lecturerMain.this);
+                                        alertDialog.setTitle("Total Interactions");
+                                        alertDialog.setMessage("Total Views = " + "\n" + "Total File Downloads = " );
+                                        //add extra resources
+                                        alertDialog.setPositiveButton("View in dashboard", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent i = new Intent(getApplicationContext(), dashboard.class);
+                                                startActivity(i);
+                                            }
+                                        });
+                                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                });
+
 
                                 titleView.setPadding(10, 10, 10, 50);
                                 timeDate.setPadding(10, 100, 10, 10);
@@ -262,6 +272,7 @@ public class lecturerMain extends AppCompatActivity {
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
                                         //textViewTitle.setText("get from button is  " + postNameClicked);
+
                                     }
                                 });
                             }

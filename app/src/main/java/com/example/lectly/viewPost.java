@@ -1,6 +1,8 @@
 package com.example.lectly;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class viewPost extends AppCompatActivity {
 
     private String getidClicked;
@@ -29,6 +33,7 @@ public class viewPost extends AppCompatActivity {
     TextView postDescription;
     FloatingActionButton backButton;
     TextView postModule;
+    ArrayList<Comment> comments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,19 @@ public class viewPost extends AppCompatActivity {
             }
         });
 
+        // Lookup the recyclerview in activity layout
+        RecyclerView viewComments = (RecyclerView) findViewById(R.id.viewComments);
+
+        // Initialize contacts
+        comments = Comment.createCommentList(20);
+        // Create adapter passing in the sample user data
+        CommentsAdapter adapter = new CommentsAdapter(comments);
+        // Attach the adapter to the recyclerview to populate items
+        viewComments.setAdapter(adapter);
+        // Set layout manager to position the items
+        viewComments.setLayoutManager(new LinearLayoutManager(this));
 
     }
-
 
     private void getPost() {
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualPost.php?id=" + getidClicked ,

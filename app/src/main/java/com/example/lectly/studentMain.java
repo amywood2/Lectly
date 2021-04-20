@@ -1,9 +1,14 @@
 package com.example.lectly;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,19 +37,17 @@ public class studentMain extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
-    Button files;
     FloatingActionButton menu;
     FloatingActionButton filter;
+    FloatingActionButton files;
     TextView dataView;
     private ArrayList<String> postTitles;
     private ArrayList<String> postDescriptions;
     private ArrayList<String> postDemonstrations;
     private ArrayList<String> postStudentWorks;
     private JSONArray result;
-    private TextView textViewTitle;
-    private TextView textViewDescription;
-    private TextView textViewDemonstration;
-    private TextView textViewStudentWork;
+
+    public static String idClicked;
 
 
     @Override
@@ -59,18 +63,13 @@ public class studentMain extends AppCompatActivity {
         //files = (Button) findViewById(R.id.files);
         menu =  (FloatingActionButton) findViewById(R.id.sMenuButton);
         filter =  (FloatingActionButton) findViewById(R.id.sFilterButton);
+        files =  (FloatingActionButton) findViewById(R.id.sFilesButton);
         //dataView = findViewById(R.id.textViewTitle);
 
         postTitles = new ArrayList<String>();
         postDescriptions = new ArrayList<String>();
         postDemonstrations = new ArrayList<String>();
         postStudentWorks = new ArrayList<String>();
-        // textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-        // textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-        // textViewDemonstration = (TextView) findViewById(R.id.textViewDemonstration);
-        //  textViewStudentWork = (TextView) findViewById(R.id.textViewStudentWork);
-
-
 
         menu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -85,24 +84,196 @@ public class studentMain extends AppCompatActivity {
                 //  filter dialog
             }
         });
+
+        files.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), filesActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void getPosts() {
+        final FrameLayout layout = findViewById(R.id.frameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onResponse(String response) {
                         JSONObject allPosts = null;
                         try {
-                            allPosts = new JSONObject(response);
+                            allPosts = new JSONObject(response.toString());
                             result = allPosts.getJSONArray(PostDetails.JSON_ARRAY);
+
+                            for (int i = 0; i < result.length(); i++) {
+
+                                ConstraintLayout postLayout = new ConstraintLayout(studentMain.this);
+                                CardView card = new CardView(studentMain.this);
+                                JSONObject jsonObject = result.getJSONObject(i);
+
+                                String id = jsonObject.getString("id");
+                                String title = jsonObject.getString("title");
+                                //String timeAndDate = jsonObject.getString("description");
+                                String description = jsonObject.getString("description");
+                                TextView titleView = new TextView(studentMain.this);
+                                titleView.setTextSize(28);
+
+                                TextView timeDate = new TextView(studentMain.this);
+                                TextView descriptionV = new TextView(studentMain.this);
+                                TextView lecturerName = new TextView(studentMain.this);
+                                descriptionV.setTextSize(18);
+
+                                titleView.setText(title);
+                                titleView.setTextColor(R.color.black);
+                                timeDate.setText(" TIME DATE");
+                                descriptionV.setText(description);
+                                descriptionV.setTextColor(R.color.black);
+
+
+                           /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                JSONObject modules;
+                                                try {
+                                                        modules = new JSONObject(response);
+                                                        modresult = modules.getJSONArray(PostDetails.JSON_ARRAY);
+                                                        for (int i = 0; i < modresult.length(); i++) {
+                                                            module = new TextView(lecturerMain.this);
+                                                            JSONObject jsonObject = modresult.getJSONObject(i);
+                                                            String module_name = jsonObject.getString("module_name");
+                                                            module.setText(module_name);
+                                                            FrameLayout.LayoutParams modParams = new FrameLayout.LayoutParams
+                                                                    ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                                            module.setPadding(10, 10, 10, 50);
+                                                            modParams.topMargin= i * 450;
+                                                            module.setLayoutParams(modParams);
+
+                                                            card.addView(module);
+
+                                                        }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        },
+                                new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            });
+                               RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
+                               requestQueue.add(modStringRequest);*/
+
+                                if (i == 1){
+                                    timeDate.setText("15/02/21");
+                                    lecturerName.setText("Posted by Keith Vermont");
+                                } else if (i == 2) {
+                                    timeDate.setText("22/02/21");
+                                    lecturerName.setText("Posted by Sarah Findlay");
+                                }else{
+                                    timeDate.setText("1/03/21");
+                                    lecturerName.setText("Posted by Thomas Douglas");
+                                }
+
+                                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
+                                        ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                CardView.LayoutParams cardParams = new CardView.LayoutParams
+                                        ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
+
+                                CardView.LayoutParams imageParams = new CardView.LayoutParams
+                                        ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
+
+                                ImageView save = new ImageView(studentMain.this);
+                                save.setImageResource(R.drawable.saveicon);
+                                layoutParams.width = 1150;
+                                layoutParams.leftMargin = -50;
+                                // layoutParams.rightMargin = 100;
+                                layoutParams.topMargin = i * 570;
+
+                                card.setPadding(100, 10, 10, 10);
+                                card.setCardElevation(10);
+                                card.setRadius(15);
+                                card.setClickable(true);
+
+                                imageParams.width= 80;
+                                imageParams.height= 80;
+                                save.setLayoutParams(imageParams);
+                                imageParams.setMargins(900,380,10,0);
+
+                                postLayout.setLayoutParams(layoutParams);
+                                card.setLayoutParams(cardParams);
+                                card.setContentPadding(50, 10,50,40);
+                                card.setBackgroundResource(R.drawable.card_boarder);
+
+                                save.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(studentMain.this);
+                                        alertDialog.setTitle("Save this post?");
+                                        alertDialog.setMessage("You can find this post in your saved posts");
+                                        //add extra resources
+                                        alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //add post to savepost database
+                                                //change icon to filled in
+                                                save.setImageResource(R.drawable.filledsaveicon);
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+                                });
+
+                                titleView.setPadding(10, 10, 10, 50);
+                                timeDate.setPadding(10, 100, 10, 10);
+                                descriptionV.setPadding(10, 200, 10, 10);
+                                lecturerName.setPadding(10, 400, 10, 0);;
+                                //eye.setPadding(10,50,10,10);
+
+
+
+                                card.addView(titleView);
+                                card.addView(timeDate);
+                                card.addView(descriptionV);
+                                card.addView(save);
+                                card.addView(lecturerName);
+
+
+                                //card.addView(relativeLayout);
+                                postLayout.addView(card);
+                                layout.addView(postLayout);
+
+
+                                card.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        idClicked = id;
+                                        Intent j = new Intent(getApplicationContext(), viewPost.class);
+                                        startActivity(j);
+                                        //textViewTitle.setText("get from button is  " + postNameClicked);
+
+                                    }
+                                });
+                            }
+
+                            //textViewTitle.setText(allPosts.get(PostDetails.TITLE));
                             getTitles(result);
                             getDescriptions(result);
                             getDemonstrations(result);
                             getStudentWorks(result);
-                            creatingNewsfeed(result);
+                            //creatingNewsfeed(result);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            TextView noposts = new TextView(studentMain.this);
+                            noposts.setText("No posts to view");
                         }
                     }
                 },
