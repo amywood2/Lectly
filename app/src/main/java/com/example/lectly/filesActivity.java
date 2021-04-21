@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -41,11 +44,14 @@ public class filesActivity extends AppCompatActivity {
 
     private final String CLIENT_ID = "871758952307-gefvvldrkte3sndbpg8rior6fdgk3gjh.apps.googleusercontent.com";
     private final String CLIENT_SECRET = "xdn2rDVgM2LfnLobU_3TW0H4";
-    private final String REDIRECT_URI = "https://httpbin1.appspot.com/get";
+    private final String REDIRECT_URI = "https://lectly.com";
 
     ArrayList<GDAuthConfig.SCOPES> scopes = new ArrayList<>();
 
     ProgressDialog loadingDialog = null;
+
+    EditText notesInput;
+    Button saveNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,17 @@ public class filesActivity extends AppCompatActivity {
         scopes.add(GDAuthConfig.SCOPES.DRIVE);
         scopes.add(GDAuthConfig.SCOPES.APP_FOLDER);
 
-        showAuthOptions();
+        //showAuthOptions();
+
+        notesInput = findViewById(R.id.noteInput);
+        saveNotes = findViewById(R.id.saveNotes);
+
+
+        saveNotes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startGoogleWithWebView();
+            }
+        });
     }
 
     private void showAuthOptions() {
@@ -89,7 +105,7 @@ public class filesActivity extends AppCompatActivity {
 
         try {
 
-            this.gdAuthConfig = new GDAuthConfig("https://httpbin1.appspot.com/get",
+            this.gdAuthConfig = new GDAuthConfig("https://lectly.com",
                     CLIENT_ID,
                     CLIENT_SECRET,
                     scopes);
@@ -226,7 +242,7 @@ public class filesActivity extends AppCompatActivity {
         File tempFile = GDFileManager.getInstance().createTempFile(getApplicationContext(), "txt", false);
         try {
             // Create a temp Text file
-            GDFileManager.getInstance().saveStringToFile(tempFile, "This is a test file Created by Google_Drive_REST_Android Library");
+            GDFileManager.getInstance().saveStringToFile(tempFile, notesInput.getText().toString());
 
             // Upload this file to google drive.
             GDApiManager.getInstance().uploadFileAsync(getApplicationContext(), gdAuthResponse, filesActivity.this.gdAuthConfig, tempFile, GDFileManager.getInstance().getMimeType(getApplicationContext(), tempFile), false, new GDUploadFileResponse.OnUploadFileCompleteListener() {
@@ -241,7 +257,7 @@ public class filesActivity extends AppCompatActivity {
                             // Check for a download file in your private files
                             // In here: Internal Storage > Android > data > com.tejpratapsingh.com > files
                             showToast("File Downloaded Successfully");
-                            showAlert("Sample Text file is successfully Uploaded and Downloaded from Google Drive. Check you Google Drive.");
+                            showAlert("Your notes have been successfully uploaded to your Google Drive");
                         }
 
                         @Override
@@ -281,25 +297,10 @@ public class filesActivity extends AppCompatActivity {
                 new AlertDialog.Builder(filesActivity.this)
                         .setTitle(R.string.app_name)
                         .setMessage(text)
-                        .setPositiveButton("retry", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                showAuthOptions();
-                            }
-                        })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
-                            }
-                        })
-                        .setNeutralButton("ICON 8", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String url = "http://www.icon8.com";
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(url));
-                                startActivity(i);
                             }
                         })
                         .create()
