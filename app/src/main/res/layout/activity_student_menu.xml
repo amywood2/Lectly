@@ -60,17 +60,17 @@
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skillsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/sSavedPostsButton" />
 
     <Button
-        android:id="@+id/skillsButton"
+        android:id="@+id/sSavedPostsButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="226dp"
         android:layout_marginEnd="66dp"
         android:layout_marginRight="66dp"
         android:layout_marginBottom="72dp"
-        android:text="Cognitive Skills"
+        android:text="Saved Posts"
         android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toTopOf="@+id/sConnectButton"
@@ -85,7 +85,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="Study"
-        app:layout_constraintEnd_toStartOf="@+id/skillsButton"
+        app:layout_constraintEnd_toStartOf="@+id/sSavedPostsButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

@@ -34,7 +34,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DriveActivity"></activity>
+        <activity android:name=".savedPosts"></activity>
+        <activity android:name=".DriveActivity" />
         <activity android:name=".studySection" />
         <activity android:name=".test" />
         <activity android:name=".viewPost" />
@@ -68,16 +69,18 @@
         <activity
             android:name=".studentMain"
             android:theme="@style/Theme.Lectly.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Lectly.NoActionBar" />
+            android:theme="@style/Theme.Lectly.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

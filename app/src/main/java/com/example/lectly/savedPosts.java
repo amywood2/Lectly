@@ -1,10 +1,15 @@
 package com.example.lectly;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,91 +20,33 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+public class savedPosts extends AppCompatActivity {
 
-import java.util.ArrayList;
-
-
-public class lecturerMain extends AppCompatActivity {
-
-    private AppBarConfiguration mAppBarConfiguration;
-    private static final String TAG = null;
-    FloatingActionButton notes;
-    FloatingActionButton menu;
-    FloatingActionButton create;
-    FloatingActionButton filter;
-    TextView dataView;
-    private ArrayList<String> postTitles;
-    private ArrayList<String> postDescriptions;
-    private ArrayList<String> postDemonstrations;
-    private ArrayList<String> postStudentWorks;
+    TextView userId;
     private JSONArray result;
     public static String idClicked;
+    boolean isPostClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lecturer_main);
-        setupUI();
-        getPosts();
+        setContentView(R.layout.activity_saved_posts);
+
+        userId = findViewById(R.id.userIdTextView);
+
+        userId.setText(LoginActivity.loggedInUserId);
+
+        getSavedPosts();
     }
 
-    private void setupUI() {
-        notes = (FloatingActionButton) findViewById(R.id.lNotesButton);
-        create = (FloatingActionButton) findViewById(R.id.createButton);
-        menu = (FloatingActionButton) findViewById(R.id.lMenuButton);
-        filter = (FloatingActionButton) findViewById(R.id.lFilterButton);
-
-
-        postTitles = new ArrayList<String>();
-        postDescriptions = new ArrayList<String>();
-        postDemonstrations = new ArrayList<String>();
-        postStudentWorks = new ArrayList<String>();
-
-
-        create.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), createPost.class);
-                startActivity(i);
-            }
-        });
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), lecturerMenu.class);
-                startActivity(i);
-            }
-        });
-
-        notes.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), notesActivity.class);
-                startActivity(i);
-            }
-        });
-
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  filter dialog
-            }
-        });
-    }
-
-    private void getPosts() {
+    private void getSavedPosts() {
         final FrameLayout layout = findViewById(R.id.frameLayout);
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getSavedPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -111,20 +58,20 @@ public class lecturerMain extends AppCompatActivity {
 
                             for (int i = 0; i < result.length(); i++) {
 
-                                ConstraintLayout postLayout = new ConstraintLayout(lecturerMain.this);
-                                CardView card = new CardView(lecturerMain.this);
+                                ConstraintLayout postLayout = new ConstraintLayout(savedPosts.this);
+                                CardView card = new CardView(savedPosts.this);
                                 JSONObject jsonObject = result.getJSONObject(i);
 
                                 String id = jsonObject.getString("id");
                                 String title = jsonObject.getString("title");
                                 //String timeAndDate = jsonObject.getString("description");
                                 String description = jsonObject.getString("description");
-                                TextView titleView = new TextView(lecturerMain.this);
+                                TextView titleView = new TextView(savedPosts.this);
                                 titleView.setTextSize(28);
 
-                                TextView timeDate = new TextView(lecturerMain.this);
-                                TextView descriptionV = new TextView(lecturerMain.this);
-                                TextView lecturerName = new TextView(lecturerMain.this);
+                                TextView timeDate = new TextView(savedPosts.this);
+                                TextView descriptionV = new TextView(savedPosts.this);
+                                TextView lecturerName = new TextView(savedPosts.this);
                                 descriptionV.setTextSize(18);
 
                                 titleView.setText(title);
@@ -133,31 +80,33 @@ public class lecturerMain extends AppCompatActivity {
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
+                                //getmodulename
 
-                                if (i == 1){
+
+                                if (i == 1) {
                                     timeDate.setText("15/02/21");
                                     lecturerName.setText("Posted by Keith Vermont");
                                 } else if (i == 2) {
                                     timeDate.setText("22/02/21");
                                     lecturerName.setText("Posted by Sarah Findlay");
-                                }else{
+                                } else {
                                     timeDate.setText("1/03/21");
                                     lecturerName.setText("Posted by Thomas Douglas");
                                 }
 
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
-                                       ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                        ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
                                 CardView.LayoutParams cardParams = new CardView.LayoutParams
                                         ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
 
                                 CardView.LayoutParams imageParams = new CardView.LayoutParams
                                         ((int) CardView.LayoutParams.MATCH_PARENT, (int) CardView.LayoutParams.WRAP_CONTENT);
 
-                                ImageView eye = new ImageView(lecturerMain.this);
-                                eye.setImageResource(R.drawable.eyeoutline);
+                                ImageView deleteFromSaved = new ImageView(savedPosts.this);
+                                deleteFromSaved.setImageResource(R.drawable.deleteicon);
                                 layoutParams.width = 1150;
                                 layoutParams.leftMargin = -50;
-                               // layoutParams.rightMargin = 100;
+                                // layoutParams.rightMargin = 100;
                                 layoutParams.topMargin = i * 570;
 
                                 card.setPadding(100, 10, 10, 10);
@@ -165,27 +114,26 @@ public class lecturerMain extends AppCompatActivity {
                                 card.setRadius(15);
                                 card.setClickable(true);
 
-                                imageParams.width= 100;
-                                imageParams.height= 100;
-                                eye.setLayoutParams(imageParams);
-                                imageParams.setMargins(900,380,10,0);
+                                imageParams.width = 100;
+                                imageParams.height = 100;
+
+                                imageParams.setMargins(900, 380, 10, 0);
 
                                 postLayout.setLayoutParams(layoutParams);
                                 card.setLayoutParams(cardParams);
-                                card.setContentPadding(50, 10,50,40);
+                                card.setContentPadding(50, 10, 50, 40);
                                 card.setBackgroundResource(R.drawable.card_boarder);
 
-                                eye.setOnClickListener(new View.OnClickListener() {
+                                deleteFromSaved.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(lecturerMain.this);
-                                        alertDialog.setTitle("Total Interactions");
-                                        alertDialog.setMessage("Total Views = " + "\n" + "Total File Downloads = " );
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(savedPosts.this);
+                                        alertDialog.setTitle("Remove from saved post?");
+                                        alertDialog.setMessage("This post will no longer be in your saved posts.");
                                         //add extra resources
-                                        alertDialog.setPositiveButton("View in dashboard", new DialogInterface.OnClickListener() {
+                                        alertDialog.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-                                                Intent i = new Intent(getApplicationContext(), dashboard.class);
-                                                startActivity(i);
+                                                //REMOVE FROM SAVED POSTS
                                             }
                                         });
                                         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -201,15 +149,14 @@ public class lecturerMain extends AppCompatActivity {
                                 titleView.setPadding(10, 10, 10, 50);
                                 timeDate.setPadding(10, 100, 10, 10);
                                 descriptionV.setPadding(10, 200, 10, 10);
-                                lecturerName.setPadding(10, 400, 10, 0);;
-                                //eye.setPadding(10,50,10,10);
-
+                                lecturerName.setPadding(10, 400, 10, 0);
+                                ;
 
 
                                 card.addView(titleView);
                                 card.addView(timeDate);
                                 card.addView(descriptionV);
-                                card.addView(eye);
+                                card.addView(deleteFromSaved);
                                 card.addView(lecturerName);
 
 
@@ -232,15 +179,15 @@ public class lecturerMain extends AppCompatActivity {
                             }
 
                             //textViewTitle.setText(allPosts.get(PostDetails.TITLE));
-                            getTitles(result);
-                            getDescriptions(result);
-                            getDemonstrations(result);
-                            getStudentWorks(result);
+                            // getTitles(result);
+                            // getDescriptions(result);
+                            // getDemonstrations(result);
+                            // getStudentWorks(result);
                             //creatingNewsfeed(result);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TextView noposts = new TextView(lecturerMain.this);
-                            noposts.setText("No posts to view");
+                            TextView noposts = new TextView(savedPosts.this);
+                            noposts.setText("You have no saved posts. You can save posts to review later by clicking on the save icon in your newsfeed.");
                         }
                     }
                 },
@@ -253,57 +200,10 @@ public class lecturerMain extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+}
 
-    private void getTitles(JSONArray allPosts) {
-        for (int i = 0; i < allPosts.length(); i++) {
-            try {
-                JSONObject json = allPosts.getJSONObject(i);
-                postTitles.add(json.getString(PostDetails.TITLE));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        //textViewTitle.setText(postTitles.get(0));
-    }
-
-    private void getDescriptions(JSONArray allPosts) {
-        for (int i = 0; i < allPosts.length(); i++) {
-            try {
-                JSONObject json = allPosts.getJSONObject(i);
-                postDescriptions.add(json.getString(PostDetails.DESCRIPTION));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        //textViewDescription.setText(postDescriptions.get(0));
-    }
-
-    private void getDemonstrations(JSONArray allPosts) {
-        for (int i = 0; i < allPosts.length(); i++) {
-            try {
-                JSONObject json = allPosts.getJSONObject(i);
-                postDemonstrations.add(json.getString(PostDetails.DEMONSTRATION));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        //textViewDemonstration.setText(postDemonstrations.get(0));
-    }
-
-    private void getStudentWorks(JSONArray allPosts) {
-        for (int i = 0; i < allPosts.length(); i++) {
-            try {
-                JSONObject json = allPosts.getJSONObject(i);
-                postStudentWorks.add(json.getString(PostDetails.STUDENTWORK));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        // textViewStudentWork.setText(postStudentWorks.get(0));
-    }
-
-    //public void getModuleName(){
-                           /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
+//getmodulename
+ /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -338,21 +238,3 @@ public class lecturerMain extends AppCompatActivity {
                             });
                                RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
                                requestQueue.add(modStringRequest);*/
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-

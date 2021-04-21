@@ -11,7 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +30,10 @@ public class LoginActivity extends AppCompatActivity {
     Button forgotPassword;
     public static Boolean isLecturerLoggedIn;
     public static Boolean isStudentLoggedIn;
+    public static String username;
+    private JSONArray idResult;
+    public static String loggedInUserId;
+
 
 
     @Override
@@ -46,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username, password;
+                String password;
 
                 username = String.valueOf(textInputUsernameLogin.getText());
                 password = String.valueOf(textInputPasswordLogin.getText());
@@ -96,9 +109,66 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
-
+                getUserID();
             }
         });
+    }
+
+    public void getUserID(){
+        if (typeOfUser.typeofuser == "Lecturer") {
+            StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerId.php?username=" + username,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject theIds = null;
+                            try {
+                                theIds = new JSONObject(response.toString());
+                                idResult = theIds.getJSONArray(PostDetails.JSON_ARRAY);
+                                for (int i = 0; i < idResult.length(); i++) {
+                                    JSONObject jsonObject = idResult.getJSONObject(i);
+                                    String id = jsonObject.getString("id");
+                                    loggedInUserId = id;
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+            RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+            requestQueue.add(modStringRequest);
+        }else {
+            StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getStudentId.php?username=" + username,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject ids;
+                            try {
+                                ids = new JSONObject(response);
+                                idResult = ids.getJSONArray(PostDetails.JSON_ARRAY);
+                                for (int i = 0; i < idResult.length(); i++) {
+                                    loggedInUserId = idResult.get(i).toString();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+            RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+            requestQueue.add(modStringRequest);
+        }
+
     }
 }
 

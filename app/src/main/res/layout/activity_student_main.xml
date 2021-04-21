@@ -82,7 +82,7 @@
         app:backgroundTint="@color/mainColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/thenoteicon" />
+        app:srcCompat="@drawable/notesicon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
