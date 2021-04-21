@@ -2,6 +2,11 @@ package com.example.lectly;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -34,8 +39,9 @@ import com.example.lectly.GDUploadFileResponse;
 
 import java.io.File;
 import java.util.ArrayList;
+import com.example.lectly.DriveActivity;
 
-public class filesActivity extends AppCompatActivity {
+public class DriveActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private GDAuthConfig gdAuthConfig;
@@ -50,36 +56,27 @@ public class filesActivity extends AppCompatActivity {
 
     ProgressDialog loadingDialog = null;
 
-    EditText notesInput;
-    Button saveNotes;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_files);
+        setContentView(R.layout.activity_drive);
 
         scopes.add(GDAuthConfig.SCOPES.EMAIL);
         scopes.add(GDAuthConfig.SCOPES.DRIVE);
         scopes.add(GDAuthConfig.SCOPES.APP_FOLDER);
 
-        //showAuthOptions();
+       // showAuthOptions();
 
-        notesInput = findViewById(R.id.noteInput);
-        saveNotes = findViewById(R.id.saveNotes);
+       startGoogleWithWebView();
 
 
-        saveNotes.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startGoogleWithWebView();
-            }
-        });
     }
 
     private void showAuthOptions() {
         String[] authOptionList = {"Auth Using Web View", "Auth Using Google Sign In"};
         ArrayAdapter<String> authListAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, authOptionList);
 
-        new AlertDialog.Builder(filesActivity.this)
+        new AlertDialog.Builder(DriveActivity.this)
                 .setTitle("Choose Auth Method")
                 .setAdapter(authListAdapter, new DialogInterface.OnClickListener() {
                     @Override
@@ -117,7 +114,7 @@ public class filesActivity extends AppCompatActivity {
             loadingDialog.setIndeterminate(true);
             loadingDialog.setCanceledOnTouchOutside(false);
 
-            gdAuthManager.startGoogleDriveAuth(filesActivity.this, webViewGoogleDrive, this.gdAuthConfig, new GDAuthManager.OnGoogleAuthCompleteListener() {
+            gdAuthManager.startGoogleDriveAuth(DriveActivity.this, webViewGoogleDrive, this.gdAuthConfig, new GDAuthManager.OnGoogleAuthCompleteListener() {
                 @Override
                 public void onLoadingStart() {
                     // Show loading alert
@@ -212,7 +209,7 @@ public class filesActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Save auth data to preferences, call: GDAuthManager.getInstance().getAuthData(MainActivity.this) to read it anytime
-                            boolean isAuthDataSaved = GDAuthManager.getInstance().setAuthData(filesActivity.this, gdAuthResponse);
+                            boolean isAuthDataSaved = GDAuthManager.getInstance().setAuthData(DriveActivity.this, gdAuthResponse);
                             if (isAuthDataSaved == false) {
                                 return;
                             }
@@ -242,21 +239,21 @@ public class filesActivity extends AppCompatActivity {
         File tempFile = GDFileManager.getInstance().createTempFile(getApplicationContext(), "txt", false);
         try {
             // Create a temp Text file
-            GDFileManager.getInstance().saveStringToFile(tempFile, notesInput.getText().toString());
+            GDFileManager.getInstance().saveStringToFile(tempFile, notesActivity.notesToSave);
 
             // Upload this file to google drive.
-            GDApiManager.getInstance().uploadFileAsync(getApplicationContext(), gdAuthResponse, filesActivity.this.gdAuthConfig, tempFile, GDFileManager.getInstance().getMimeType(getApplicationContext(), tempFile), false, new GDUploadFileResponse.OnUploadFileCompleteListener() {
+            GDApiManager.getInstance().uploadFileAsync(getApplicationContext(), gdAuthResponse, DriveActivity.this.gdAuthConfig, tempFile, GDFileManager.getInstance().getMimeType(getApplicationContext(), tempFile), false, new GDUploadFileResponse.OnUploadFileCompleteListener() {
                 @Override
                 public void onSuccess(GDUploadFileResponse uploadFileResponse) {
                     showToast("File Uploaded Successfully");
 
                     // Download just uploaded file
-                    GDApiManager.getInstance().downloadFileAsync(getApplicationContext(), gdAuthResponse, filesActivity.this.gdAuthConfig, uploadFileResponse.getId(), "downloaded_file.txt", new GDDownloadFileResponse.OnDownloadFileCompleteListener() {
+                    GDApiManager.getInstance().downloadFileAsync(getApplicationContext(), gdAuthResponse, DriveActivity.this.gdAuthConfig, uploadFileResponse.getId(), "downloaded_file.txt", new GDDownloadFileResponse.OnDownloadFileCompleteListener() {
                         @Override
                         public void onSuccess(File downloadedFile) {
                             // Check for a download file in your private files
                             // In here: Internal Storage > Android > data > com.tejpratapsingh.com > files
-                            showToast("File Downloaded Successfully");
+                            //showToast("File Downloaded Successfully");
                             showAlert("Your notes have been successfully uploaded to your Google Drive");
                         }
 
@@ -284,7 +281,7 @@ public class filesActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(filesActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DriveActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -294,13 +291,16 @@ public class filesActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new AlertDialog.Builder(filesActivity.this)
+                new AlertDialog.Builder(DriveActivity.this)
                         .setTitle(R.string.app_name)
                         .setMessage(text)
                         .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
+                                Intent i = new Intent(getApplicationContext(), notesActivity.class);
+                                startActivity(i);
+
                             }
                         })
                         .create()

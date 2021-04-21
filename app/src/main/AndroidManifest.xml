@@ -34,7 +34,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
-        <activity android:name=".studySection"></activity>
+        <activity android:name=".DriveActivity"></activity>
+        <activity android:name=".studySection" />
         <activity android:name=".test" />
         <activity android:name=".viewPost" />
         <activity android:name=".students" />
@@ -43,7 +44,7 @@
         <activity android:name=".settings" />
         <activity android:name=".dashboard" />
         <activity android:name=".allPosts" />
-        <activity android:name=".filesActivity" />
+        <activity android:name=".notesActivity" />
         <activity android:name=".studentMenu" />
         <activity
             android:name=".studentModules"
@@ -54,7 +55,7 @@
         <activity
             android:name=".lecturerMain"
             android:label="@string/title_activity_lecturer_main"
-            android:theme="@style/Theme.Lectly.NoActionBar"></activity>
+            android:theme="@style/Theme.Lectly.NoActionBar" />
         <activity
             android:name=".createPost"
             android:theme="@style/Theme.Lectly.NoActionBar" />

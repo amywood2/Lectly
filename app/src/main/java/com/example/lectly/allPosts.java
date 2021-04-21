@@ -57,7 +57,7 @@ public class allPosts extends AppCompatActivity {
     }
 
     private void setupUI() {
-        files = (FloatingActionButton) findViewById(R.id.lFilesButton);
+        files = (FloatingActionButton) findViewById(R.id.lNotesButton);
         //menu = (Button) findViewById(R.id.menu);
         create = (FloatingActionButton) findViewById(R.id.createButton);
         menu =  (FloatingActionButton) findViewById(R.id.lMenuButton);
@@ -92,7 +92,7 @@ public class allPosts extends AppCompatActivity {
 
         files.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), filesActivity.class);
+                Intent i = new Intent(getApplicationContext(), notesActivity.class);
                 startActivity(i);
             }
         });

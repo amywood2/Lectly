@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".filesActivity">
-
-    <Button
-        android:id="@+id/saveNotes"
-        android:layout_width="142dp"
-        android:layout_height="76dp"
-        android:text="Save Notes" />
-
-    <EditText
-        android:id="@+id/noteInput"
-        android:layout_width="match_parent"
-        android:layout_height="131dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+    tools:context=".DriveActivity">
 
     <WebView
         android:id="@+id/webViewGoogleDrive"
@@ -26,5 +13,4 @@
         android:layout_height="match_parent">
 
     </WebView>
-
 </LinearLayout>

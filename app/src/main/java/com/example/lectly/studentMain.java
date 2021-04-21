@@ -39,7 +39,7 @@ public class studentMain extends AppCompatActivity {
     private static final String TAG = null;
     FloatingActionButton menu;
     FloatingActionButton filter;
-    FloatingActionButton files;
+    FloatingActionButton notes;
     TextView dataView;
     private ArrayList<String> postTitles;
     private ArrayList<String> postDescriptions;
@@ -49,6 +49,7 @@ public class studentMain extends AppCompatActivity {
 
     public static String idClicked;
 
+    Boolean isSaved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class studentMain extends AppCompatActivity {
         //files = (Button) findViewById(R.id.files);
         menu =  (FloatingActionButton) findViewById(R.id.sMenuButton);
         filter =  (FloatingActionButton) findViewById(R.id.sFilterButton);
-        files =  (FloatingActionButton) findViewById(R.id.sFilesButton);
+        notes =  (FloatingActionButton) findViewById(R.id.sNotesButton);
         //dataView = findViewById(R.id.textViewTitle);
 
         postTitles = new ArrayList<String>();
@@ -85,9 +86,9 @@ public class studentMain extends AppCompatActivity {
             }
         });
 
-        files.setOnClickListener(new View.OnClickListener() {
+        notes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), filesActivity.class);
+                Intent i = new Intent(getApplicationContext(), notesActivity.class);
                 startActivity(i);
             }
         });
@@ -210,24 +211,47 @@ public class studentMain extends AppCompatActivity {
                                 save.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(studentMain.this);
-                                        alertDialog.setTitle("Save this post?");
-                                        alertDialog.setMessage("You can find this post in your saved posts");
-                                        //add extra resources
-                                        alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                //add post to savepost database
-                                                //change icon to filled in
-                                                save.setImageResource(R.drawable.filledsaveicon);
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        alertDialog.show();
+                                        if (isSaved == false) {
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(studentMain.this);
+                                            alertDialog.setTitle("Save this post?");
+                                            alertDialog.setMessage("You can find this post in your saved posts");
+                                            //add extra resources
+                                            alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //add post to savepost database
+                                                    //change icon to filled in
+                                                    save.setImageResource(R.drawable.filledsaveicon);
+                                                    dialog.cancel();
+                                                    isSaved = true;
+                                                }
+                                            });
+                                            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.cancel();
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        } else {
+                                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(studentMain.this);
+                                            alertDialog.setTitle("Unsave this post?");
+                                            alertDialog.setMessage("This post will be removed from your saved posts");
+                                            //add extra resources
+                                            alertDialog.setPositiveButton("Unsave Post", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //remove post from saved posts
+                                                    //change icon to unfilled in
+                                                    save.setImageResource(R.drawable.saveicon);
+                                                    dialog.cancel();
+                                                    isSaved = false;
+                                                }
+                                            });
+                                            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.cancel();
+                                                }
+                                            });
+                                            alertDialog.show();
+                                        }
                                     }
                                 });
 

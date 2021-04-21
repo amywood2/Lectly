@@ -6,13 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,14 +29,13 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class lecturerMain extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = null;
-    FloatingActionButton files;
+    FloatingActionButton notes;
     FloatingActionButton menu;
     FloatingActionButton create;
     FloatingActionButton filter;
@@ -65,7 +60,7 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void setupUI() {
-        files = (FloatingActionButton) findViewById(R.id.lFilesButton);
+        notes = (FloatingActionButton) findViewById(R.id.lNotesButton);
         //menu = (Button) findViewById(R.id.menu);
         create = (FloatingActionButton) findViewById(R.id.createButton);
         menu = (FloatingActionButton) findViewById(R.id.lMenuButton);
@@ -92,9 +87,9 @@ public class lecturerMain extends AppCompatActivity {
             }
         });
 
-        files.setOnClickListener(new View.OnClickListener() {
+        notes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), filesActivity.class);
+                Intent i = new Intent(getApplicationContext(), notesActivity.class);
                 startActivity(i);
             }
         });
