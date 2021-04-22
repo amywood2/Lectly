@@ -95,6 +95,9 @@
     <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
          from https://console.developers.google.com/ -->
     <string name="server_client_id">871758952307-mu1ukg8vokoei371m6ro6a9mgil15bu4.apps.googleusercontent.com</string>
+    <string name="title_activity_study_section">studySection</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 
 
 </resources>

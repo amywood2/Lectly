@@ -14,6 +14,7 @@ public class studentMenu extends AppCompatActivity {
     Button settings;
     Button study;
     Button connect;
+    Button savedPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class studentMenu extends AppCompatActivity {
         settings = findViewById(R.id.settingsButton);
         study = findViewById(R.id.studyButton);
         connect = findViewById(R.id.sConnectButton);
+        savedPosts = findViewById(R.id.sSavedPostsButton);
 
         modules.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,6 +44,20 @@ public class studentMenu extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), connect.class);
+                startActivity(i);
+            }
+        });
+
+        study.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), studySection.class);
+                startActivity(i);
+            }
+        });
+
+        savedPosts.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), savedPosts.class);
                 startActivity(i);
             }
         });

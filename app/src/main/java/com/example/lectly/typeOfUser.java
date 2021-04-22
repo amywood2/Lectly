@@ -16,7 +16,6 @@ public class typeOfUser extends AppCompatActivity {
     ImageView logo;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

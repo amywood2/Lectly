@@ -56,6 +56,8 @@ public class createPost extends AppCompatActivity {
     private JSONArray result;
     private Spinner spinner;
     Button selectFile;
+    TextView textViewTitle;
+    int module_id;
 
 
     //Pdf request code
@@ -82,6 +84,7 @@ public class createPost extends AppCompatActivity {
         moduleNames = new ArrayList<String>();
         spinner = (Spinner) findViewById(R.id.moduleSpinner);
         selectFile = findViewById(R.id.selectFile);
+        textViewTitle = findViewById(R.id.textViewTitle);
 
         //Requesting storage permission
         requestStoragePermission();
@@ -113,6 +116,7 @@ public class createPost extends AppCompatActivity {
             }
         });
 
+
         selectFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,9 +125,10 @@ public class createPost extends AppCompatActivity {
         });
 
         savePostButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+           // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
                 String title, description, demonstration, studentWork;
+                String stringModuleId = String.valueOf(module_id);
 
                 title = String.valueOf(textInputTitle.getText());
                 description = String.valueOf(textInputDescription.getText());
@@ -131,7 +136,7 @@ public class createPost extends AppCompatActivity {
                 studentWork = String.valueOf(textInputStudentWork.getText());
 
                 //getting name for the image
-                String name = String.valueOf(textInputDemonstration.getText());
+               // String name = String.valueOf(textInputDemonstration.getText());
 
                 //getting the actual path of the image
              //   String path = FilePath.getPath(createPost.this, filePath);
@@ -143,24 +148,21 @@ public class createPost extends AppCompatActivity {
                         public void run() {
                             //Starting Write and Read data with URL
                             //Creating array for parameters
-                            String[] field = new String[6];
+                            String[] field = new String[5];
                             field[0] = "title";
                             field[1] = "description";
                             field[2] = "demonstration";
                             field[3] = "studentWork";
-                            //field[4] = "path";
-                            field[5] = "name";
+                            field[4] = "module_id";
 
 
                             //Creating array for data
-                            String[] data = new String[6];
+                            String[] data = new String[5];
                             data[0] = title;
                             data[1] = description;
                             data[2] = demonstration;
                             data[3] = studentWork;
-                            //data[4] = path;
-                            data[5] = name;
-
+                            data[4] = stringModuleId;
 
                             PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savePost.php", "POST", field, data);
                             if (putData.startPut()) {
@@ -217,7 +219,6 @@ public class createPost extends AppCompatActivity {
                 try {
                     JSONObject json = allModules.getJSONObject(i);
                     moduleNames.add(json.getString(ModuleDetails.MODULENAME));
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -229,26 +230,31 @@ public class createPost extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                     Object item = parent.getItemAtPosition(pos);
                     chosenModuleName = item.toString();
-                    //textViewTitle.setText(chosenModuleName);
 
+                    //getting the module id
+                    for (int i = 0; i < moduleNames.size(); i++) {
+                        if (moduleNames.get(i) == chosenModuleName) {
+                            module_id = i + 1;
+                            textViewTitle.setText("The module id is    " + module_id);
+                        }
+                    }
+                    //textViewTitle.setText(chosenModuleName);
                 }
                 public void onNothingSelected(AdapterView<?> parent) {
                     Toast.makeText(getApplicationContext(), "Please select the module you wish to post in", Toast.LENGTH_SHORT).show();
-
                 }
             });
         }
 
-  /*  private void getModuleId() {
+   /*private void getModuleId() {
         for (int i = 0; i < allModules.size(); i++) {
             if (allModules.get(i) == chosenModuleName) {
                 int module_id = i;
                 textViewTitle.setText("The module id is    " + module_id);
-
             }
         }
-    }*/
-
+    }
+*/
    /* @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void uploadMultipart() {
         //getting name for the image
