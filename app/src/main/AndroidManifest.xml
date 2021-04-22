@@ -57,6 +57,7 @@
             android:name=".lecturerMain"
             android:label="@string/title_activity_lecturer_main"
             android:theme="@style/Theme.Lectly.NoActionBar" />
+
         <activity
             android:name=".createPost"
             android:theme="@style/Theme.Lectly.NoActionBar" />
@@ -71,6 +72,8 @@
             android:theme="@style/Theme.Lectly.NoActionBar">
 
         </activity>
+
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"

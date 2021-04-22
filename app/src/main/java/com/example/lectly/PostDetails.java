@@ -10,6 +10,8 @@ public class PostDetails {
     public static final String DESCRIPTION = "description";
     public static final String DEMONSTRATION = "demonstration";
     public static final String STUDENTWORK = "studentWork";
+    public static final String MODULE_ID = "module_id";
+
 
     //JSON array name
     public static final String JSON_ARRAY = "result";

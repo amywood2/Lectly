@@ -80,7 +80,7 @@ public class savedPosts extends AppCompatActivity {
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
-                                //getmodulename
+                                //getModuleName();
 
 
                                 if (i == 1) {
@@ -200,41 +200,42 @@ public class savedPosts extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+/*    public void getModuleName() {
+        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject modules;
+                        try {
+                            modules = new JSONObject(response);
+                            modresult = modules.getJSONArray(PostDetails.JSON_ARRAY);
+                            for (int i = 0; i < modresult.length(); i++) {
+                                module = new TextView(lecturerMain.this);
+                                JSONObject jsonObject = modresult.getJSONObject(i);
+                                String module_name = jsonObject.getString("module_name");
+                                module.setText(module_name);
+                                FrameLayout.LayoutParams modParams = new FrameLayout.LayoutParams
+                                        ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
+                                module.setPadding(10, 10, 10, 50);
+                                modParams.topMargin = i * 450;
+                                module.setLayoutParams(modParams);
+
+                                card.addView(module);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
+        requestQueue.add(modStringRequest);
+    }*/
 }
-
-//getmodulename
- /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
-                                        new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                JSONObject modules;
-                                                try {
-                                                        modules = new JSONObject(response);
-                                                        modresult = modules.getJSONArray(PostDetails.JSON_ARRAY);
-                                                        for (int i = 0; i < modresult.length(); i++) {
-                                                            module = new TextView(lecturerMain.this);
-                                                            JSONObject jsonObject = modresult.getJSONObject(i);
-                                                            String module_name = jsonObject.getString("module_name");
-                                                            module.setText(module_name);
-                                                            FrameLayout.LayoutParams modParams = new FrameLayout.LayoutParams
-                                                                    ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
-                                                            module.setPadding(10, 10, 10, 50);
-                                                            modParams.topMargin= i * 450;
-                                                            module.setLayoutParams(modParams);
-
-                                                            card.addView(module);
-
-                                                        }
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        },
-                                new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-
-                                }
-                            });
-                               RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
-                               requestQueue.add(modStringRequest);*/

@@ -45,7 +45,12 @@ public class lecturerMain extends AppCompatActivity {
     private ArrayList<String> postDemonstrations;
     private ArrayList<String> postStudentWorks;
     private JSONArray result;
-    public static String idClicked;
+    private JSONArray modresult;
+    public static String idClicked = "0";
+    public static String post_id;
+    public static String module_id;
+    //public String moduleName;
+    public String module_lecturer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,20 +124,55 @@ public class lecturerMain extends AppCompatActivity {
                                 String title = jsonObject.getString("title");
                                 //String timeAndDate = jsonObject.getString("description");
                                 String description = jsonObject.getString("description");
+                                module_id = jsonObject.getString("module_id");
+
                                 TextView titleView = new TextView(lecturerMain.this);
                                 titleView.setTextSize(28);
 
                                 TextView timeDate = new TextView(lecturerMain.this);
                                 TextView descriptionV = new TextView(lecturerMain.this);
                                 TextView lecturerName = new TextView(lecturerMain.this);
+                                TextView moduleNameV = new TextView(lecturerMain.this);
+
                                 descriptionV.setTextSize(18);
 
                                 titleView.setText(title);
                                 titleView.setTextColor(R.color.black);
                                 timeDate.setText(" TIME DATE");
+
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
+                                StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + module_id,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                JSONObject modules = null;
+                                                try {
+                                                    modules = new JSONObject(response.toString());
+                                                    modresult = modules.getJSONArray(ModuleDetails.JSON_ARRAY);
+                                                    for (int i = 0; i < modresult.length(); i++) {
+                                                        JSONObject jsonObject = modresult.getJSONObject(i);
+                                                        //String moduleid = jsonObject.getString("id");
+                                                        String moduleName = jsonObject.getString(ModuleDetails.MODULENAME);
+                                                        //module_lecturer = jsonObject.getString("module_lecturer_id");
+                                                        //module_lecturer = "this worked";
+                                                        moduleNameV.setText(moduleName);
+                                                        moduleNameV.setTextSize(16);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+
+                                            }
+                                });
+                                RequestQueue modrequestQueue = Volley.newRequestQueue(lecturerMain.this);
+                                modrequestQueue.add(modStringRequest);
 
                                 if (i == 1){
                                     timeDate.setText("15/02/21");
@@ -197,31 +237,25 @@ public class lecturerMain extends AppCompatActivity {
                                     }
                                 });
 
-
                                 titleView.setPadding(10, 10, 10, 50);
-                                timeDate.setPadding(10, 100, 10, 10);
-                                descriptionV.setPadding(10, 200, 10, 10);
-                                lecturerName.setPadding(10, 400, 10, 0);;
-                                //eye.setPadding(10,50,10,10);
-
-
+                                moduleNameV.setPadding(10, 100, 10, 0);
+                                timeDate.setPadding(10, 150, 10, 10);
+                                descriptionV.setPadding(10, 250, 10, 10);
+                                lecturerName.setPadding(10, 400, 10, 0);
 
                                 card.addView(titleView);
                                 card.addView(timeDate);
                                 card.addView(descriptionV);
                                 card.addView(eye);
                                 card.addView(lecturerName);
+                                card.addView(moduleNameV);
 
-
-                                //card.addView(relativeLayout);
                                 postLayout.addView(card);
                                 layout.addView(postLayout);
-
 
                                 card.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
                                         idClicked = id;
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
@@ -231,12 +265,6 @@ public class lecturerMain extends AppCompatActivity {
                                 });
                             }
 
-                            //textViewTitle.setText(allPosts.get(PostDetails.TITLE));
-                            getTitles(result);
-                            getDescriptions(result);
-                            getDemonstrations(result);
-                            getStudentWorks(result);
-                            //creatingNewsfeed(result);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             TextView noposts = new TextView(lecturerMain.this);
@@ -250,8 +278,8 @@ public class lecturerMain extends AppCompatActivity {
 
                     }
                 });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+       RequestQueue requestQueue = Volley.newRequestQueue(this);
+       requestQueue.add(stringRequest);
     }
 
     private void getTitles(JSONArray allPosts) {
@@ -301,48 +329,6 @@ public class lecturerMain extends AppCompatActivity {
         }
         // textViewStudentWork.setText(postStudentWorks.get(0));
     }
-
-    //public void getModuleName(){
-                           /*     StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + id,
-                                        new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                JSONObject modules;
-                                                try {
-                                                        modules = new JSONObject(response);
-                                                        modresult = modules.getJSONArray(PostDetails.JSON_ARRAY);
-                                                        for (int i = 0; i < modresult.length(); i++) {
-                                                            module = new TextView(lecturerMain.this);
-                                                            JSONObject jsonObject = modresult.getJSONObject(i);
-                                                            String module_name = jsonObject.getString("module_name");
-                                                            module.setText(module_name);
-                                                            FrameLayout.LayoutParams modParams = new FrameLayout.LayoutParams
-                                                                    ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
-                                                            module.setPadding(10, 10, 10, 50);
-                                                            modParams.topMargin= i * 450;
-                                                            module.setLayoutParams(modParams);
-
-                                                            card.addView(module);
-
-                                                        }
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        },
-                                new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-
-                                }
-                            });
-                               RequestQueue requestQueue = Volley.newRequestQueue(lecturerMain.this);
-                               requestQueue.add(modStringRequest);*/
-
-
-
-
-
 
 }
 

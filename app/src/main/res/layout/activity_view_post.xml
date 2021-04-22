@@ -107,6 +107,7 @@
         android:layout_marginEnd="33dp"
         android:layout_marginRight="33dp"
         android:clickable="true"
+        android:visibility="invisible"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
