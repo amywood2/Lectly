@@ -21,8 +21,9 @@ public class settings extends AppCompatActivity {
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LoginActivity.isLecturerLoggedIn = false;
-                LoginActivity.isStudentLoggedIn = false;
+                //LoginActivity.isLecturerLoggedIn = false;
+                //LoginActivity.isStudentLoggedIn = false;
+                typeOfUser.typeofuser = "";
                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
             }

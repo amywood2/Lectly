@@ -240,7 +240,7 @@ public class lecturerMain extends AppCompatActivity {
                                 titleView.setPadding(10, 10, 10, 50);
                                 moduleNameV.setPadding(10, 100, 10, 0);
                                 timeDate.setPadding(10, 150, 10, 10);
-                                descriptionV.setPadding(10, 250, 10, 10);
+                                descriptionV.setPadding(10, 230, 10, 10);
                                 lecturerName.setPadding(10, 400, 10, 0);
 
                                 card.addView(titleView);
@@ -260,7 +260,6 @@ public class lecturerMain extends AppCompatActivity {
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
                                         //textViewTitle.setText("get from button is  " + postNameClicked);
-
                                     }
                                 });
                             }

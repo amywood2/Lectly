@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     if (result.equals("Sign Up Success")){
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(getApplicationContext(), studentMain.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
 
@@ -121,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     if (result.equals("Sign Up Success")){
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
 

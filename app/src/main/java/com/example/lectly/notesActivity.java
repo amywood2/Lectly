@@ -14,6 +14,8 @@ public class notesActivity extends AppCompatActivity {
     EditText notesInput;
     Button saveNotes;
     public static String notesToSave;
+    public static String notesFileNameToSave;
+    EditText notesFileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +25,13 @@ public class notesActivity extends AppCompatActivity {
         notesInput = findViewById(R.id.noteInput);
         notesInput.setText("");
         saveNotes = findViewById(R.id.saveNotes);
+        notesFileName =findViewById(R.id.notesFileName);
 
 
         saveNotes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 notesToSave = saveNotes.getText().toString();
+                notesFileNameToSave = notesFileName.getText().toString();
                 Intent i = new Intent(getApplicationContext(), DriveActivity.class);
                 startActivity(i);
             }

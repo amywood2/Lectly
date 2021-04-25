@@ -1,13 +1,12 @@
 package com.example.lectly;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,43 +30,32 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import net.gotev.uploadservice.MultipartUploadRequest;
-import net.gotev.uploadservice.UploadNotificationConfig;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.UUID;
 
 import java.util.ArrayList;
 
 public class createPost extends AppCompatActivity {
 
+
+    private static final String TAG = null;
     Button savePostButton;
+
     FloatingActionButton infoButton;
     TextInputEditText textInputTitle;
     TextInputEditText textInputDescription;
-    TextInputEditText textInputDemonstration;
-    TextInputEditText textInputStudentWork;
     String chosenModuleName;
     private ArrayList<String> allModules;
     private ArrayList<String> moduleNames;
     private JSONArray result;
     private Spinner spinner;
-    Button selectFile;
+    Button workFile;
+    Button demoFile;
     TextView textViewTitle;
     int module_id;
-
-
-    //Pdf request code
-    private int PICK_PDF_REQUEST = 1;
-
-    //storage permission code
-    private static final int STORAGE_PERMISSION_CODE = 123;
-
-    //Uri to store the image uri
-    private Uri filePath;
+    public String name;
+    TextView notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,19 +66,13 @@ public class createPost extends AppCompatActivity {
         infoButton = findViewById(R.id.infoButton);
         textInputTitle = (TextInputEditText) findViewById(R.id.titleValue);
         textInputDescription = (TextInputEditText) findViewById(R.id.descriptionValue);
-        textInputDemonstration = (TextInputEditText) findViewById(R.id.demonstrationValue);
-        textInputStudentWork = (TextInputEditText) findViewById(R.id.studentWorkValue);
         allModules = new ArrayList<String>();
         moduleNames = new ArrayList<String>();
         spinner = (Spinner) findViewById(R.id.moduleSpinner);
-        selectFile = findViewById(R.id.selectFile);
-        textViewTitle = findViewById(R.id.textViewTitle);
-
-        //Requesting storage permission
-        requestStoragePermission();
+        workFile = findViewById(R.id.createWorkFile);
+        demoFile = findViewById(R.id.createDemoFile);
 
         getModules();
-        //getModuleId();
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -117,35 +99,42 @@ public class createPost extends AppCompatActivity {
         });
 
 
-        selectFile.setOnClickListener(new View.OnClickListener() {
+        demoFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFileChooser();
+                Intent i = new Intent(getApplicationContext(), createDemoFile.class);
+                startActivity(i);
             }
         });
 
-        savePostButton.setOnClickListener(new View.OnClickListener() {
-           // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        workFile.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                String title, description, demonstration, studentWork;
+                Intent i = new Intent(getApplicationContext(), createWorkFile.class);
+                startActivity(i);
+            }
+        });
+
+
+        savePostButton.setOnClickListener(new View.OnClickListener() {
+            // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            public void onClick(View view) {
+                String title, description, demonstrationName, workName, studentWork;
                 String stringModuleId = String.valueOf(module_id);
 
                 title = String.valueOf(textInputTitle.getText());
                 description = String.valueOf(textInputDescription.getText());
-                demonstration = String.valueOf(textInputDemonstration.getText());
-                studentWork = String.valueOf(textInputStudentWork.getText());
+                demonstrationName = String.valueOf(createDemoFile.demofileNameToSave);
+                studentWork = String.valueOf(createWorkFile.workfileNameToSave);
+                //studentWork = String.valueOf(textInputStudentWork.getText());
 
-                //getting name for the image
-               // String name = String.valueOf(textInputDemonstration.getText());
-
-                //getting the actual path of the image
-             //   String path = FilePath.getPath(createPost.this, filePath);
-
-                if (!title.equals("") && !description.equals("") && !demonstration.equals("") && !studentWork.equals("") ) {
+                if (!title.equals("") && !description.equals("") && !studentWork.equals("")) {
                     Handler handler = new Handler();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            // uploadMultipart();
                             //Starting Write and Read data with URL
                             //Creating array for parameters
                             String[] field = new String[5];
@@ -160,7 +149,7 @@ public class createPost extends AppCompatActivity {
                             String[] data = new String[5];
                             data[0] = title;
                             data[1] = description;
-                            data[2] = demonstration;
+                            data[2] = demonstrationName;
                             data[3] = studentWork;
                             data[4] = stringModuleId;
 
@@ -180,71 +169,76 @@ public class createPost extends AppCompatActivity {
                                 }
                             }
                         }
+
                     });
                 } else {
                     Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
 
-        private void getModules() {
-            StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getModules.php",
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            JSONObject allModules = null;
-                            try {
-                                allModules = new JSONObject(response);
-                                result = allModules.getJSONArray(ModuleDetails.JSON_ARRAY);
-                                getModuleName(result);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+    private void getModules() {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getModules.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject allModules = null;
+                        try {
+                            allModules = new JSONObject(response);
+                            result = allModules.getJSONArray(ModuleDetails.JSON_ARRAY);
+                            getModuleName(result);
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    });
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void getModuleName(JSONArray allModules) {
+        for (int i = 0; i < allModules.length(); i++) {
+            try {
+                JSONObject json = allModules.getJSONObject(i);
+                moduleNames.add(json.getString(ModuleDetails.MODULENAME));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
-        private void getModuleName(JSONArray allModules) {
-            for (int i = 0; i < allModules.length(); i++) {
-                try {
-                    JSONObject json = allModules.getJSONObject(i);
-                    moduleNames.add(json.getString(ModuleDetails.MODULENAME));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        spinner.setAdapter(new ArrayAdapter<String>(createPost.this, android.R.layout.simple_spinner_dropdown_item, moduleNames));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+                chosenModuleName = item.toString();
+
+                //getting the module id
+                for (int i = 0; i < moduleNames.size(); i++) {
+                    if (moduleNames.get(i) == chosenModuleName) {
+                        module_id = i + 1;
+                    }
                 }
             }
 
-            spinner.setAdapter(new ArrayAdapter<String>(createPost.this, android.R.layout.simple_spinner_dropdown_item, moduleNames));
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(getApplicationContext(), "Please select the module you wish to post in", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
 
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                    Object item = parent.getItemAtPosition(pos);
-                    chosenModuleName = item.toString();
-
-                    //getting the module id
-                    for (int i = 0; i < moduleNames.size(); i++) {
-                        if (moduleNames.get(i) == chosenModuleName) {
-                            module_id = i + 1;
-                            textViewTitle.setText("The module id is    " + module_id);
-                        }
-                    }
-                    //textViewTitle.setText(chosenModuleName);
-                }
-                public void onNothingSelected(AdapterView<?> parent) {
-                    Toast.makeText(getApplicationContext(), "Please select the module you wish to post in", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
    /*private void getModuleId() {
         for (int i = 0; i < allModules.size(); i++) {
@@ -255,87 +249,6 @@ public class createPost extends AppCompatActivity {
         }
     }
 */
-   /* @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void uploadMultipart() {
-        //getting name for the image
-        String name = textInputDemonstration.getText().toString().trim();
 
-        //getting the actual path of the image
-        String path = FilePath.getPath(this, filePath);
-
-        if (path == null) {
-
-            Toast.makeText(this, "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
-        } else {
-            //Uploading code
-            try {
-                String uploadId = UUID.randomUUID().toString();
-
-                //Creating a multi part request
-                new MultipartUploadRequest(this, uploadId, "http://192.168.1.87:8888/Lectly/savePost.php")
-                        .addFileToUpload(path, "pdf") //Adding file
-                        .addParameter("name", name) //Adding text parameter to the request
-                        .setNotificationConfig(new UploadNotificationConfig())
-                        .setMaxRetries(2)
-                        .startUpload(); //Starting the upload
-
-            } catch (Exception exc) {
-                Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
-
-    //Requesting permission
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            return;
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
-        }
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-    }
-
-    //This method will be called when the user will tap on allow or deny
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        //Checking the request code of our request
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-            } else {
-                //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    //method to show file chooser
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("application/pdf");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Pdf"), PICK_PDF_REQUEST);
-    }
-
-    //handling the image chooser activity result
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_PDF_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-        }
-    }
-
-
-}
 
 

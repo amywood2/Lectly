@@ -3,6 +3,9 @@ package com.example.lectly;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +33,8 @@ public class viewPost extends AppCompatActivity {
     TextView postModule;
     ArrayList<Comment> comments;
     FloatingActionButton saveButton;
+
+    RecyclerView viewComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +65,60 @@ public class viewPost extends AppCompatActivity {
             }
         });
 
+        /*saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewPost.this);
+                    alertDialog.setTitle("Save this post?");
+                    alertDialog.setMessage("You can find this post in your saved posts");
+                    //add extra resources
+                    alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //add post to savepost database
+
+
+
+                            //change icon to filled in
+                            saveButton.setImageResource(R.drawable.filledsaveicon);
+                            dialog.cancel();
+                            studentMain.isSaved = true;
+                        }
+                    });
+                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.show();
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewPost.this);
+                    alertDialog.setTitle("Unsave this post?");
+                    alertDialog.setMessage("This post will be removed from your saved posts");
+                    //add extra resources
+                    alertDialog.setPositiveButton("Unsave Post", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //remove post from saved posts
+                            //change icon to unfilled in
+                            saveButton.setImageResource(R.drawable.saveicon);
+                            dialog.cancel();
+                            //studentMain.isSaved = false;
+                        }
+                    });
+                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.show();
+                }
+
+        });*/
+
         getPost();
 
         // Lookup the recyclerview in activity layout
-        RecyclerView viewComments = (RecyclerView) findViewById(R.id.viewComments);
+        viewComments = (RecyclerView) findViewById(R.id.viewComments);
 
         // Initialize contacts
         comments = Comment.createCommentList(10);
