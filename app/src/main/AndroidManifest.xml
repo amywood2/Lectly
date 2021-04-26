@@ -46,15 +46,13 @@
         <activity
             android:name=".lecturerMain"
             android:label="@string/title_activity_lecturer_main"
-            android:theme="@style/Theme.Lectly.NoActionBar" />
+            android:theme="@style/Theme.Lectly.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".createPost"
             android:theme="@style/Theme.Lectly.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".typeOfUser"
@@ -68,7 +66,13 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Lectly.NoActionBar" />
+            android:theme="@style/Theme.Lectly.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

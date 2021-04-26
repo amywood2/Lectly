@@ -6,12 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import java.util.ArrayList;
 
 
 public class studentMain extends AppCompatActivity {
@@ -46,14 +39,12 @@ public class studentMain extends AppCompatActivity {
     private JSONArray savedresult;
 
     public static String idClicked;
+    public static String moduleNameClicked;
 
     //public static Boolean isSaved = false;
 
     public String loggedInStudentID;
 
-    public TextView test;
-
-    ImageView save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +88,7 @@ public class studentMain extends AppCompatActivity {
     }
 
     private void getPosts() {
-        final FrameLayout layout = findViewById(R.id.frameLayout);
+        final FrameLayout layout = findViewById(R.id.frameLayoutSaved);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
@@ -251,7 +242,8 @@ public class studentMain extends AppCompatActivity {
                                             alertDialog.setMessage("You can find this post in your saved posts");
                                             //add extra resources
                                             alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
+                                              public void onClick(DialogInterface dialog, int which) {
+                                                  /*
                                                     StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/lookUpSavedPosts.php?post_id=" + post_id + "&student_id=" + LoginActivity.user_id,
                                                             new Response.Listener<String>() {
                                                                 @Override
@@ -276,9 +268,8 @@ public class studentMain extends AppCompatActivity {
                                                                 public void onErrorResponse(VolleyError error) {
 
                                                                 }
-                                                            });
+                                                            });*/
 
-                                                    /*if (!isSaved) {
                                                         //add post to savepost database
                                                         Handler handler = new Handler();
                                                         handler.post(new Runnable() {
@@ -295,22 +286,21 @@ public class studentMain extends AppCompatActivity {
                                                                 data[0] = LoginActivity.user_id;
                                                                 data[1] = post_id;
 
-                                                                PutData putData = new PutData("http://192.168.5.31:8888/Lectly/savedSection.php", "POST", field, data);
+                                                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
                                                                 if (putData.startPut()) {
                                                                     if (putData.onComplete()) {
                                                                         String result = putData.getResult();
                                                                         if (result.equals("Your post has been successfully saved")) {
                                                                             Toast.makeText(studentMain.this, "Your post has been successfully saved", Toast.LENGTH_LONG).show();
-                                                                            Intent intent = new Intent(getApplicationContext(), studentMain.class);
-                                                                            startActivity(intent);
-                                                                            finish();
+                                                                           // Intent intent = new Intent(getApplicationContext(), studentMain.class);
+                                                                           // startActivity(intent);m
                                                                         } else {
                                                                             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }
                                                                 }
                                                             }
-                                                        });*/
+                                                        });
                                                         //change icon to filled in
 
                                                         save.setImageResource(R.drawable.filledsaveicon);
@@ -369,8 +359,8 @@ public class studentMain extends AppCompatActivity {
                                 card.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-
                                         idClicked = post_id;
+                                        moduleNameClicked = moduleNameV.getText().toString();
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
                                         //textViewTitle.setText("get from button is  " + postNameClicked);

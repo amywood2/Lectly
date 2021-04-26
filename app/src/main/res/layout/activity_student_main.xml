@@ -22,7 +22,7 @@
         app:srcCompat="@android:drawable/ic_popup_reminder" />
 
     <ScrollView
-        android:id="@+id/sw"
+        android:id="@+id/swSaved"
         android:layout_width="375dp"
         android:layout_height="538dp"
         android:layout_marginStart="9dp"
@@ -38,7 +38,7 @@
         tools:ignore="MissingConstraints">
 
         <android.widget.FrameLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/frameLayoutSaved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"></android.widget.FrameLayout>

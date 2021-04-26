@@ -12,31 +12,27 @@
     tools:context=".createPost">
 
 
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/titleValue"
         android:layout_width="335dp"
         android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="7dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
         android:inputType="text"
         android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postTitleText" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/descriptionValue"
         android:layout_width="335dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="8dp"
         android:inputType="text"
         android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postDescriptionText" />
 
@@ -44,21 +40,21 @@
         android:id="@+id/postTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="264dp"
-        android:layout_marginRight="264dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="41dp"
         android:text="Title of Post"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createWorkFile" />
 
     <TextView
         android:id="@+id/postDescriptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="208dp"
-        android:layout_marginRight="208dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
         android:text="Description of Post"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,9 +64,9 @@
         android:id="@+id/savePostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="138dp"
-        android:layout_marginLeft="138dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="34dp"
         android:background="@color/mainColour"
         android:text="Save Post"
         app:backgroundTint="@color/mainColour"
@@ -82,28 +78,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:text="Allow Comments"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createWorkFile" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/infoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="322dp"
-        android:layout_marginLeft="322dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="44dp"
         android:clickable="true"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/titleValue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
@@ -111,23 +102,20 @@
         android:id="@+id/moduleSpinner"
         android:layout_width="245dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginRight="112dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowComments" />
+        app:layout_constraintTop_toBottomOf="@+id/moduleText" />
 
     <Button
         android:id="@+id/createWorkFile"
         android:layout_width="294dp"
         android:layout_height="66dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="11dp"
         android:text="Create Work for students to complete"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createDemoFile" />
 
@@ -135,27 +123,24 @@
         android:id="@+id/createDemoFile"
         android:layout_width="294dp"
         android:layout_height="66dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="35dp"
         android:text="Create a Demonstration File"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/moduleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="300dp"
-        android:layout_marginRight="300dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="296dp"
+        android:layout_marginRight="296dp"
         android:text="Module"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createWorkFile" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

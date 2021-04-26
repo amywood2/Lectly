@@ -29,10 +29,13 @@ public class viewPost extends AppCompatActivity {
     private JSONArray modresult;
     TextView postName;
     TextView postDescription;
+    TextView postDemo;
+    TextView postWork;
     FloatingActionButton backButton;
     TextView postModule;
     ArrayList<Comment> comments;
     FloatingActionButton saveButton;
+    public String module_id;
 
     RecyclerView viewComments;
 
@@ -45,12 +48,21 @@ public class viewPost extends AppCompatActivity {
         getStudentIdClicked = studentMain.idClicked;
         postName = findViewById(R.id.postName);
         postDescription = findViewById(R.id.postDescription);
+        postDemo = findViewById(R.id.postDemo);
+        postWork = findViewById(R.id.postWork);
         postModule = findViewById(R.id.postModule);
+
+
+        postModule.setText(lecturerMain.moduleNameClicked);
         backButton = findViewById(R.id.backButton);
         saveButton = findViewById(R.id.saveThisPost);
 
-        if (typeOfUser.typeofuser == "student"){
+
+        if (typeOfUser.typeofuser == "student") {
             saveButton.setVisibility(View.VISIBLE);
+            postModule.setText(studentMain.moduleNameClicked);
+        }else {
+            postModule.setText(lecturerMain.moduleNameClicked);
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +70,7 @@ public class viewPost extends AppCompatActivity {
                 Intent i;
                 if (typeOfUser.typeofuser == "lecturer") {
                     i = new Intent(getApplicationContext(), lecturerMain.class);
-                } else{
+                } else {
                     i = new Intent(getApplicationContext(), studentMain.class);
                 }
                 startActivity(i);
@@ -116,6 +128,7 @@ public class viewPost extends AppCompatActivity {
         });*/
 
         getPost();
+        //getModuleName();
 
         // Lookup the recyclerview in activity layout
         viewComments = (RecyclerView) findViewById(R.id.viewComments);
@@ -146,9 +159,15 @@ public class viewPost extends AppCompatActivity {
                                 for (int i = 0; i < postresult.length(); i++) {
                                     JSONObject jsonObject = postresult.getJSONObject(i);
                                     String title = jsonObject.getString(PostDetails.TITLE);
-                                    String description = jsonObject.getString("description");
+                                    String description = jsonObject.getString(PostDetails.DESCRIPTION);
+                                    String demo = jsonObject.getString(PostDetails.DEMONSTRATION);
+                                    String work = jsonObject.getString(PostDetails.STUDENTWORK);
+                                    module_id = jsonObject.getString("module_id");
                                     postName.setText(title);
-                                    postDescription.setText("description is " + description);
+                                    postDescription.setText(description);
+                                    postDemo.setText("Lecture file: " + demo+ ".pdf");
+                                    postWork.setText("Work to be completed: " + work+ ".pdf");
+                                 //   postModule.setText("here");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -174,9 +193,15 @@ public class viewPost extends AppCompatActivity {
                                 for (int i = 0; i < postresult.length(); i++) {
                                     JSONObject jsonObject = postresult.getJSONObject(i);
                                     String title = jsonObject.getString(PostDetails.TITLE);
-                                    String description = jsonObject.getString("description");
+                                    String description = jsonObject.getString(PostDetails.DESCRIPTION);
+                                    String demo = jsonObject.getString(PostDetails.DEMONSTRATION);
+                                    String work = jsonObject.getString(PostDetails.STUDENTWORK);
+                                    module_id = jsonObject.getString("module_id");
                                     postName.setText(title);
-                                    postDescription.setText("description is " + description);
+                                    postDescription.setText(description);
+                                    postDemo.setText("Lecture file: " + demo + ".pdf");
+                                    postWork.setText("Work to be completed: " + work + ".pdf");
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -193,8 +218,10 @@ public class viewPost extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
-/*
-      StringRequest moduleStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + getidClicked ,
+    }
+
+    public void getModuleName() {
+        StringRequest moduleStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" ,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -206,7 +233,7 @@ public class viewPost extends AppCompatActivity {
                             for (int i = 0; i < modresult.length(); i++) {
                                 JSONObject jsonObject = modresult.getJSONObject(i);
                                 String module_name = jsonObject.getString("module_name");
-                                postModule.setText(module_name);
+                                postModule.setText("module name is " + module_name);
 
                             }
                         } catch (JSONException e) {
@@ -221,6 +248,6 @@ public class viewPost extends AppCompatActivity {
                     }
                 });
         RequestQueue modrequestQueue = Volley.newRequestQueue(this);
-        modrequestQueue.add(moduleStringRequest);*/
+        modrequestQueue.add(moduleStringRequest);
     }
 }

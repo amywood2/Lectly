@@ -47,10 +47,12 @@ public class lecturerMain extends AppCompatActivity {
     private JSONArray result;
     private JSONArray modresult;
     public static String idClicked = "0";
+    public static String moduleNameClicked;
     public static String post_id;
     public static String module_id;
     //public String moduleName;
     public String module_lecturer;
+    //public static String moduleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +199,7 @@ public class lecturerMain extends AppCompatActivity {
                                 eye.setImageResource(R.drawable.eyeoutline);
                                 layoutParams.width = 1150;
                                 layoutParams.leftMargin = -50;
-                               // layoutParams.rightMargin = 100;
+                                //layoutParams.rightMargin = 100;
                                 layoutParams.topMargin = i * 570;
 
                                 card.setPadding(100, 10, 10, 10);
@@ -257,6 +259,7 @@ public class lecturerMain extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         idClicked = id;
+                                        moduleNameClicked = moduleNameV.getText().toString();
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
                                         //textViewTitle.setText("get from button is  " + postNameClicked);

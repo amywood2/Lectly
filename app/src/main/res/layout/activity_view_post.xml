@@ -21,51 +21,53 @@
 
     <TextView
         android:id="@+id/postName"
-        android:layout_width="259dp"
-        android:layout_height="94dp"
+        android:layout_width="270dp"
+        android:layout_height="90dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:textSize="36sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/saveThisPost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/postDescription"
-        android:layout_width="330dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="165dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
+        android:layout_width="345dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/postModule"
-        android:layout_width="81dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="280dp"
-        android:layout_marginRight="280dp"
-        android:textSize="24sp"
+        android:layout_width="344dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="1dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/postDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewComments"
-        android:layout_width="332dp"
-        android:layout_height="207dp"
+        android:layout_width="327dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginBottom="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.684" />
+        app:layout_constraintTop_toBottomOf="@+id/postWork" />
 
     <EditText
         android:id="@+id/commentsInput"
@@ -112,4 +114,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/saveicon" />
+
+    <TextView
+        android:id="@+id/postDemo"
+        android:layout_width="344dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="1dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/postWork"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDescription" />
+
+    <TextView
+        android:id="@+id/postWork"
+        android:layout_width="344dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDemo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
