@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,6 +37,8 @@ public class viewPost extends AppCompatActivity {
     ArrayList<Comment> comments;
     FloatingActionButton saveButton;
     public String module_id;
+    public static EditText commentsInput;
+    FloatingActionButton sendButton;
 
     RecyclerView viewComments;
 
@@ -51,6 +54,9 @@ public class viewPost extends AppCompatActivity {
         postDemo = findViewById(R.id.postDemo);
         postWork = findViewById(R.id.postWork);
         postModule = findViewById(R.id.postModule);
+
+        commentsInput = findViewById(R.id.commentsInput);
+        sendButton = findViewById(R.id.sendButton);
 
 
         postModule.setText(lecturerMain.moduleNameClicked);
@@ -130,17 +136,24 @@ public class viewPost extends AppCompatActivity {
         getPost();
         //getModuleName();
 
-        // Lookup the recyclerview in activity layout
-        viewComments = (RecyclerView) findViewById(R.id.viewComments);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Lookup the recyclerview in activity layout
+                viewComments = (RecyclerView) findViewById(R.id.viewComments);
 
-        // Initialize contacts
-        comments = Comment.createCommentList(10);
-        // Create adapter passing in the sample user data
-        CommentsAdapter adapter = new CommentsAdapter(comments);
-        // Attach the adapter to the recyclerview to populate items
-        viewComments.setAdapter(adapter);
-        // Set layout manager to position the items
-        viewComments.setLayoutManager(new LinearLayoutManager(this));
+                // Initialize contacts
+                comments = Comment.createCommentList(1);
+                // Create adapter passing in the sample user data
+                CommentsAdapter adapter = new CommentsAdapter(comments);
+                // Attach the adapter to the recyclerview to populate items
+                viewComments.setAdapter(adapter);
+                // Set layout manager to position the items
+                viewComments.setLayoutManager(new LinearLayoutManager(viewPost.this));
+
+                commentsInput.setHint("Add a comment");
+            }
+        });
+
     }
 
 

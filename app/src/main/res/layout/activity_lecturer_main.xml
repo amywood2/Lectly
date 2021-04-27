@@ -23,7 +23,7 @@
         tools:ignore="MissingConstraints">
 
         <android.widget.FrameLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/modulesFrameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"></android.widget.FrameLayout>

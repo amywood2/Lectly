@@ -50,6 +50,7 @@ public class lecturerMain extends AppCompatActivity {
     public static String moduleNameClicked;
     public static String post_id;
     public static String module_id;
+    public String postTotalSaves;
     //public String moduleName;
     public String module_lecturer;
     //public static String moduleName;
@@ -105,7 +106,7 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void getPosts() {
-        final FrameLayout layout = findViewById(R.id.frameLayout);
+        final FrameLayout layout = findViewById(R.id.modulesFrameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
@@ -218,11 +219,39 @@ public class lecturerMain extends AppCompatActivity {
                                 card.setBackgroundResource(R.drawable.card_boarder);
 
                                 eye.setOnClickListener(new View.OnClickListener() {
+
                                     @Override
                                     public void onClick(View view) {
+                                        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getTotalSaves.php?post_id=" + id,
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        JSONObject totalsaves = null;
+                                                        try {
+                                                            totalsaves = new JSONObject(response.toString());
+                                                            JSONArray saveresult = totalsaves.getJSONArray(ModuleDetails.JSON_ARRAY);
+                                                            for (int i = 0; i < saveresult.length(); i++) {
+                                                                JSONObject jsonObject = saveresult.getJSONObject(i);
+                                                                String saves = jsonObject.getString("no_of_saves");
+                                                                postTotalSaves = saves;
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+
+                                                    }
+                                                });
+                                        RequestQueue modrequestQueue = Volley.newRequestQueue(lecturerMain.this);
+                                        modrequestQueue.add(modStringRequest);
+
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(lecturerMain.this);
                                         alertDialog.setTitle("Total Interactions");
-                                        alertDialog.setMessage("Total Views = " + "\n" + "Total File Downloads = " );
+                                        alertDialog.setMessage("Total Views = "+ postTotalSaves + "\n" + "Total File Downloads = " );
                                         //add extra resources
                                         alertDialog.setPositiveButton("View in dashboard", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
@@ -236,6 +265,7 @@ public class lecturerMain extends AppCompatActivity {
                                             }
                                         });
                                         alertDialog.show();
+
                                     }
                                 });
 

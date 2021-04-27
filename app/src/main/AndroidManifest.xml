@@ -32,9 +32,7 @@
         <activity android:name=".students" />
         <activity android:name=".connect" />
         <activity android:name=".modules" />
-        <activity android:name=".settings" />
         <activity android:name=".dashboard" />
-        <activity android:name=".allPosts" />
         <activity android:name=".notesActivity" />
         <activity android:name=".studentMenu" />
         <activity

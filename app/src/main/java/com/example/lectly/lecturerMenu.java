@@ -12,7 +12,7 @@ public class lecturerMenu extends AppCompatActivity {
     Button allPosts;
     Button dashboard;
     Button modules;
-    Button settings;
+    Button logout;
     Button connect;
     Button students;
 
@@ -24,14 +24,14 @@ public class lecturerMenu extends AppCompatActivity {
         allPosts = findViewById(R.id.lAllPosts);
         dashboard = findViewById(R.id.lDashboard);
         modules = findViewById(R.id.lModules);
-        settings = findViewById(R.id.lSettings);
+        logout = findViewById(R.id.lLogOut);
         connect = findViewById(R.id.lConnectButton);
         students = findViewById(R.id.lStudents);
 
 
         allPosts.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), allPosts.class);
+                Intent i = new Intent(getApplicationContext(), lecturerMain.class);
                 startActivity(i);
             }
         });
@@ -50,9 +50,9 @@ public class lecturerMenu extends AppCompatActivity {
             }
         });
 
-        settings.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), settings.class);
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
             }
         });

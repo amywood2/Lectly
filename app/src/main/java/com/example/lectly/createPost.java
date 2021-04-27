@@ -56,6 +56,7 @@ public class createPost extends AppCompatActivity {
     int module_id;
     public String name;
     TextView notification;
+    public String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class createPost extends AppCompatActivity {
             // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void onClick(View view) {
-                String title, description, demonstrationName, workName, studentWork;
+                String description, demonstrationName,  studentWork;
                 String stringModuleId = String.valueOf(module_id);
 
                 title = String.valueOf(textInputTitle.getText());
@@ -160,6 +161,7 @@ public class createPost extends AppCompatActivity {
                                     String result = putData.getResult();
                                     if (result.equals("Your post has been successfully posted")) {
                                         Toast.makeText(createPost.this, "Your post has been successfully posted", Toast.LENGTH_LONG).show();
+                                        getPostId();
                                         Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
                                         startActivity(intent);
                                         finish();
@@ -175,10 +177,70 @@ public class createPost extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
 
+
             }
         });
     }
 
+    private void getPostId(){
+        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getNewPost.php?title=" + title,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject newPost = null;
+                        try {
+                            newPost = new JSONObject(response);
+                            JSONArray postresult = newPost.getJSONArray(PostDetails.JSON_ARRAY);
+                            for (int i = 0; i < postresult.length(); i++) {
+                                JSONObject jsonObject = postresult.getJSONObject(i);
+                                String newPostId = jsonObject.getString("id");
+
+                                addNewPostToDashboard(newPostId);
+                                //Toast.makeText(createPost.this, "post id is " + newPostId, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void addNewPostToDashboard(String newPostId) {
+        String no_of_saves = "0";
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //Starting Write and Read data with URL
+                //Creating array for parameters
+                String[] field = new String[2];
+                field[0] = "post_id";
+                field[1] = "no_of_saves";
+
+                //Creating array for data
+                String[] data = new String[2];
+                data[0] = newPostId;
+                data[1] = no_of_saves;
+
+                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addPostToDashboard.php", "POST", field, data);
+                if (putData.startPut()) {
+                    if (putData.onComplete()) {
+                        String result = putData.getResult();
+                         Toast.makeText(createPost.this, result + newPostId + no_of_saves, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
 
     private void getModules() {
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getModules.php",
@@ -239,16 +301,6 @@ public class createPost extends AppCompatActivity {
     }
 }
 
-
-   /*private void getModuleId() {
-        for (int i = 0; i < allModules.size(); i++) {
-            if (allModules.get(i) == chosenModuleName) {
-                int module_id = i;
-                textViewTitle.setText("The module id is    " + module_id);
-            }
-        }
-    }
-*/
 
 
 

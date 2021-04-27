@@ -37,13 +37,13 @@
         app:layout_constraintTop_toBottomOf="@+id/learningQuizButton" />
 
     <Button
-        android:id="@+id/settingsButton"
+        android:id="@+id/logoutButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
         android:layout_marginTop="75dp"
         android:layout_marginEnd="66dp"
         android:layout_marginRight="66dp"
-        android:text="Settings"
+        android:text="Log out"
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,29 +87,5 @@
         android:text="Study"
         app:layout_constraintEnd_toStartOf="@+id/sSavedPostsButton"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/sProfileImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
-        android:clickable="true"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

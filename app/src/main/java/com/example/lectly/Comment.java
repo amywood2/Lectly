@@ -4,20 +4,11 @@ import java.util.ArrayList;
 
 public class Comment {
 
-    private String mPerson;
     private String mComment;
 
-    public Comment(String person, String comment) {
-        mPerson = person;
+    public Comment(String comment) {
         mComment = comment;
     }
-
-
-    public String getPerson(){
-        //get name of person who commented
-        return mPerson;
-    }
-
 
     public String getComment(){
         //get the comment - textinput
@@ -30,7 +21,7 @@ public class Comment {
         ArrayList<Comment> comments = new ArrayList<Comment>();
 
         for (int i = 1; i <= numComment; i++) {
-            comments.add(new Comment("person " + ++lastCommentId, "comment" + ++lastCommentId));
+            comments.add(new Comment("comment" + ++lastCommentId));
         }
 
         return comments;

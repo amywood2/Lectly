@@ -37,13 +37,20 @@ public class studentMain extends AppCompatActivity {
     private JSONArray result;
     private JSONArray modresult;
     private JSONArray savedresult;
+    public JSONArray updateresult;
+    public JSONArray lecturerResult;
 
     public static String idClicked;
     public static String moduleNameClicked;
+    public static String total_saves;
+    public String module_lecturer_id;
+    public String lecturer_name;
+
 
     //public static Boolean isSaved = false;
 
     public String loggedInStudentID;
+
 
 
     @Override
@@ -122,7 +129,7 @@ public class studentMain extends AppCompatActivity {
 
                                 titleView.setText(title);
                                 titleView.setTextColor(R.color.black);
-                                timeDate.setText(" TIME DATE");
+                                //timeDate.setText(" TIME DATE");
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
@@ -136,10 +143,8 @@ public class studentMain extends AppCompatActivity {
                                                     modresult = modules.getJSONArray(ModuleDetails.JSON_ARRAY);
                                                     for (int i = 0; i < modresult.length(); i++) {
                                                         JSONObject jsonObject = modresult.getJSONObject(i);
-                                                        //String moduleid = jsonObject.getString("id");
                                                         String moduleName = jsonObject.getString(ModuleDetails.MODULENAME);
-                                                        //module_lecturer = jsonObject.getString("module_lecturer_id");
-                                                        //module_lecturer = "this worked";
+                                                        module_lecturer_id = jsonObject.getString("module_lecturer_id");
                                                         moduleNameV.setText(moduleName);
                                                         moduleNameV.setTextSize(16);
                                                     }
@@ -158,18 +163,35 @@ public class studentMain extends AppCompatActivity {
                                 modrequestQueue.add(modStringRequest);
 
 
+                                StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                JSONObject lecturer;
+                                                try {
+                                                    lecturer = new JSONObject(response);
+                                                    lecturerResult = lecturer.getJSONArray(PersonDetails.JSON_ARRAY);
 
+                                                    for (int i = 0; i < lecturerResult.length(); i++) {
+                                                        JSONObject jsonObject = lecturerResult.getJSONObject(i);
+                                                        lecturer_name = jsonObject.getString("id");
+                                                        //lecturerName.setText("Posted by " + lecturer_name);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
 
-                                if (i == 1){
-                                    timeDate.setText("15/02/21");
-                                    lecturerName.setText("Posted by Keith Vermont");
-                                } else if (i == 2) {
-                                    timeDate.setText("22/02/21");
-                                    lecturerName.setText("Posted by Sarah Findlay");
-                                }else{
-                                    timeDate.setText("1/03/21");
-                                    lecturerName.setText("Posted by Thomas Douglas");
-                                }
+                                            }
+                                        });
+                                RequestQueue lecturerrequestQueue = Volley.newRequestQueue(studentMain.this);
+                                lecturerrequestQueue.add(lecturerstringRequest);
+
+                                lecturerName.setText("Posted by " + lecturer_name);
 
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
                                         ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -214,8 +236,6 @@ public class studentMain extends AppCompatActivity {
 
                                             }
                                         });
-
-
                                 RequestQueue saverequestQueue = Volley.newRequestQueue(studentMain.this);
                                 saverequestQueue.add(savestringRequest);
 
@@ -304,6 +324,35 @@ public class studentMain extends AppCompatActivity {
                                                         //change icon to filled in
 
                                                         save.setImageResource(R.drawable.filledsaveicon);
+
+                                                  StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + post_id,
+                                                          new Response.Listener<String>() {
+                                                              @Override
+                                                              public void onResponse(String response) {
+                                                                  JSONObject updatedSaves;
+                                                                  try {
+                                                                      updatedSaves = new JSONObject(response);
+                                                                      updateresult = updatedSaves.getJSONArray(SavedPostsDetails.JSON_ARRAY);
+
+                                                                      for (int i = 0; i < updateresult.length(); i++) {
+                                                                          JSONObject jsonObject = updateresult.getJSONObject(i);
+                                                                          total_saves = jsonObject.getString("no_of_saves");
+
+                                                                      }
+                                                                  } catch (JSONException e) {
+                                                                      e.printStackTrace();
+                                                                  }
+                                                              }
+                                                          },
+                                                          new Response.ErrorListener() {
+                                                              @Override
+                                                              public void onErrorResponse(VolleyError error) {
+
+                                                              }
+                                                          });
+
+                                                  RequestQueue updaterequestQueue = Volley.newRequestQueue(studentMain.this);
+                                                  updaterequestQueue.add(updatestringRequest);
                                                     //} else{
                                                         //Toast.makeText(studentMain.this, "This post has already been saved", Toast.LENGTH_LONG).show();
                                                     //}
@@ -363,7 +412,6 @@ public class studentMain extends AppCompatActivity {
                                         moduleNameClicked = moduleNameV.getText().toString();
                                         Intent j = new Intent(getApplicationContext(), viewPost.class);
                                         startActivity(j);
-                                        //textViewTitle.setText("get from button is  " + postNameClicked);
 
                                     }
                                 });

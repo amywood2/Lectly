@@ -23,7 +23,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class savedPosts extends AppCompatActivity {
@@ -34,6 +36,14 @@ public class savedPosts extends AppCompatActivity {
     private JSONArray modresult;
     public static String idClicked;
     boolean isPostClicked;
+    public int i;
+    public String id;
+    public int j;
+    public String title;
+
+    public String description;
+    public String module_id;
+
 
 
     @Override
@@ -45,9 +55,11 @@ public class savedPosts extends AppCompatActivity {
     }
 
     private void getSavedPosts() {
-        final FrameLayout layout = findViewById(R.id.frameLayoutSaved);
+
+        final FrameLayout savedLayout = findViewById(R.id.frameLayoutSaved);
         StringRequest idStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/lookUpSavedPosts.php?student_id=" + LoginActivity.loggedInUserId,
                 new Response.Listener<String>() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onResponse(String response) {
                         JSONObject allPosts;
@@ -55,35 +67,37 @@ public class savedPosts extends AppCompatActivity {
                             allPosts = new JSONObject(response.toString());
                             result = allPosts.getJSONArray(PostDetails.JSON_ARRAY);
 
-                            for (int i = 0; i < result.length(); i++) {
-                                JSONObject jsonObject = result.getJSONObject(i);
+                            int number = result.length();
+
+                            for (j  = 0; j < result.length(); j++) {
+                                JSONObject jsonObject = result.getJSONObject(j);
 
                                 String post_id = jsonObject.getString("post_id");
 
-                                StringRequest savedStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getAllSavedPosts.php?id=" + post_id,
+                                StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getAllSavedPosts.php?id=" + post_id,
                                         new Response.Listener<String>() {
                                             @SuppressLint("ResourceAsColor")
                                             @Override
                                             public void onResponse(String response) {
-                                                JSONObject saveIds = null;
+                                                JSONObject allPosts = null;
                                                 try {
-                                                    saveIds = new JSONObject(response.toString());
-                                                    savedResult = saveIds.getJSONArray(PostDetails.JSON_ARRAY);
+                                                    allPosts = new JSONObject(response.toString());
+                                                    result = allPosts.getJSONArray(PostDetails.JSON_ARRAY);
 
-                                                    for (int i = 0; i < savedResult.length(); i++) {
+                                                    for (int i = 0; i < result.length(); i++) {
 
-                                                        ConstraintLayout postLayout = new ConstraintLayout(savedPosts.this);
-                                                        CardView card = new CardView(savedPosts.this);
-                                                        JSONObject jsonObject = savedResult.getJSONObject(i);
+
+                                                        JSONObject jsonObject = result.getJSONObject(i);
 
                                                         String id = jsonObject.getString("id");
                                                         String title = jsonObject.getString("title");
                                                         //String timeAndDate = jsonObject.getString("description");
                                                         String description = jsonObject.getString("description");
-                                                        //module_id = jsonObject.getString("module_id");
+                                                        module_id = jsonObject.getString("module_id");
 
                                                         TextView titleView = new TextView(savedPosts.this);
                                                         titleView.setTextSize(28);
+
                                                         TextView timeDate = new TextView(savedPosts.this);
                                                         TextView descriptionV = new TextView(savedPosts.this);
                                                         TextView lecturerName = new TextView(savedPosts.this);
@@ -91,14 +105,14 @@ public class savedPosts extends AppCompatActivity {
 
                                                         descriptionV.setTextSize(18);
 
-                                                        titleView.setText(post_id);
+                                                        titleView.setText(title);
                                                         titleView.setTextColor(R.color.black);
                                                         timeDate.setText(" TIME DATE");
 
                                                         descriptionV.setText(description);
                                                         descriptionV.setTextColor(R.color.black);
-/*
-                                                        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=",
+
+                                                        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + module_id,
                                                                 new Response.Listener<String>() {
                                                                     @Override
                                                                     public void onResponse(String response) {
@@ -127,15 +141,15 @@ public class savedPosts extends AppCompatActivity {
                                                                     }
                                                                 });
                                                         RequestQueue modrequestQueue = Volley.newRequestQueue(savedPosts.this);
-                                                        modrequestQueue.add(modStringRequest);*/
+                                                        modrequestQueue.add(modStringRequest);
 
-                                                        if (i == 1) {
+                                                        if (i == 1){
                                                             timeDate.setText("15/02/21");
                                                             lecturerName.setText("Posted by Keith Vermont");
                                                         } else if (i == 2) {
                                                             timeDate.setText("22/02/21");
                                                             lecturerName.setText("Posted by Sarah Findlay");
-                                                        } else {
+                                                        }else{
                                                             timeDate.setText("1/03/21");
                                                             lecturerName.setText("Posted by Thomas Douglas");
                                                         }
@@ -148,16 +162,20 @@ public class savedPosts extends AppCompatActivity {
 
                                                         layoutParams.width = 1150;
                                                         layoutParams.leftMargin = -50;
-                                                        layoutParams.topMargin = i * 570;
+                                                        //layoutParams.rightMargin = 100;
+                                                        layoutParams.topMargin = j * 570;
+
+                                                        ConstraintLayout postLayout = new ConstraintLayout(savedPosts.this);
+                                                        CardView card = new CardView(savedPosts.this);
 
                                                         card.setPadding(100, 10, 10, 10);
                                                         card.setCardElevation(10);
                                                         card.setRadius(15);
-                                                        card.setClickable(true);
+
 
                                                         postLayout.setLayoutParams(layoutParams);
                                                         card.setLayoutParams(cardParams);
-                                                        card.setContentPadding(50, 10, 50, 40);
+                                                        card.setContentPadding(50, 10,50,40);
                                                         card.setBackgroundResource(R.drawable.card_boarder);
 
                                                         titleView.setPadding(10, 10, 10, 50);
@@ -173,18 +191,8 @@ public class savedPosts extends AppCompatActivity {
                                                         card.addView(moduleNameV);
 
                                                         postLayout.addView(card);
-                                                        layout.addView(postLayout);
+                                                        savedLayout.addView(postLayout);
 
-                                                        card.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                idClicked = id;
-                                                                // moduleNameClicked = moduleNameV.getText().toString();
-                                                                Intent j = new Intent(getApplicationContext(), viewPost.class);
-                                                                startActivity(j);
-                                                                //textViewTitle.setText("get from button is  " + postNameClicked);
-                                                            }
-                                                        });
                                                     }
 
                                                 } catch (JSONException e) {
@@ -200,10 +208,9 @@ public class savedPosts extends AppCompatActivity {
 
                                             }
                                         });
-                                RequestQueue saverequestQueue = Volley.newRequestQueue(savedPosts.this);
-                                saverequestQueue.add(savedStringRequest);
 
-//---------------------------------------------------------------------
+                                RequestQueue requestQueue = Volley.newRequestQueue(savedPosts.this);
+                                requestQueue.add(stringRequest);
 
                             }
                         } catch (JSONException e) {
@@ -219,9 +226,11 @@ public class savedPosts extends AppCompatActivity {
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(savedPosts.this);
         requestQueue.add(idStringRequest);
+
+
+
+
+
     }
-
-
-        }
-
+}
 

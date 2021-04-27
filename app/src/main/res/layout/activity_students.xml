@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".students">
 
+    <ScrollView
+        android:id="@+id/swStudents"
+        android:layout_width="390dp"
+        android:layout_height="604dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455"
+        tools:ignore="MissingConstraints">
+
+        <android.widget.FrameLayout
+            android:id="@+id/studentsFrameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></android.widget.FrameLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
