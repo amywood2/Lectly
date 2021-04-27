@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class studySection extends AppCompatActivity {
@@ -87,13 +90,79 @@ public class studySection extends AppCompatActivity {
 
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (timerRunning){
+                if (timerRunning) {
                     pauseTimer();
-                } else{
+                } else {
                     startTimer();
+
+                    SimpleDateFormat style = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Timestamp getTimestamp = new Timestamp(System.currentTimeMillis());
+                    String timestamp = style.format(getTimestamp);
+                    Handler handler = new Handler();
+                    if (START_TIME_IN_MILLIS == 300000) {
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Starting Write and Read data with URL
+                                //Creating array for parameters
+                                String[] field = new String[3];
+                                field[0] = "student_id";
+                                field[1] = "type";
+                                field[2] = "timestamp";
+
+                                //Creating array for data
+                                String[] data = new String[3];
+                                data[0] = LoginActivity.user_id;
+                                data[1] = "25 minute study timer";
+                                data[2] = timestamp;
+
+                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
+                                if (putData.startPut()) {
+                                    if (putData.onComplete()) {
+                                        String result = putData.getResult();
+                                        Toast.makeText(studySection.this, result, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Starting Write and Read data with URL
+                                //Creating array for parameters
+                                String[] field = new String[3];
+                                field[0] = "student_id";
+                                field[1] = "type";
+                                field[2] = "timestamp";
+
+                                //Creating array for data
+                                String[] data = new String[3];
+                                data[0] = LoginActivity.user_id;
+                                data[1] = "5 minute break timer";
+                                data[2] = timestamp;
+
+                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
+                                if (putData.startPut()) {
+                                    if (putData.onComplete()) {
+                                        String result = putData.getResult();
+                                        Toast.makeText(studySection.this, result, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
+
+
+
+
+
+
+
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

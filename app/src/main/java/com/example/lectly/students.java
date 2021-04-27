@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 
 public class students extends AppCompatActivity {
 
+    ProgressDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,15 @@ public class students extends AppCompatActivity {
         getAllStudents();
     }
 
-    public void getAllStudents(){final FrameLayout layout = findViewById(R.id.studentsFrameLayout);
+    public void getAllStudents(){
+        loadingDialog = new ProgressDialog(this); // this = YourActivity
+        loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loadingDialog.setTitle("Loading");
+        loadingDialog.setMessage("Loading all students...");
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCanceledOnTouchOutside(false);
+        loadingDialog.show();
+        final FrameLayout layout = findViewById(R.id.studentsFrameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getStudents.php",
                 new Response.Listener<String>() {
                     @Override
@@ -100,7 +111,7 @@ public class students extends AppCompatActivity {
                                 postLayout.addView(card);
                                 layout.addView(postLayout);
 
-
+                                loadingDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

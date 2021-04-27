@@ -41,13 +41,6 @@ public class studentMenu extends AppCompatActivity {
             }
         });
 
-        connect.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), connect.class);
-                startActivity(i);
-            }
-        });
-
         study.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), studySection.class);

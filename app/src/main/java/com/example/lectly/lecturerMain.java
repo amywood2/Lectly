@@ -2,6 +2,7 @@ package com.example.lectly;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,27 +34,30 @@ import java.util.ArrayList;
 
 public class lecturerMain extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private static final String TAG = null;
+
     FloatingActionButton notes;
     FloatingActionButton menu;
     FloatingActionButton create;
     FloatingActionButton filter;
-    TextView dataView;
+
     private ArrayList<String> postTitles;
     private ArrayList<String> postDescriptions;
     private ArrayList<String> postDemonstrations;
     private ArrayList<String> postStudentWorks;
+
     private JSONArray result;
     private JSONArray modresult;
+    private JSONArray lecturerResult;
     public static String idClicked = "0";
     public static String moduleNameClicked;
-    public static String post_id;
+
     public static String module_id;
     public String postTotalSaves;
-    //public String moduleName;
-    public String module_lecturer;
-    //public static String moduleName;
+
+    public static String module_lecturer_id;
+    public String lecturer_name;
+
+    ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,13 @@ public class lecturerMain extends AppCompatActivity {
     }
 
     private void getPosts() {
+        loadingDialog = new ProgressDialog(this); // this = YourActivity
+        loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loadingDialog.setTitle("Loading");
+        loadingDialog.setMessage("Loading recent posts...");
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCanceledOnTouchOutside(false);
+        loadingDialog.show();
         final FrameLayout layout = findViewById(R.id.modulesFrameLayout);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
@@ -141,7 +152,6 @@ public class lecturerMain extends AppCompatActivity {
 
                                 titleView.setText(title);
                                 titleView.setTextColor(R.color.black);
-                                timeDate.setText(" TIME DATE");
 
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
@@ -158,10 +168,43 @@ public class lecturerMain extends AppCompatActivity {
                                                         JSONObject jsonObject = modresult.getJSONObject(i);
                                                         //String moduleid = jsonObject.getString("id");
                                                         String moduleName = jsonObject.getString(ModuleDetails.MODULENAME);
-                                                        //module_lecturer = jsonObject.getString("module_lecturer_id");
+                                                        module_lecturer_id = jsonObject.getString(ModuleDetails.MODULE_LECTURER_ID);
                                                         //module_lecturer = "this worked";
                                                         moduleNameV.setText(moduleName);
                                                         moduleNameV.setTextSize(16);
+
+                                                        StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                                                new Response.Listener<String>() {
+                                                                    @Override
+                                                                    public void onResponse(String response) {
+                                                                        JSONObject lecturer;
+                                                                        try {
+                                                                            lecturer = new JSONObject(response);
+                                                                            lecturerResult = lecturer.getJSONArray(PersonDetails.JSON_ARRAY);
+
+
+                                                                            for (int i = 0; i < lecturerResult.length(); i++) {
+                                                                                JSONObject jsonObject = lecturerResult.getJSONObject(i);
+                                                                                lecturer_name = jsonObject.getString("fullname");
+                                                                                lecturerName.setText("Posted by " + lecturer_name);
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                },
+                                                                new Response.ErrorListener() {
+                                                                    @Override
+                                                                    public void onErrorResponse(VolleyError error) {
+
+                                                                    }
+                                                                });
+
+                                                        RequestQueue lecturerrequestQueue = Volley.newRequestQueue(lecturerMain.this);
+                                                        lecturerrequestQueue.add(lecturerstringRequest);
+
+
+
                                                     }
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -176,17 +219,6 @@ public class lecturerMain extends AppCompatActivity {
                                 });
                                 RequestQueue modrequestQueue = Volley.newRequestQueue(lecturerMain.this);
                                 modrequestQueue.add(modStringRequest);
-
-                                if (i == 1){
-                                    timeDate.setText("15/02/21");
-                                    lecturerName.setText("Posted by Keith Vermont");
-                                } else if (i == 2) {
-                                    timeDate.setText("22/02/21");
-                                    lecturerName.setText("Posted by Sarah Findlay");
-                                }else{
-                                    timeDate.setText("1/03/21");
-                                    lecturerName.setText("Posted by Thomas Douglas");
-                                }
 
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
                                        ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -222,7 +254,7 @@ public class lecturerMain extends AppCompatActivity {
 
                                     @Override
                                     public void onClick(View view) {
-                                        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getTotalSaves.php?post_id=" + id,
+                                        StringRequest dashStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getTotalSaves.php?post_id=" + id,
                                                 new Response.Listener<String>() {
                                                     @Override
                                                     public void onResponse(String response) {
@@ -246,8 +278,8 @@ public class lecturerMain extends AppCompatActivity {
 
                                                     }
                                                 });
-                                        RequestQueue modrequestQueue = Volley.newRequestQueue(lecturerMain.this);
-                                        modrequestQueue.add(modStringRequest);
+                                        RequestQueue dashRequestQueue = Volley.newRequestQueue(lecturerMain.this);
+                                        dashRequestQueue.add(dashStringRequest);
 
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(lecturerMain.this);
                                         alertDialog.setTitle("Total Interactions");
@@ -284,6 +316,7 @@ public class lecturerMain extends AppCompatActivity {
 
                                 postLayout.addView(card);
                                 layout.addView(postLayout);
+                                loadingDialog.dismiss();
 
                                 card.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -312,7 +345,7 @@ public class lecturerMain extends AppCompatActivity {
                 });
        RequestQueue requestQueue = Volley.newRequestQueue(this);
        requestQueue.add(stringRequest);
-    }
+    }/*
 
     private void getTitles(JSONArray allPosts) {
         for (int i = 0; i < allPosts.length(); i++) {
@@ -361,7 +394,7 @@ public class lecturerMain extends AppCompatActivity {
         }
         // textViewStudentWork.setText(postStudentWorks.get(0));
     }
-
+*/
 }
 
 

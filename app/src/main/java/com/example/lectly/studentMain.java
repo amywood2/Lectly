@@ -2,6 +2,7 @@ package com.example.lectly;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,12 +47,9 @@ public class studentMain extends AppCompatActivity {
     public String module_lecturer_id;
     public String lecturer_name;
 
-
-    //public static Boolean isSaved = false;
-
     public String loggedInStudentID;
 
-
+    ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +93,13 @@ public class studentMain extends AppCompatActivity {
     }
 
     private void getPosts() {
+        loadingDialog = new ProgressDialog(this); // this = YourActivity
+        loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loadingDialog.setTitle("Loading");
+        loadingDialog.setMessage("Loading recent posts...");
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCanceledOnTouchOutside(false);
+        loadingDialog.show();
         final FrameLayout layout = findViewById(R.id.frameLayoutSaved);
         StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
                 new Response.Listener<String>() {
@@ -139,14 +144,49 @@ public class studentMain extends AppCompatActivity {
                                             public void onResponse(String response) {
                                                 JSONObject modules = null;
                                                 try {
-                                                    modules = new JSONObject(response);
+                                                    modules = new JSONObject(response.toString());
                                                     modresult = modules.getJSONArray(ModuleDetails.JSON_ARRAY);
                                                     for (int i = 0; i < modresult.length(); i++) {
                                                         JSONObject jsonObject = modresult.getJSONObject(i);
+                                                        //String moduleid = jsonObject.getString("id");
                                                         String moduleName = jsonObject.getString(ModuleDetails.MODULENAME);
-                                                        module_lecturer_id = jsonObject.getString("module_lecturer_id");
+                                                        module_lecturer_id = jsonObject.getString(ModuleDetails.MODULE_LECTURER_ID);
+                                                        //module_lecturer = "this worked";
                                                         moduleNameV.setText(moduleName);
                                                         moduleNameV.setTextSize(16);
+
+                                                        StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                                                new Response.Listener<String>() {
+                                                                    @Override
+                                                                    public void onResponse(String response) {
+                                                                        JSONObject lecturer;
+                                                                        try {
+                                                                            lecturer = new JSONObject(response);
+                                                                            lecturerResult = lecturer.getJSONArray(PersonDetails.JSON_ARRAY);
+
+
+                                                                            for (int i = 0; i < lecturerResult.length(); i++) {
+                                                                                JSONObject jsonObject = lecturerResult.getJSONObject(i);
+                                                                                lecturer_name = jsonObject.getString("fullname");
+                                                                                lecturerName.setText("Posted by " + lecturer_name);
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                },
+                                                                new Response.ErrorListener() {
+                                                                    @Override
+                                                                    public void onErrorResponse(VolleyError error) {
+
+                                                                    }
+                                                                });
+
+                                                        RequestQueue lecturerrequestQueue = Volley.newRequestQueue(studentMain.this);
+                                                        lecturerrequestQueue.add(lecturerstringRequest);
+
+
+
                                                     }
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -161,37 +201,6 @@ public class studentMain extends AppCompatActivity {
                                         });
                                 RequestQueue modrequestQueue = Volley.newRequestQueue(studentMain.this);
                                 modrequestQueue.add(modStringRequest);
-
-
-                                StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
-                                        new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                JSONObject lecturer;
-                                                try {
-                                                    lecturer = new JSONObject(response);
-                                                    lecturerResult = lecturer.getJSONArray(PersonDetails.JSON_ARRAY);
-
-                                                    for (int i = 0; i < lecturerResult.length(); i++) {
-                                                        JSONObject jsonObject = lecturerResult.getJSONObject(i);
-                                                        lecturer_name = jsonObject.getString("id");
-                                                        //lecturerName.setText("Posted by " + lecturer_name);
-                                                    }
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        },
-                                        new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-
-                                            }
-                                        });
-                                RequestQueue lecturerrequestQueue = Volley.newRequestQueue(studentMain.this);
-                                lecturerrequestQueue.add(lecturerstringRequest);
-
-                                lecturerName.setText("Posted by " + lecturer_name);
 
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams
                                         ((int) FrameLayout.LayoutParams.MATCH_PARENT, (int) FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -404,6 +413,7 @@ public class studentMain extends AppCompatActivity {
 
                                 postLayout.addView(card);
                                 layout.addView(postLayout);
+                                loadingDialog.dismiss();
 
                                 card.setOnClickListener(new View.OnClickListener() {
                                     @Override

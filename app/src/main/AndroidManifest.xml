@@ -30,7 +30,6 @@
         <activity android:name=".studySection" />
         <activity android:name=".viewPost" />
         <activity android:name=".students" />
-        <activity android:name=".connect" />
         <activity android:name=".modules" />
         <activity android:name=".dashboard" />
         <activity android:name=".notesActivity" />

@@ -8,9 +8,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -58,83 +62,179 @@ public class viewPost extends AppCompatActivity {
         commentsInput = findViewById(R.id.commentsInput);
         sendButton = findViewById(R.id.sendButton);
 
-
         postModule.setText(lecturerMain.moduleNameClicked);
-        backButton = findViewById(R.id.backButton);
         saveButton = findViewById(R.id.saveThisPost);
 
 
         if (typeOfUser.typeofuser == "student") {
             saveButton.setVisibility(View.VISIBLE);
             postModule.setText(studentMain.moduleNameClicked);
-        }else {
+        } else {
             postModule.setText(lecturerMain.moduleNameClicked);
         }
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i;
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewPost.this);
+                alertDialog.setTitle("Save this post?");
+                alertDialog.setMessage("You can find this post in your saved posts");
+
                 if (typeOfUser.typeofuser == "lecturer") {
-                    i = new Intent(getApplicationContext(), lecturerMain.class);
-                } else {
-                    i = new Intent(getApplicationContext(), studentMain.class);
+                    alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //add post to savepost database
+                            Handler handler = new Handler();
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Starting Write and Read data with URL
+                                    //Creating array for parameters
+                                    String[] field = new String[2];
+                                    field[0] = "student_id";
+                                    field[1] = "post_id";
+
+                                    //Creating array for data
+                                    String[] data = new String[2];
+                                    data[0] = LoginActivity.user_id;
+                                    data[1] = lecturerMain.idClicked;
+
+                                    PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
+                                    if (putData.startPut()) {
+                                        if (putData.onComplete()) {
+                                            String result = putData.getResult();
+                                            if (result.equals("Your post has been successfully saved")) {
+                                                Toast.makeText(viewPost.this, "Your post has been successfully saved", Toast.LENGTH_LONG).show();
+
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            //change icon to filled in
+                            saveButton.setImageResource(R.drawable.filledsaveicon);
+
+                            StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + lecturerMain.idClicked,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            JSONObject updatedSaves;
+                                            try {
+                                                updatedSaves = new JSONObject(response);
+                                                JSONArray updateresult = updatedSaves.getJSONArray(SavedPostsDetails.JSON_ARRAY);
+
+                                                for (int i = 0; i < updateresult.length(); i++) {
+                                                    JSONObject jsonObject = updateresult.getJSONObject(i);
+                                                    String total_saves = jsonObject.getString("no_of_saves");
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+
+                                        }
+                                    });
+
+                            RequestQueue updaterequestQueue = Volley.newRequestQueue(viewPost.this);
+                            updaterequestQueue.add(updatestringRequest);
+
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.show();
+                }else {
+
+                    alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //add post to savepost database
+                            Handler handler = new Handler();
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Starting Write and Read data with URL
+                                    //Creating array for parameters
+                                    String[] field = new String[2];
+                                    field[0] = "student_id";
+                                    field[1] = "post_id";
+
+                                    //Creating array for data
+                                    String[] data = new String[2];
+                                    data[0] = LoginActivity.user_id;
+                                    data[1] = studentMain.idClicked;
+
+                                    PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
+                                    if (putData.startPut()) {
+                                        if (putData.onComplete()) {
+                                            String result = putData.getResult();
+                                            if (result.equals("Your post has been successfully saved")) {
+                                                Toast.makeText(viewPost.this, "Your post has been successfully saved", Toast.LENGTH_LONG).show();
+
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            //change icon to filled in
+                            saveButton.setImageResource(R.drawable.filledsaveicon);
+
+                            StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + studentMain.idClicked,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            JSONObject updatedSaves;
+                                            try {
+                                                updatedSaves = new JSONObject(response);
+                                                JSONArray updateresult = updatedSaves.getJSONArray(SavedPostsDetails.JSON_ARRAY);
+
+                                                for (int i = 0; i < updateresult.length(); i++) {
+                                                    JSONObject jsonObject = updateresult.getJSONObject(i);
+                                                    String total_saves = jsonObject.getString("no_of_saves");
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+
+                                        }
+                                    });
+
+                            RequestQueue updaterequestQueue = Volley.newRequestQueue(viewPost.this);
+                            updaterequestQueue.add(updatestringRequest);
+
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    alertDialog.show();
                 }
-                startActivity(i);
             }
         });
 
-        /*saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewPost.this);
-                    alertDialog.setTitle("Save this post?");
-                    alertDialog.setMessage("You can find this post in your saved posts");
-                    //add extra resources
-                    alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            //add post to savepost database
-
-
-
-                            //change icon to filled in
-                            saveButton.setImageResource(R.drawable.filledsaveicon);
-                            dialog.cancel();
-                            studentMain.isSaved = true;
-                        }
-                    });
-                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    alertDialog.show();
-                } else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewPost.this);
-                    alertDialog.setTitle("Unsave this post?");
-                    alertDialog.setMessage("This post will be removed from your saved posts");
-                    //add extra resources
-                    alertDialog.setPositiveButton("Unsave Post", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            //remove post from saved posts
-                            //change icon to unfilled in
-                            saveButton.setImageResource(R.drawable.saveicon);
-                            dialog.cancel();
-                            //studentMain.isSaved = false;
-                        }
-                    });
-                    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    alertDialog.show();
-                }
-
-        });*/
-
         getPost();
-        //getModuleName();
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

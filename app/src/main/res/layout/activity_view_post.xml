@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".createPost">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginBottom="21dp"
-        android:clickable="true"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
-
     <TextView
         android:id="@+id/postName"
         android:layout_width="270dp"
@@ -60,14 +47,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewComments"
-        android:layout_width="327dp"
-        android:layout_height="197dp"
-        android:layout_marginTop="97dp"
-        android:layout_marginBottom="188dp"
+        android:layout_width="333dp"
+        android:layout_height="199dp"
+        android:layout_marginBottom="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postWork" />
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/commentsInput"
@@ -82,10 +68,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
+        app:layout_constraintVertical_bias="0.948" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sendButton"
@@ -98,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854"
+        app:layout_constraintVertical_bias="0.937"
         app:srcCompat="@drawable/ic_menu_send" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
