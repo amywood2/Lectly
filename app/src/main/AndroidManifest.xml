@@ -5,21 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <permission
-        android:name="android.permission.BLUETOOTH"
-        android:label="BLUETOOTH" />
-    <permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <meta-data
         android:name="com.google.android.gms.version"
@@ -34,17 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lectly"
         android:usesCleartextTraffic="true">
-        <activity android:name=".savedPosts"></activity>
+        <activity android:name=".saveWorkToDrive"></activity>
+        <activity android:name=".createWorkFile" />
+        <activity android:name=".saveDemoToDrive" />
+        <activity android:name=".createDemoFile" />
+        <activity android:name=".savedPosts" />
         <activity android:name=".DriveActivity" />
         <activity android:name=".studySection" />
-        <activity android:name=".test" />
         <activity android:name=".viewPost" />
         <activity android:name=".students" />
-        <activity android:name=".connect" />
         <activity android:name=".modules" />
-        <activity android:name=".settings" />
         <activity android:name=".dashboard" />
-        <activity android:name=".allPosts" />
         <activity android:name=".notesActivity" />
         <activity android:name=".studentMenu" />
         <activity
@@ -56,10 +43,14 @@
         <activity
             android:name=".lecturerMain"
             android:label="@string/title_activity_lecturer_main"
-            android:theme="@style/Theme.Lectly.NoActionBar" />
+            android:theme="@style/Theme.Lectly.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".createPost"
-            android:theme="@style/Theme.Lectly.NoActionBar" />
+            android:theme="@style/Theme.Lectly.NoActionBar">
+
+        </activity>
         <activity
             android:name=".typeOfUser"
             android:theme="@style/Theme.Lectly.NoActionBar" />
@@ -68,18 +59,16 @@
             android:theme="@style/Theme.Lectly.NoActionBar" />
         <activity
             android:name=".studentMain"
-            android:theme="@style/Theme.Lectly.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.Lectly.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Lectly.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.Lectly.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

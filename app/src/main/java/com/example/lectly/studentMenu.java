@@ -11,7 +11,7 @@ import android.widget.Button;
 public class studentMenu extends AppCompatActivity {
 
     Button modules;
-    Button settings;
+    Button logout;
     Button study;
     Button connect;
     Button savedPosts;
@@ -22,7 +22,7 @@ public class studentMenu extends AppCompatActivity {
         setContentView(R.layout.activity_student_menu);
 
         modules = findViewById(R.id.modulesButton);
-        settings = findViewById(R.id.settingsButton);
+        logout = findViewById(R.id.logoutButton);
         study = findViewById(R.id.studyButton);
         connect = findViewById(R.id.sConnectButton);
         savedPosts = findViewById(R.id.sSavedPostsButton);
@@ -34,16 +34,9 @@ public class studentMenu extends AppCompatActivity {
             }
         });
 
-        settings.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), settings.class);
-                startActivity(i);
-            }
-        });
-
-        connect.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), connect.class);
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
             }
         });

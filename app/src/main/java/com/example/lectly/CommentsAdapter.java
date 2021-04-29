@@ -62,11 +62,10 @@ public class CommentsAdapter extends
         Comment comment = mComments.get(position);
 
         // Set item views based on your views and data model
-        TextView textView = holder.nameTextView;
-        textView.setText(comment.getPerson());
+     ;
 
         TextView textView1 = holder.commentTextView;
-        textView1.setText(comment.getComment());
+        textView1.setText(viewPost.commentsInput.getText());
 
     }
 

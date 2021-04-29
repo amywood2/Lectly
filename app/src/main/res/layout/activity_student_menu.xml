@@ -6,110 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".studentMenu">
 
-    <Button
-        android:id="@+id/learningQuizButton"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:text="Learning Style Quiz"
-        android:textSize="12sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toStartOf="@+id/sConnectButton"
-        app:layout_constraintHorizontal_bias="0.0"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="198dp"
+        android:layout_height="165dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studyButton" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.108"
+        app:srcCompat="@drawable/lectlylogo" />
 
     <Button
-        android:id="@+id/modulesButton"
+        android:id="@+id/logoutButton"
         android:layout_width="115dp"
         android:layout_height="67dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="75dp"
-        android:text="Modules and Deadlines"
-        android:textSize="12sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/learningQuizButton" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:text="Settings"
+        android:text="Log out"
         android:textSize="14sp"
         app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sConnectButton" />
-
-    <Button
-        android:id="@+id/sConnectButton"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:text="Connect"
-        android:textSize="14sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sSavedPostsButton" />
-
-    <Button
-        android:id="@+id/sSavedPostsButton"
-        android:layout_width="115dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:layout_marginBottom="72dp"
-        android:text="Saved Posts"
-        android:textSize="12sp"
-        app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/sConnectButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
 
     <Button
         android:id="@+id/studyButton"
         android:layout_width="113dp"
         android:layout_height="67dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:text="Study"
-        app:layout_constraintEnd_toStartOf="@+id/sSavedPostsButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/sProfileImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.44" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
-        android:clickable="true"
+    <Button
+        android:id="@+id/learningQuizButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:text="Learning Style Quiz"
+        android:textSize="12sp"
         app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:layout_constraintVertical_bias="0.606" />
+
+    <Button
+        android:id="@+id/sSavedPostsButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:text="Saved Posts"
+        android:textSize="12sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <Button
+        android:id="@+id/sConnectButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:text="Connect"
+        android:textSize="14sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
+
+    <Button
+        android:id="@+id/modulesButton"
+        android:layout_width="115dp"
+        android:layout_height="67dp"
+        android:text="Modules and Deadlines"
+        android:textSize="12sp"
+        app:backgroundTint="@color/mainColour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

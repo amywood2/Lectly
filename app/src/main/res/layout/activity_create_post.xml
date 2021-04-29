@@ -12,115 +12,64 @@
     tools:context=".createPost">
 
 
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/titleValue"
         android:layout_width="335dp"
         android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="7dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
         android:inputType="text"
         android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postTitleText" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/descriptionValue"
         android:layout_width="335dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
-        android:inputType="text"
-        android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postDescriptionText" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/demonstrationValue"
-        android:layout_width="197dp"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="164dp"
-        android:layout_marginRight="164dp"
-        android:hint="Save files as.."
         android:inputType="text"
         android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postDemonstrationText" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/studentWorkValue"
-        android:layout_width="335dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:inputType="text"
-        android:textCursorDrawable="@drawable/cursor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postStudenWorkText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDescriptionText" />
 
     <TextView
         android:id="@+id/postTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="284dp"
-        android:layout_marginRight="284dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="41dp"
         android:text="Title of Post"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createWorkFile" />
 
     <TextView
         android:id="@+id/postDescriptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="240dp"
-        android:layout_marginRight="240dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
         android:text="Description of Post"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleValue" />
-
-    <TextView
-        android:id="@+id/postDemonstrationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="276dp"
-        android:layout_marginRight="276dp"
-        android:text="Demostration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
-
-    <TextView
-        android:id="@+id/postStudenWorkText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="224dp"
-        android:layout_marginRight="224dp"
-        android:text="Work to be completed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/demonstrationValue" />
 
     <Button
         android:id="@+id/savePostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="136dp"
-        android:layout_marginRight="136dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="34dp"
         android:background="@color/mainColour"
         android:text="Save Post"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moduleSpinner" />
 
@@ -128,28 +77,24 @@
         android:id="@+id/allowComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="208dp"
-        android:layout_marginRight="208dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:text="Allow Comments"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentWorkValue" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/infoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="322dp"
-        android:layout_marginLeft="322dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="44dp"
         android:clickable="true"
         app:backgroundTint="@color/mainColour"
-        app:layout_constraintBottom_toTopOf="@+id/titleValue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
@@ -157,43 +102,45 @@
         android:id="@+id/moduleSpinner"
         android:layout_width="245dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginRight="112dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowComments" />
+        app:layout_constraintTop_toBottomOf="@+id/moduleText" />
 
     <Button
-        android:id="@+id/selectFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginBottom="65dp"
-        android:text="Upload"
-        app:layout_constraintBottom_toTopOf="@+id/studentWorkValue"
-        app:layout_constraintStart_toEndOf="@+id/demonstrationValue" />
+        android:id="@+id/createWorkFile"
+        android:layout_width="294dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="11dp"
+        android:text="Create Work for students to complete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createDemoFile" />
+
+    <Button
+        android:id="@+id/createDemoFile"
+        android:layout_width="294dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="35dp"
+        android:text="Create a Demonstration File"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/moduleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="313dp"
-        android:layout_marginRight="313dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="296dp"
+        android:layout_marginRight="296dp"
         android:text="Module"
-        app:layout_constraintBottom_toTopOf="@+id/moduleSpinner"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="304dp"
-        android:layout_marginRight="304dp"
-        android:layout_marginBottom="192dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

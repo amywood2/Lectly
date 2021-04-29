@@ -2,6 +2,8 @@ package com.example.lectly;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +44,17 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistrationActivity.this);
+                alertDialog.setMessage("By creating an account with Lectly, you are accepting your data to be used in the dashboard section for lecturers to view");
+
+                alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+
                 String fullname, username, password, email;
                 fullname = String.valueOf(textInputName.getText());
                 username = String.valueOf(textInputUsername.getText());
@@ -78,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     if (result.equals("Sign Up Success")){
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(getApplicationContext(), studentMain.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
 
@@ -121,7 +134,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     if (result.equals("Sign Up Success")){
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(getApplicationContext(), lecturerMain.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intent);
                                         finish();
 

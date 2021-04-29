@@ -133,9 +133,9 @@ public class GDFileManager {
      * @param withDuplicate create a duplicate of temp file (used in case of image processing), DUPLICATE FILES ARE JUST A EMPTY FILE PATH, ALL FILE MANAGEMENT HAS TO BE DONE BY YOU.
      * @return created temp file
      */
-    public File createTempFile(Context context, String withExtension, boolean withDuplicate) {
+    public File createTempFile(String fileName, Context context, String withExtension, boolean withDuplicate) {
         // Actual temp file
-        String tempFileName = Long.toString(new Date().getTime());
+        String tempFileName = fileName;
         if (withExtension != null && withExtension.isEmpty() == false) {
             tempFileName = tempFileName + "." + withExtension;
         }
@@ -198,10 +198,10 @@ public class GDFileManager {
         return type;
     }
 
-    public File getFileFromURI(Context context, Uri contentUri) {
+    public File getFileFromURI(String fileName, Context context, Uri contentUri) {
         try {
             InputStream inputStream = context.getContentResolver().openInputStream(contentUri);
-            File fileToSave = createTempFile(context, getFileExtension(new File(getFileName(context, contentUri))), false);
+            File fileToSave = createTempFile(fileName, context, getFileExtension(new File(getFileName(context, contentUri))), false);
             FileOutputStream fileOutput = new FileOutputStream(fileToSave);
 
             byte[] buffer = new byte[1024];

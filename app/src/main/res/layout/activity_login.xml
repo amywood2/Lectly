@@ -31,7 +31,7 @@
         <EditText
             android:id="@+id/loginUsernameValue"
             android:layout_width="339dp"
-            android:layout_height="48dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName" />

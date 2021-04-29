@@ -9,6 +9,7 @@ public class ModuleDetails {
     public static final String MODULENAME = "module_name";
     public static final String COURSE = "course";
     public static final String YEAR = "year";
+    public static final String MODULE_LECTURER_ID = "module_lecturer_id";
 
     //JSON array name
     public static final String JSON_ARRAY = "result";
