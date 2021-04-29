@@ -54,7 +54,9 @@ public class studySection extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(studySection.this);
                 alertDialog.setTitle("Pomodoro Technique");
-                alertDialog.setMessage("Information about the pomodoro study techinque");
+                alertDialog.setMessage("The Pomodoro Technique is a very effective way to study. The technique works by studying for 25 minutes" +
+                        " and then taking a 5 minute break and doing something you enjoy during that time." + "\n" + "\n" + "Use the timers in this section to help you!" +
+                        "\n" + "\n" + "This technique allow you to enter your zone of proximal development and enhancing what you can do independently.");
                 //add extra resources
 
                 alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {

@@ -148,19 +148,17 @@ public class dashboard extends AppCompatActivity {
                                 layoutParams.leftMargin = -50;
                                 //layoutParams.rightMargin = 100;
 
-                                layoutParams.topMargin = i * 340;
+                                layoutParams.topMargin = i * 250;
 
                                 //card.setPadding(100, 10, 10, 10);
                                 card.setCardElevation(10);
                                 card.setRadius(15);
                                 card.setClickable(true);
 
-
                                 postLayout.setLayoutParams(layoutParams);
                                 card.setLayoutParams(cardParams);
                                 card.setContentPadding(50, 10,50,40);
                                 card.setBackgroundResource(R.drawable.card_boarder);
-
 
                                 card.addView(titleView);
                                 card.addView(totalSavesV);
@@ -171,8 +169,7 @@ public class dashboard extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TextView noposts = new TextView(dashboard.this);
-                            noposts.setText("No posts to view");
+
                         }
                     }
                 },
@@ -293,8 +290,6 @@ public class dashboard extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    TextView noposts = new TextView(dashboard.this);
-                    noposts.setText("No posts to view");
                 }
             }
         },

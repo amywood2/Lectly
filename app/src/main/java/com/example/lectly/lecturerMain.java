@@ -203,8 +203,6 @@ public class lecturerMain extends AppCompatActivity {
                                                         RequestQueue lecturerrequestQueue = Volley.newRequestQueue(lecturerMain.this);
                                                         lecturerrequestQueue.add(lecturerstringRequest);
 
-
-
                                                     }
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -283,7 +281,7 @@ public class lecturerMain extends AppCompatActivity {
 
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(lecturerMain.this);
                                         alertDialog.setTitle("Total Interactions");
-                                        alertDialog.setMessage("Total Views = "+ postTotalSaves + "\n" + "Total File Downloads = " );
+                                        alertDialog.setMessage("Total Views = "+ postTotalSaves);
                                         //add extra resources
                                         alertDialog.setPositiveButton("View in dashboard", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {

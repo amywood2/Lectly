@@ -84,10 +84,7 @@ public class createPost extends AppCompatActivity {
                         "to learn from a demonstration (presented by a lecturer). Students can then use the demonstration to further " +
                         "there knowledge independently and complete any work set for them" + "\n" + "\n" +
                         "It is important to clearly explain the material through the use of several formats of resources such as notes, recordings, activities. This means that all types of learnings" +
-                        "are catered for and student will allow student access to as many resources as possible" + "\n" + "\n" +
-                        "Please use these extra resources to aid making posts: " + "\n" +
-                        "");
-                //add extra resources
+                        "are catered for and student will allow student access to as many resources as possible" + "\n" + "\n");
 
                 alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -235,7 +232,7 @@ public class createPost extends AppCompatActivity {
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
-                         Toast.makeText(createPost.this, result + newPostId + no_of_saves, Toast.LENGTH_LONG).show();
+                         Toast.makeText(createPost.this, result, Toast.LENGTH_LONG).show();
                     }
                 }
             }

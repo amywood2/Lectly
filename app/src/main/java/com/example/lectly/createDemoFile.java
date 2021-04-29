@@ -47,14 +47,9 @@ public class createDemoFile extends AppCompatActivity {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(createDemoFile.this);
                 alertDialog.setTitle("Demostratration File Info");
-                alertDialog.setMessage("This app makes use of the constructivist learning theory. This allows students " +
-                        "to learn from a demonstration (presented by a lecturer). Students can then use the demonstration to further " +
-                        "there knowledge independently and complete any work set for them" + "\n" + "\n" +
-                        "It is important to clearly explain the material through the use of several formats of resources such as notes, recordings, activities. This means that all types of learnings" +
-                        "are catered for and student will allow student access to as many resources as possible" + "\n" + "\n" +
-                        "Please use these extra resources to aid making posts: " + "\n" +
-                        "");
-                //add extra resources
+                alertDialog.setMessage("A demonstration file should contain content for students to learn. " +
+                        "Make sure the content provides is clear and concise. This is beneficial to the effectiveness of how each student will " +
+                        "learn the content. When the file is save, it will be uploaded to the modules shared google drive. " );
 
                 alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

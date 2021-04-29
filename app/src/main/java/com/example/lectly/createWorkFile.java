@@ -47,13 +47,9 @@ public class createWorkFile extends AppCompatActivity {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(createWorkFile.this);
                 alertDialog.setTitle("Work File Info");
-                alertDialog.setMessage("This app makes use of the constructivist learning theory. This allows students " +
-                        "to learn from a demonstration (presented by a lecturer). Students can then use the demonstration to further " +
-                        "there knowledge independently and complete any work set for them" + "\n" + "\n" +
-                        "It is important to clearly explain the material through the use of several formats of resources such as notes, recordings, activities. This means that all types of learnings" +
-                        "are catered for and student will allow student access to as many resources as possible" + "\n" + "\n" +
-                        "Please use these extra resources to aid making posts: " + "\n" +
-                        "");
+                alertDialog.setMessage("A student work file content for students independant build on their knowledge from the demonstration. " +
+                        "Make sure the work is progressive from the demonstration and meets the needs of each student. This file will" +
+                        "be uploaded to the modules shared google drive. " );
                 //add extra resources
 
                 alertDialog.setNegativeButton("Ok", new DialogInterface.OnClickListener() {

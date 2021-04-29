@@ -234,7 +234,7 @@ public class saveWorkToDrive extends AppCompatActivity {
                             // Check for a download file in your private files
                             // In here: Internal Storage > Android > data > com.tejpratapsingh.com > files
                             //showToast("File Downloaded Successfully");
-                            showAlert("Your notes have been successfully uploaded to your Google Drive");
+                            showAlert("Your file have been successfully uploaded to your Google Drive");
                         }
 
                         @Override
