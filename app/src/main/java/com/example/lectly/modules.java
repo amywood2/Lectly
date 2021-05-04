@@ -42,7 +42,7 @@ public class modules extends AppCompatActivity {
         loadingDialog.show();
 
         final FrameLayout layout = findViewById(R.id.modulesFrameLayout);
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getModules.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getModules.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
