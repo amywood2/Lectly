@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/Lectly/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://<ip-address>:3306/Lectly/login.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getUserID(){
         if (typeOfUser.typeofuser == "Lecturer") {
-            StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerId.php?username=" + username,
+            StringRequest modStringRequest = new StringRequest("http://<ip-address>:3306:8888/Lectly/getLecturerId.php?username=" + username,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
             requestQueue.add(modStringRequest);
         }else {
-            StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getStudentId.php?username=" + username,
+            StringRequest modStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getStudentId.php?username=" + username,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
