@@ -101,7 +101,7 @@ public class studentMain extends AppCompatActivity {
         loadingDialog.setCanceledOnTouchOutside(false);
         loadingDialog.show();
         final FrameLayout layout = findViewById(R.id.frameLayoutSaved);
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -138,7 +138,7 @@ public class studentMain extends AppCompatActivity {
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
-                                StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + module_id,
+                                StringRequest modStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualModule.php?id=" + module_id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -155,7 +155,7 @@ public class studentMain extends AppCompatActivity {
                                                         moduleNameV.setText(moduleName);
                                                         moduleNameV.setTextSize(16);
 
-                                                        StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                                        StringRequest lecturerstringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getLecturerName.php?id=" + module_lecturer_id,
                                                                 new Response.Listener<String>() {
                                                                     @Override
                                                                     public void onResponse(String response) {
@@ -217,7 +217,7 @@ public class studentMain extends AppCompatActivity {
                                 // layoutParams.rightMargin = 100;
                                 layoutParams.topMargin = i * 570;
 
-                                StringRequest savestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/lookUpSavedPosts.php?post_id=" + post_id + "&student_id=" + LoginActivity.user_id,
+                                StringRequest savestringRequest = new StringRequest("http://<ip-address>:3306/Lectly/lookUpSavedPosts.php?post_id=" + post_id + "&student_id=" + LoginActivity.user_id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -273,7 +273,7 @@ public class studentMain extends AppCompatActivity {
                                             alertDialog.setPositiveButton("Save Post", new DialogInterface.OnClickListener() {
                                               public void onClick(DialogInterface dialog, int which) {
                                                   /*
-                                                    StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/lookUpSavedPosts.php?post_id=" + post_id + "&student_id=" + LoginActivity.user_id,
+                                                    StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/lookUpSavedPosts.php?post_id=" + post_id + "&student_id=" + LoginActivity.user_id,
                                                             new Response.Listener<String>() {
                                                                 @Override
                                                                 public void onResponse(String response) {
@@ -315,7 +315,7 @@ public class studentMain extends AppCompatActivity {
                                                                 data[0] = LoginActivity.user_id;
                                                                 data[1] = post_id;
 
-                                                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
+                                                                PutData putData = new PutData("http://<ip-address>:3306/Lectly/savedSection.php", "POST", field, data);
                                                                 if (putData.startPut()) {
                                                                     if (putData.onComplete()) {
                                                                         String result = putData.getResult();
@@ -334,7 +334,7 @@ public class studentMain extends AppCompatActivity {
 
                                                         save.setImageResource(R.drawable.filledsaveicon);
 
-                                                  StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + post_id,
+                                                  StringRequest updatestringRequest = new StringRequest("http://<ip-address>:3306/Lectly/updateTotalSaves.php?post_id=" + post_id,
                                                           new Response.Listener<String>() {
                                                               @Override
                                                               public void onResponse(String response) {
