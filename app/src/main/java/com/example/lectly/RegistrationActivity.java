@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             data[2] = username;
                             data[3] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/Lectly/studentSignup.php", "POST", field, data);
+                            PutData putData = new PutData("http://<ip-address>:3306/Lectly/studentSignup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -127,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             data[2] = username;
                             data[3] = password;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/Lectly/lecturerSignup.php", "POST", field, data);
+                            PutData putData = new PutData("http://<ip-address>:3306/Lectly/lecturerSignup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
