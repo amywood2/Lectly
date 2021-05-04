@@ -73,7 +73,7 @@ public class dashboard extends AppCompatActivity {
 
         layout.removeAllViews();
         loadingDialog.show();
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -98,7 +98,7 @@ public class dashboard extends AppCompatActivity {
                                 TextView totalSavesV = new TextView(dashboard.this);
                                 totalSavesV.setTextSize(18);
 
-                                StringRequest dashStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getTotalSaves.php?post_id=" + id,
+                                StringRequest dashStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getTotalSaves.php?post_id=" + id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -194,7 +194,7 @@ public class dashboard extends AppCompatActivity {
 
         layout.removeAllViews();
         loadingDialog.show();
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getStudyTimes.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getStudyTimes.php",
                 new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -216,7 +216,7 @@ public class dashboard extends AppCompatActivity {
                         TextView nameView = new TextView(dashboard.this);
                         nameView.setTextSize(28);
 
-                        StringRequest nameStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualStudent.php?id=" + student_id,
+                        StringRequest nameStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualStudent.php?id=" + student_id,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
