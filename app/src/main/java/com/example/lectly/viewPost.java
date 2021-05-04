@@ -100,7 +100,7 @@ public class viewPost extends AppCompatActivity {
                                     data[0] = LoginActivity.user_id;
                                     data[1] = lecturerMain.idClicked;
 
-                                    PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
+                                    PutData putData = new PutData("http://<ip-address>:3306/Lectly/savedSection.php", "POST", field, data);
                                     if (putData.startPut()) {
                                         if (putData.onComplete()) {
                                             String result = putData.getResult();
@@ -117,7 +117,7 @@ public class viewPost extends AppCompatActivity {
                             //change icon to filled in
                             saveButton.setImageResource(R.drawable.filledsaveicon);
 
-                            StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + lecturerMain.idClicked,
+                            StringRequest updatestringRequest = new StringRequest("http://<ip-address>:3306/Lectly/updateTotalSaves.php?post_id=" + lecturerMain.idClicked,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
@@ -175,7 +175,7 @@ public class viewPost extends AppCompatActivity {
                                     data[0] = LoginActivity.user_id;
                                     data[1] = studentMain.idClicked;
 
-                                    PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savedSection.php", "POST", field, data);
+                                    PutData putData = new PutData("http://<ip-address>:3306/Lectly/savedSection.php", "POST", field, data);
                                     if (putData.startPut()) {
                                         if (putData.onComplete()) {
                                             String result = putData.getResult();
@@ -192,7 +192,7 @@ public class viewPost extends AppCompatActivity {
                             //change icon to filled in
                             saveButton.setImageResource(R.drawable.filledsaveicon);
 
-                            StringRequest updatestringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/updateTotalSaves.php?post_id=" + studentMain.idClicked,
+                            StringRequest updatestringRequest = new StringRequest("http://<ip-address>:3306/Lectly/updateTotalSaves.php?post_id=" + studentMain.idClicked,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
@@ -260,7 +260,7 @@ public class viewPost extends AppCompatActivity {
     private void getPost() {
         StringRequest stringRequest;
         if (typeOfUser.typeofuser == "lecturer") {
-            stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualPost.php?id=" + getLecturerIdClicked,
+            stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualPost.php?id=" + getLecturerIdClicked,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -294,7 +294,7 @@ public class viewPost extends AppCompatActivity {
                         }
                     });
         } else {
-            stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualPost.php?id=" + getStudentIdClicked,
+            stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualPost.php?id=" + getStudentIdClicked,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -334,7 +334,7 @@ public class viewPost extends AppCompatActivity {
     }
 
     public void getModuleName() {
-        StringRequest moduleStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" ,
+        StringRequest moduleStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualModule.php?id=" ,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
