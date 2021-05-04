@@ -67,7 +67,7 @@ public class savedPosts extends AppCompatActivity {
         loadingDialog.show();
 
         final FrameLayout savedLayout = findViewById(R.id.frameLayoutSaved);
-        StringRequest idStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/lookUpSavedPosts.php?student_id=" + LoginActivity.loggedInUserId,
+        StringRequest idStringRequest = new StringRequest("http://<ip-address>:3306Lectly/lookUpSavedPosts.php?student_id=" + LoginActivity.loggedInUserId,
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -91,7 +91,7 @@ public class savedPosts extends AppCompatActivity {
 
                                 descriptionV.setTextSize(18);
 
-                                StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getAllSavedPosts.php?id=" + post_id,
+                                StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getAllSavedPosts.php?id=" + post_id,
                                         new Response.Listener<String>() {
                                             @SuppressLint("ResourceAsColor")
                                             @Override
@@ -116,7 +116,7 @@ public class savedPosts extends AppCompatActivity {
                                                         descriptionV.setText(description);
 
 
-                                                        StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + module_id,
+                                                        StringRequest modStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualModule.php?id=" + module_id,
                                                                 new Response.Listener<String>() {
                                                                     @Override
                                                                     public void onResponse(String response) {
@@ -147,7 +147,7 @@ public class savedPosts extends AppCompatActivity {
                                                         RequestQueue modrequestQueue = Volley.newRequestQueue(savedPosts.this);
                                                         modrequestQueue.add(modStringRequest);
 
-                                                        StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                                        StringRequest lecturerstringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getLecturerName.php?id=" + module_lecturer_id,
                                                                 new Response.Listener<String>() {
                                                                     @Override
                                                                     public void onResponse(String response) {
