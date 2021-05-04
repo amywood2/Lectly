@@ -118,7 +118,7 @@ public class lecturerMain extends AppCompatActivity {
         loadingDialog.setCanceledOnTouchOutside(false);
         loadingDialog.show();
         final FrameLayout layout = findViewById(R.id.modulesFrameLayout);
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getPosts.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getPosts.php",
                 new Response.Listener<String>() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -156,7 +156,7 @@ public class lecturerMain extends AppCompatActivity {
                                 descriptionV.setText(description);
                                 descriptionV.setTextColor(R.color.black);
 
-                                StringRequest modStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getIndividualModule.php?id=" + module_id,
+                                StringRequest modStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getIndividualModule.php?id=" + module_id,
                                         new Response.Listener<String>() {
                                             @Override
                                             public void onResponse(String response) {
@@ -173,7 +173,7 @@ public class lecturerMain extends AppCompatActivity {
                                                         moduleNameV.setText(moduleName);
                                                         moduleNameV.setTextSize(16);
 
-                                                        StringRequest lecturerstringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getLecturerName.php?id=" + module_lecturer_id,
+                                                        StringRequest lecturerstringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getLecturerName.php?id=" + module_lecturer_id,
                                                                 new Response.Listener<String>() {
                                                                     @Override
                                                                     public void onResponse(String response) {
@@ -252,7 +252,7 @@ public class lecturerMain extends AppCompatActivity {
 
                                     @Override
                                     public void onClick(View view) {
-                                        StringRequest dashStringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getTotalSaves.php?post_id=" + id,
+                                        StringRequest dashStringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getTotalSaves.php?post_id=" + id,
                                                 new Response.Listener<String>() {
                                                     @Override
                                                     public void onResponse(String response) {
