@@ -42,7 +42,7 @@ public class studentModules extends AppCompatActivity {
     }
 
     private void getData(){
-        StringRequest stringRequest = new StringRequest("http://192.168.5.31:8888/Lectly/getModules.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getModules.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
