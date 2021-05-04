@@ -151,7 +151,7 @@ public class createPost extends AppCompatActivity {
                             data[3] = studentWork;
                             data[4] = stringModuleId;
 
-                            PutData putData = new PutData("http://192.168.1.87:8888/Lectly/savePost.php", "POST", field, data);
+                            PutData putData = new PutData("http://<ip-address>:3306/Lectly/savePost.php", "POST", field, data);
                             if (putData.startPut()) {
                                 //uploadMultipart();
                                 if (putData.onComplete()) {
@@ -180,7 +180,7 @@ public class createPost extends AppCompatActivity {
     }
 
     private void getPostId(){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getNewPost.php?title=" + title,
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getNewPost.php?title=" + title,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -228,7 +228,7 @@ public class createPost extends AppCompatActivity {
                 data[0] = newPostId;
                 data[1] = no_of_saves;
 
-                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addPostToDashboard.php", "POST", field, data);
+                PutData putData = new PutData("http://<ip-address>:3306/Lectly/addPostToDashboard.php", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
@@ -240,7 +240,7 @@ public class createPost extends AppCompatActivity {
     }
 
     private void getModules() {
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getModules.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getModules.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
