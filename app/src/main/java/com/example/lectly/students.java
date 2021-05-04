@@ -40,7 +40,7 @@ public class students extends AppCompatActivity {
         loadingDialog.setCanceledOnTouchOutside(false);
         loadingDialog.show();
         final FrameLayout layout = findViewById(R.id.studentsFrameLayout);
-        StringRequest stringRequest = new StringRequest("http://192.168.1.87:8888/Lectly/getStudents.php",
+        StringRequest stringRequest = new StringRequest("http://<ip-address>:3306/Lectly/getStudents.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
