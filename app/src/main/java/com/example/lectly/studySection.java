@@ -119,7 +119,7 @@ public class studySection extends AppCompatActivity {
                                 data[1] = "25 minute study timer";
                                 data[2] = timestamp;
 
-                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
+                                PutData putData = new PutData("http://<ip-address>:3306/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
                                 if (putData.startPut()) {
                                     if (putData.onComplete()) {
                                         String result = putData.getResult();
@@ -145,7 +145,7 @@ public class studySection extends AppCompatActivity {
                                 data[1] = "5 minute break timer";
                                 data[2] = timestamp;
 
-                                PutData putData = new PutData("http://192.168.1.87:8888/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
+                                PutData putData = new PutData("http://<ip-address>:3306/Lectly/addStudyTimesToDashboard.php", "POST", field, data);
                                 if (putData.startPut()) {
                                     if (putData.onComplete()) {
                                         String result = putData.getResult();
